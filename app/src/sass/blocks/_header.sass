@@ -1,0 +1,50 @@
+// === VARS ===
+$colorWhite: #fff
+$colorWhiteSecond: #f2f2f2
+$colorBlack: #000
+$colorBlackSoft: #222222
+$colorGray: #949494
+$colorGrayLight: #cccccc
+
+$fontAnticva: "Playfair Display", serif
+$fontGrotesk: "Inter", sans-serif
+$fontRusso: "Russo One", sans-serif
+    
+.header
+  position: sticky
+  top: 0
+  z-index: 100
+  background: $colorWhite
+  border-bottom: 1px solid $colorGrayLight
+  padding: 0.5rem 6rem
+  &__container
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin: 0 auto
+
+  &__logo
+    font-family: $fontRusso
+    font-size: 1.5rem
+    letter-spacing: 0.08em
+    color: $colorGray
+    text-decoration: none
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
+    line-height: 1.5rem
+    &:hover
+      color: $colorBlack
+
+  &__nav
+    display: flex
+    gap: 2rem
+  &__link
+    font-size: 1rem
+    font-weight: 500
+    letter-spacing: 0.06rem
+    color: $colorGray
+    text-decoration: none
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
+    line-height: 1.5rem
+
+    &:hover
+      color: $colorBlack

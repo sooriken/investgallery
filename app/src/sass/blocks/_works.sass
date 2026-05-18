@@ -1,0 +1,342 @@
+// === WORKS SECTION ===
+
+.works
+  padding: 6rem
+
+  &__container
+    margin: 0 auto
+
+  // Заголовок
+  &__header
+    //text-align: center
+    //margin-bottom: 80px
+
+    display: grid
+    grid-template-columns: auto 1fr
+    grid-template-rows: auto auto
+    //column-gap: 24px
+    row-gap: 8px
+    margin: 0 auto
+
+  &__icon
+    width: 48px
+    height: 48px
+    margin: 0 auto 24px
+    opacity: 0.8
+
+    img
+      width: 100%
+      height: 100%
+      object-fit: contain
+
+  &__title
+    // font-family: $fontAnticva
+    // font-size: 48px
+    // font-weight: 700
+    // line-height: 1.15
+    // letter-spacing: -0.01em
+    // color: $colorBlack
+    // margin: 0 0 16px
+
+    grid-column: 2
+    grid-row: 1
+    font-family: $fontRusso
+    font-size: 48px
+    font-weight: 400
+    line-height: 1.1
+    letter-spacing: 0.02em
+    color: $colorBlack
+    margin: 0
+
+  &__subtitle
+    // font-family: $fontAnticva
+    // font-size: 18px
+    // font-weight: 400
+    // line-height: 1.6
+    // color: $colorGray
+    // max-width: 640px
+    // margin: 0 auto
+    // //text-align: justify
+    // //text-align-last: center
+
+    grid-column: 2
+    grid-row: 2
+    font-family: $fontAnticva
+    font-size: 18px
+    font-weight: 400
+    line-height: 1.5
+    color: $colorGray
+    margin: 0
+    max-width: 480px
+
+  // Сетка
+  &__grid
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: 1rem
+    margin-bottom: 2rem
+    margin-top: 2rem
+
+    @media (min-width: 1024px)
+      grid-template-columns: repeat(4, 1fr)
+
+  // Техническая заметка
+  &__materials
+    text-align: center
+    //max-width: 520px
+    margin: 0 auto
+
+  &__materials-line
+    width: 40px
+    height: 1px
+    background: $colorGrayLight
+    margin: 0 auto 16px
+
+  &__materials-text
+    font-family: $fontAnticva
+    font-size: 1rem
+    font-weight: 400
+    line-height: 1.6
+    color: $colorGray
+    margin: 0
+
+
+// === WORK CARD ===
+
+.work-card
+  position: relative
+  cursor: pointer
+  overflow: hidden
+  background: $colorWhiteSecond
+
+  &--large
+    grid-column: span 2
+
+    .work-card__image
+      aspect-ratio: 16 / 9
+      height: 100%
+
+    @media (max-width: 1023px)
+      grid-column: span 1
+
+      .work-card__image
+        aspect-ratio: 3 / 4
+
+  picture
+    height: 100%
+
+  &__image
+    width: 100%
+    aspect-ratio: 3 / 4
+    overflow: hidden
+
+    img
+      width: 100%
+      height: 100%
+      object-fit: cover
+      //filter: grayscale(100%)
+      transition: filter 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)
+
+  &:hover &__image img 
+    //filter: grayscale(0%)
+    transform: scale(1.03)
+
+  &__info
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    padding: 24px
+    background: linear-gradient(0deg, rgba($colorBlack, 0.7) 0%, rgba($colorBlack, 0) 100%)
+    opacity: 0
+    transform: translateY(8px)
+    transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
+
+  &:hover &__info
+    opacity: 1
+    transform: translateY(0)
+
+  &__series
+    display: block
+    font-family: $fontGrotesk
+    font-size: 12px
+    font-weight: 500
+    letter-spacing: 0.08em
+    text-transform: uppercase
+    color: $colorWhite
+    margin-bottom: 4px
+
+  &__desc
+    display: block
+    font-family: $fontAnticva
+    font-size: 14px
+    font-weight: 400
+    line-height: 1.4
+    color: rgba($colorWhite, 0.8)
+
+  &__badge
+    display: inline-block
+    margin-top: 8px
+    padding: 4px 10px
+    border: 1px solid rgba($colorWhite, 0.4)
+    font-family: $fontGrotesk
+    font-size: 10px
+    font-weight: 500
+    letter-spacing: 0.06em
+    text-transform: uppercase
+    color: $colorWhite
+
+
+// === WORK MODAL ===
+
+.work-modal
+  position: fixed
+  inset: 0
+  z-index: 1000
+  display: flex
+  align-items: center
+  justify-content: center
+  visibility: hidden
+  opacity: 0
+  transition: visibility 0s 0.4s, opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
+
+  &.is-active
+    visibility: visible
+    opacity: 1
+    transition: visibility 0s, opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
+
+  &__overlay
+    position: absolute
+    inset: 0
+    background: rgba($colorBlack, 0.92)
+
+  &__content
+    position: relative
+    display: grid
+    grid-template-columns: 1fr
+    max-width: 1200px
+    width: 100%
+    max-height: 90vh
+    margin: 0 24px
+    z-index: 1
+
+    @media (min-width: 768px)
+      grid-template-columns: 1.4fr 1fr
+      margin: 0 40px
+
+  &__close
+    position: absolute
+    top: -48px
+    right: 0
+    width: 32px
+    height: 32px
+    cursor: pointer
+    z-index: 2
+
+    span
+      position: absolute
+      top: 50%
+      left: 0
+      width: 100%
+      height: 1px
+      background: $colorWhite
+      transition: background 0.3s
+
+      &:first-child
+        transform: rotate(45deg)
+
+      &:last-child
+        transform: rotate(-45deg)
+
+    &:hover span
+      background: $colorGrayLight
+
+  &__image
+    width: 100%
+    aspect-ratio: 3 / 4
+    overflow: hidden
+
+    img
+      width: 100%
+      height: 100%
+      object-fit: cover
+
+    @media (max-width: 767px)
+      aspect-ratio: 4 / 3
+
+  &__details
+    display: flex
+    flex-direction: column
+    justify-content: center
+    padding: 40px
+    background: $colorWhite
+
+    @media (max-width: 767px)
+      padding: 24px
+
+  &__series
+    font-family: $fontGrotesk
+    font-size: 11px
+    font-weight: 500
+    letter-spacing: 0.1em
+    text-transform: uppercase
+    color: $colorGray
+    margin-bottom: 8px
+
+  &__title
+    font-family: $fontAnticva
+    font-size: 32px
+    font-weight: 700
+    line-height: 1.2
+    color: $colorBlack
+    margin: 0 0 16px
+
+  &__desc
+    font-family: $fontAnticva
+    font-size: 16px
+    font-weight: 400
+    line-height: 1.6
+    color: $colorGray
+    margin: 0 0 32px
+
+  &__meta
+    display: flex
+    gap: 24px
+    margin-bottom: 32px
+    padding-top: 24px
+    border-top: 1px solid $colorGrayLight
+
+  &__technique
+    font-family: $fontGrotesk
+    font-size: 11px
+    font-weight: 400
+    letter-spacing: 0.04em
+    text-transform: uppercase
+    color: $colorGray
+
+  &__edition
+    font-family: $fontGrotesk
+    font-size: 11px
+    font-weight: 500
+    letter-spacing: 0.06em
+    text-transform: uppercase
+    color: $colorBlack
+
+  &__inquire
+    display: inline-block
+    padding: 14px 32px
+    border: 1px solid $colorGrayLight
+    font-family: $fontGrotesk
+    font-size: 12px
+    font-weight: 500
+    letter-spacing: 0.08em
+    text-transform: uppercase
+    color: $colorBlack
+    text-decoration: none
+    text-align: center
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
+
+    &:hover
+      background: $colorBlack
+      color: $colorWhite
+      border-color: $colorBlack

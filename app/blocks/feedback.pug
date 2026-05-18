@@ -1,0 +1,63 @@
+mixin feedback
+  section.feedback(id="feedback")
+    .feedback__container
+      .feedback__header
+        h2.feedback__title Заказать репродукцию
+        p.feedback__subtitle Ограниченный тираж. Каждое произведение — 100 экземпляров с сертификатом подлинности.
+
+      form.feedback__form(action="#" method="POST")
+        .feedback__grid
+          .feedback__group
+            label.feedback__label(for="name") Имя
+            input.feedback__input(type="text" id="name" name="name" placeholder="Ваше имя" required)
+
+          .feedback__group
+            label.feedback__label(for="phone") Телефон
+            input.feedback__input(type="tel" id="phone" name="phone" placeholder="+7 (999) 000-00-00" required)
+
+          .feedback__group
+            label.feedback__label(for="telegram") Telegram
+            input.feedback__input(type="text" id="telegram" name="telegram" placeholder="@username")
+
+          .feedback__group
+            label.feedback__label(for="artwork") Произведение
+            .feedback__select-wrapper
+              select.feedback__select(id="artwork" name="artwork" required)
+                option(value="" disabled selected) Выберите работу
+                option(value="benjamin") Benjamin
+                option(value="bull") Wall Street Bull (диптих)
+                option(value="tulip") Tulip Mania
+                option(value="mississippi") Mississippi Company
+                option(value="railway") Железнодорожная лихорадка
+                option(value="south-sea") South Sea Company
+                option(value="depression") Великая депрессия. Начало
+                option(value="wallstreetbets") Wallstreetbets
+                option(value="diamond-hands") Wallstreetbets. Алмазные руки
+                option(value="cosmonaut") Космонавт
+                option(value="bitcoin") Bitcoin
+                option(value="geecoin") GeeCoin
+                option(value="ginger") Имбирь (диптих)
+
+        .feedback__group
+          label.feedback__label Размер
+          .feedback__sizes
+            input.feedback__radio(type="radio" id="size-a3" name="size" value="a3" checked)
+            label.feedback__size-label(for="size-a3") A3
+
+            input.feedback__radio(type="radio" id="size-a2" name="size" value="a2")
+            label.feedback__size-label(for="size-a2") A2
+
+            input.feedback__radio(type="radio" id="size-a1" name="size" value="a1")
+            label.feedback__size-label(for="size-a1") A1
+
+            input.feedback__radio(type="radio" id="size-original" name="size" value="original")
+            label.feedback__size-label(for="size-original") Оригинал
+
+        .feedback__group
+          .feedback__consent
+            input.feedback__checkbox(type="checkbox" id="consent" name="consent" required)
+            label.feedback__consent-label(for="consent")
+              span Я принимаю условия&nbsp;
+              a.feedback__link(href="#" target="_blank") обработки персональных данных
+
+        button.feedback__submit(type="submit") Отправить запрос

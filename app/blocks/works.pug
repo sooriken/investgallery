@@ -1,0 +1,115 @@
+//- mixin works
+mixin works
+  section.works.container(id="works") 
+    .works__container
+      //- Заголовок секции
+      .works__header 
+        //.works__icon
+          img(src="assets/images/icon.jpg" alt="Bull & Bear" loading="lazy")
+        h2.works__title Избранные работы
+        p.works__subtitle Каждый объект — результат синтеза смешанной техники и живописи. Мы работаем с премиальными материалами: акриловое стекло, металлические конструкции, архивные пигментные чернила.
+
+      //- Сетка работ
+      .works__grid
+        //- Карточка 1
+        .work-card.work-card--large(data-work="bull1")
+          .work-card__image
+            img(src="images-min/works/bull1.jpg" alt="Wall Street Bull" loading="lazy")
+          .work-card__info
+            span.work-card__series Wall Street / Bull
+            span.work-card__desc Эстетика рыночного оптимизма
+            span.work-card__badge Диптих
+
+        //- Карточка 2
+        .work-card.work-card--large(data-work="bull2")
+          .work-card__image
+            img(src="images-min/works/bull2.jpg" alt="Wall Street Bull" loading="lazy")
+          .work-card__info
+            span.work-card__series Wall Street / Bull 2
+            span.work-card__desc Эстетика рыночного оптимизма
+            span.work-card__badge Диптих
+
+        //- Карточка 3
+        .work-card.work-card--large(data-work="wallstreetbets") 
+          .work-card__image
+            img(src="images-min/works/wallstreetbets.jpg" alt="Wallstreetbets" loading="lazy")
+          .work-card__info
+            span.work-card__series Wallstreetbets
+            span.work-card__desc Отражение новой эры крипторынка
+
+        //- Карточка 4
+        .work-card(data-work="tulipomania")
+          .work-card__image
+            img(src="images-min/works/tulipomania.jpg" alt="Tulip Mania" loading="lazy")
+          .work-card__info
+            span.work-card__series Tulip Mania
+            span.work-card__desc Деконструкция первой финансовой лихорадки
+
+        //- Карточка 5
+        .work-card(data-work="benjamin")
+          .work-card__image
+            img(src="images-min/works/benjamin.jpg" alt="Benjamin" loading="lazy")
+          .work-card__info
+            span.work-card__series Benjamin
+            span.work-card__desc Франклин как икона денежного фетишизма
+
+        //- Карточка 6
+        .work-card(data-work="astronaut")
+          .work-card__image
+            img(src="images-min/works/astronaut.jpg" alt="Ginger" loading="lazy")
+          .work-card__info
+            span.work-card__series Astronaut
+            span.work-card__desc Лунный график
+            
+        //- Карточка 6
+        .work-card(data-work="bitcoin")
+          .work-card__image
+            img(src="images-min/works/bitcoin.jpg" alt="Ginger" loading="lazy")
+          .work-card__info
+            span.work-card__series BTC
+            span.work-card__desc Цифровое золото
+
+        //- Карточка 6
+        .work-card(data-work="ginger1")
+          .work-card__image
+            img(src="images-min/works/ginger1.jpg" alt="Ginger" loading="lazy")
+          .work-card__info
+            span.work-card__series Ginger 1
+            span.work-card__desc Анатомия спекулятивного ажиотажа
+            span.work-card__badge Диптих
+
+        //- Карточка 7
+        .work-card(data-work="ginger2")
+          .work-card__image
+            img(src="images-min/works/ginger2.jpg" alt="Ginger" loading="lazy")
+          .work-card__info
+            span.work-card__series Ginger 2
+            span.work-card__desc Волатильность как скрытая структура
+            span.work-card__badge Диптих
+
+          
+
+        
+
+      //- Техническая заметка
+      .works__materials
+        .works__materials-line
+        p.works__materials-text Смешанная техника, акриловое стекло, металлические конструкции, архивные пигментные чернила. Ограниченный тираж — 100 экземпляров.
+
+    //- //- Модальное окно
+    //- .work-modal(id="workModal")
+    //-   .work-modal__overlay
+    //-   .work-modal__content
+    //-     .work-modal__close
+    //-       span
+    //-       span
+    //-     .work-modal__image 
+    //-       img(src="" alt="" id="modalImage")
+    //-     .work-modal__details
+    //-       span.work-modal__series(id="modalSeries")
+    //-       h3.work-modal__title(id="modalTitle")
+    //-       p.work-modal__desc(id="modalDesc")
+    //-       .work-modal__meta
+    //-         span.work-modal__technique(id="modalTechnique")
+    //-         span.work-modal__edition Тираж: 1/100
+    //-       a.work-modal__inquire(href="#contact") Запросить цену

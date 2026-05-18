@@ -1,0 +1,252 @@
+// === FEEDBACK ===
+
+.feedback
+  padding: 0rem 0 6rem 0
+
+  &__container
+    max-width: 50rem
+    margin: 0 auto
+    padding: 0 2rem
+
+  &__header
+    margin-bottom: 4rem
+    text-align: center
+
+  &__title
+    font-family: $fontRusso
+    font-size: 3rem
+    font-weight: 400
+    color: $colorBlack
+    margin: 0 0 1rem
+    text-transform: uppercase
+
+  &__subtitle
+    font-family: $fontAnticva
+    font-size: 16px
+    color: $colorGray
+    line-height: 1.6
+    max-width: 480px
+    margin: 0 auto
+    text-align: justify
+    text-align-last: center
+
+  &__form
+    display: flex
+    flex-direction: column
+    gap: 32px
+
+  &__grid
+    display: grid
+    grid-template-columns: 1fr 1fr
+    gap: 2rem
+
+  &__group
+    display: flex
+    flex-direction: column
+
+  &__label
+    font-family: $fontGrotesk
+    font-size: 12px
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.08em
+    color: $colorGray
+
+  &__input
+    font-family: $fontAnticva
+    font-size: 1rem
+    color: $colorBlack
+    padding: 1rem 0
+    border: none
+    border-bottom: 1px solid $colorGrayLight
+    background: transparent
+    outline: none
+    transition: border-color 0.4s ease
+    width: 100%
+
+    &::placeholder
+      color: $colorGrayLight
+      font-family: $fontAnticva
+
+    &:focus
+      border-bottom-color: $colorBlack
+
+  &__select-wrapper
+    position: relative
+
+    &::after
+      content: ""
+      position: absolute
+      right: 4px
+      top: 50%
+      transform: translateY(-50%)
+      width: 10px
+      height: 6px
+      background: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23949494' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center
+      pointer-events: none
+
+  &__select
+    font-family: $fontAnticva
+    font-size: 16px
+    color: $colorBlack
+    padding: 14px 0
+    border: none
+    border-bottom: 1px solid $colorGrayLight
+    background: transparent
+    outline: none
+    appearance: none
+    cursor: pointer
+    transition: border-color 0.4s ease
+    width: 100%
+    padding: 1rem 1rem 1rem 0
+
+    &:focus
+      border-bottom-color: $colorBlack
+
+    // Стилизация плейсхолдера-опции
+    option[value=""]
+      color: $colorGrayLight
+      color: #000
+
+
+  // === РАДИО-КНОПКИ РАЗМЕРОВ ===
+
+  &__sizes
+    display: flex
+    gap: 12px
+    flex-wrap: wrap
+
+  &__radio
+    position: absolute
+    opacity: 0
+    pointer-events: none
+
+  &__size-label
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    min-width: 64px
+    padding: 10px 20px
+    font-family: $fontGrotesk
+    font-size: 12px
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.06em
+    color: $colorGray
+    border: 1px solid $colorGrayLight
+    background: transparent
+    cursor: pointer
+    transition: all 0.4s ease
+    user-select: none
+
+    &:hover
+      border-color: $colorBlack
+      color: $colorBlack
+
+  &__radio:checked + &__size-label
+    border-color: $colorBlack
+    background: $colorBlack
+    color: $colorWhite
+
+  // === ЧЕКБОКС ===
+
+  &__consent
+    display: flex
+    align-items: flex-start
+    gap: 12px
+
+  &__checkbox
+    flex-shrink: 0
+    width: 18px
+    height: 18px
+    margin-top: 2px
+    appearance: none
+    border: 1px solid $colorGrayLight
+    background: transparent
+    cursor: pointer
+    position: relative
+    transition: all 0.3s ease
+
+    &:checked
+      border-color: $colorBlack
+      background: $colorBlack
+
+      &::after
+        content: ""
+        position: absolute
+        left: 5px
+        top: 2px
+        width: 6px
+        height: 10px
+        border: solid $colorWhite
+        border-width: 0 2px 2px 0
+        transform: rotate(45deg)
+
+    &:focus
+      outline: none
+
+  &__consent-label
+    font-family: $fontGrotesk
+    font-size: 12px
+    color: $colorGray
+    cursor: pointer
+    line-height: 22px 
+
+  &__link
+    color: $colorBlack
+    text-decoration: none
+    border-bottom: 1px solid $colorGrayLight
+    transition: border-color 0.3s ease
+
+    &:hover
+      border-bottom-color: $colorBlack
+
+  // === КНОПКА ===
+
+  &__submit
+    display: inline-block
+    width: 100%
+    padding: 18px 40px
+    font-family: $fontGrotesk
+    font-size: 13px
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.1em
+    color: $colorWhite
+    background: $colorBlack
+    border: 1px solid $colorBlack
+    cursor: pointer
+    transition: all 0.4s ease
+
+    &:hover
+      background: transparent
+      color: $colorBlack
+
+    &:active
+      background: $colorBlackSoft
+      border-color: $colorBlackSoft
+      color: $colorWhite
+
+  // === АДАПТИВ ===
+
+  @media (max-width: 600px)
+    padding: 80px 0
+
+    &__container
+      padding: 0 24px
+
+    &__grid
+      grid-template-columns: 1fr
+
+    &__header
+      margin-bottom: 48px
+
+    &__title
+      font-size: 28px
+
+    &__sizes
+      gap: 8px
+
+    &__size-label
+      padding: 8px 16px
+      font-size: 11px
