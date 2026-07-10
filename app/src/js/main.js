@@ -1,3 +1,72 @@
+
+// popup.js
+(function() {
+  // Ждём загрузки DOM
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    const popup = document.getElementById('about-popup');
+    
+    // Если попапа нет на странице — выходим
+    if (!popup) return;
+    
+    const overlay = popup.querySelector('.popup__overlay');
+    const closeBtn = popup.querySelector('.popup__close');
+    const triggerLink = document.querySelector('a.header__link[href="#about"]');
+    
+    // Функция открытия
+    function openPopup(e) {
+      if (e) e.preventDefault();
+      popup.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Функция закрытия
+    function closePopup() {
+      popup.classList.remove('is-active');
+      document.body.style.overflow = '';
+    }
+    
+    // Открытие по клику на ссылку
+    if (triggerLink) {
+      triggerLink.addEventListener('click', openPopup);
+    } else {
+      console.warn('Ссылка a.header__link[href="#about"] не найдена');
+    }
+    
+    // Закрытие по клику на крестик
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closePopup);
+    }
+    
+    // Закрытие по клику на затемнение
+    if (overlay) {
+      overlay.addEventListener('click', closePopup);
+    }
+    
+    // Закрытие по Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && popup.classList.contains('is-active')) {
+        closePopup();
+      }
+    });
+    
+    // Закрытие при клике на сам попап (не на контент)
+    popup.addEventListener('click', function(e) {
+      if (e.target === popup) {
+        closePopup();
+      }
+    });
+    
+  }); // конец DOMContentLoaded
+})();
+
+
+
+
+
+
+
+
 // interier-slider.js — добавляем одну строку в init()
 
 class InterierSlider {
@@ -167,3 +236,198 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 })
+
+
+ 
+
+
+
+
+console.log("1");
+
+// ========================================
+// MERCH SLIDER
+// ========================================
+
+(function() {
+  'use strict'; 
+
+  // === DOM refs ===
+  const track = document.querySelector('.merch__track');
+  const cards = document.querySelectorAll('.merch-card');
+  const prevBtn = document.querySelector('.merch__arrow--prev');
+  const nextBtn = document.querySelector('.merch__arrow--next');
+  const pagination = document.querySelector('.merch__pagination');
+
+  // === State ===
+  let currentIndex = 0;
+  let visibleCount = getVisibleCount();
+  let totalSlides = Math.max(1, cards.length - visibleCount + 1);
+
+  console.log("1");
+  // === Helpers ===
+  function getVisibleCount() {
+    const width = window.innerWidth;
+    if (width >= 1200) return 4;
+    if (width >= 992) return 3;
+    if (width >= 768) return 2;
+    return 1;
+  }
+
+  function updateTotalSlides() {
+    visibleCount = getVisibleCount();
+    totalSlides = Math.max(1, cards.length - visibleCount + 1);
+    if (currentIndex >= totalSlides) {
+      currentIndex = totalSlides - 1;
+    }
+    if (currentIndex < 0) {
+      currentIndex = 0;
+    }
+  }
+
+  function getCardWidth() {
+    if (!track) return 0;
+    const gap = 24; // соответствует gap в CSS
+    const trackWidth = track.offsetWidth;
+    const cardWidth = (trackWidth - gap * (visibleCount - 1)) / visibleCount;
+    return cardWidth + gap; // ширина карточки + gap
+  }
+
+  function getTranslateX() {
+    const cardWidth = getCardWidth();
+    return -currentIndex * cardWidth;
+  }
+
+  // === Render ===
+  function render() {
+    if (!track) return;
+    const translateX = getTranslateX();
+    track.style.transform = `translateX(${translateX}px)`;
+    updateDots();
+    updateButtons();
+  }
+
+  // === Dots ===
+  function generateDots() {
+    if (!pagination) return;
+    pagination.innerHTML = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'merch__dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Слайд ${i + 1}`);
+      dot.dataset.index = i;
+      if (i === currentIndex) {
+        dot.classList.add('merch__dot--active');
+      }
+      dot.addEventListener('click', function() {
+        const index = parseInt(this.dataset.index, 10);
+        goTo(index);
+      });
+      pagination.appendChild(dot);
+    }
+  }
+
+  function updateDots() {
+    const dots = pagination ? pagination.querySelectorAll('.merch__dot') : [];
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('merch__dot--active', i === currentIndex);
+    });
+  }
+
+  // === Buttons ===
+  function updateButtons() {
+    if (prevBtn) {
+      prevBtn.disabled = currentIndex === 0;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = currentIndex >= totalSlides - 1;
+    }
+  }
+
+  // === Navigation ===
+  function goTo(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    if (index === currentIndex) return;
+    currentIndex = index;
+    render();
+  }
+
+  function next() {
+    if (currentIndex < totalSlides - 1) {
+      goTo(currentIndex + 1);
+    }
+  }
+
+  function prev() {
+    if (currentIndex > 0) {
+      goTo(currentIndex - 1);
+    }
+  }
+
+  // === Recalculate on resize ===
+  let resizeTimeout = null;
+
+  function handleResize() {
+    if (resizeTimeout) {
+      cancelAnimationFrame(resizeTimeout);
+    }
+    resizeTimeout = requestAnimationFrame(function() {
+      const newVisible = getVisibleCount();
+      if (newVisible !== visibleCount) {
+        updateTotalSlides();
+        generateDots();
+        render();
+      } else {
+        // просто обновляем позицию (ширина карточки могла измениться)
+        render();
+      }
+      resizeTimeout = null;
+    });
+  }
+
+  // === Init ===
+  function init() {
+    if (!track || cards.length === 0) {
+      console.warn('Merch slider: track or cards not found');
+      return;
+    }
+
+    updateTotalSlides();
+    generateDots();
+    render();
+
+    // Events
+    if (prevBtn) {
+      prevBtn.addEventListener('click', prev);
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', next);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    // Keyboard navigation (опционально)
+    document.addEventListener('keydown', function(e) {
+      // Только если фокус не в поле ввода
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prev();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        next();
+      }
+    });
+  }
+
+  // === Запуск после загрузки DOM ===
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+console.log("1");
+
+})();

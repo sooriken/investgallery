@@ -1,0 +1,251 @@
+// ========================================
+// MERCH
+// ========================================
+
+.merch
+  padding: 80px 0
+  background: $colorWhiteSecond
+
+  &__container
+    max-width: 1600px
+    margin: 0 auto
+    padding: 0 120px
+
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: flex-end
+    margin-bottom: 48px
+
+  &__title-wrapper
+    max-width: 60%
+
+  &__title
+    font-family: $fontAnticva
+    font-size: 40px
+    font-weight: 600
+    line-height: 1.2
+    color: $colorBlackSoft
+    margin: 0 0 8px 0
+    letter-spacing: -0.02em
+
+  &__subtitle
+    font-family: $fontGrotesk
+    font-size: 16px
+    font-weight: 400
+    color: $colorGray
+    margin: 0
+    letter-spacing: 0.03em
+
+  &__controls
+    display: flex
+    gap: 12px
+    flex-shrink: 0
+
+  &__arrow
+    width: 48px
+    height: 48px
+    border: 1px solid $colorGrayLight
+    border-radius: 50%
+    background: transparent
+    display: flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    transition: all 0.25s ease
+    font-size: 18px
+    color: $colorBlackSoft
+    font-family: $fontGrotesk
+
+    &:hover
+      border-color: $colorBlackSoft
+      background: $colorBlackSoft
+      color: $colorWhite
+
+    &--prev
+      transform: rotate(0deg)
+
+    &:disabled
+      opacity: 0.3
+      cursor: not-allowed
+      pointer-events: none
+
+  &__slider
+    overflow: hidden
+    position: relative
+
+  &__track
+    display: flex
+    gap: 24px
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    will-change: transform
+
+  &__pagination
+    display: flex
+    justify-content: center
+    gap: 10px
+    margin-top: 40px
+
+  &__dot
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    background: $colorGrayLight
+    border: none
+    padding: 0
+    cursor: pointer
+    transition: all 0.3s ease
+
+    &--active
+      background: $colorBlackSoft
+      width: 32px
+      border-radius: 4px
+
+    &:hover
+      background: $colorBlackSoft
+
+
+// ========================================
+// MERCH CARD (отдельный блок, переиспользуемый)
+// ========================================
+
+.merch-card
+  flex: 0 0 calc(25% - 18px)
+  min-width: 240px
+  background: $colorWhite
+  border-radius: 12px
+  overflow: hidden
+  transition: transform 0.3s ease, box-shadow 0.3s ease
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04)
+
+  &:hover
+    transform: translateY(-4px)
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08)
+
+  &__image-wrapper
+    position: relative
+    padding-bottom: 100%
+    background: $colorWhiteSecond
+    overflow: hidden
+
+  &__image
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    object-fit: cover
+    display: block
+
+  &__body
+    padding: 20px 20px 24px
+
+  &__type
+    font-family: $fontGrotesk
+    font-size: 12px
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.08em
+    color: $colorGray
+    margin: 0 0 6px 0
+
+  &__title
+    font-family: $fontAnticva
+    font-size: 18px
+    font-weight: 500
+    line-height: 1.3
+    color: $colorBlackSoft
+    margin: 0 0 4px 0
+
+  &__description
+    font-family: $fontGrotesk
+    font-size: 14px
+    font-weight: 400
+    color: $colorGray
+    margin: 0 0 16px 0
+    line-height: 1.4
+
+  &__bottom
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  &__price
+    font-family: $fontGrotesk
+    font-size: 18px
+    font-weight: 600
+    color: $colorBlackSoft
+    margin: 0
+
+  &__button
+    font-family: $fontGrotesk
+    font-size: 13px
+    font-weight: 500
+    color: $colorWhite
+    background: $colorBlackSoft
+    border: none
+    border-radius: 6px
+    padding: 8px 20px
+    cursor: pointer
+    transition: background 0.25s ease
+
+    &:hover
+      background: $colorBlack
+
+
+// ========================================
+// ADAPTIVE
+// ========================================
+
+@media (max-width: 1200px)
+  .merch-card
+    flex: 0 0 calc(33.333% - 16px)
+
+@media (max-width: 992px)
+  .merch
+    padding: 60px 0
+
+    &__container
+      padding: 0 48px
+
+    &__title
+      font-size: 32px
+
+    &__header
+      flex-direction: column
+      align-items: flex-start
+      gap: 20px
+
+    &__title-wrapper
+      max-width: 100%
+
+    .merch-card
+      flex: 0 0 calc(50% - 12px)
+
+@media (max-width: 768px)
+  .merch
+    padding: 40px 0
+
+    &__container
+      padding: 0 24px
+
+    &__title
+      font-size: 28px
+
+    &__controls
+      display: none
+
+    .merch-card
+      flex: 0 0 calc(100% - 0px)
+      min-width: unset
+
+    &__pagination
+      margin-top: 24px
+      gap: 8px
+
+    &__dot
+      width: 6px
+      height: 6px
+
+      &--active
+        width: 24px

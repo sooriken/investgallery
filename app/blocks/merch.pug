@@ -1,0 +1,92 @@
+//- mixin merch
+mixin merch
+    section.merch
+        .merch__container
+            
+            // Header with title and controls
+            .merch__header
+                .merch__title-wrapper
+                    h2.merch__title Носимое искусство
+                    p.merch__subtitle Ограниченная коллекция с принтами картин InvestMe
+                .merch__controls
+                    button.merch__arrow.merch__arrow--prev(type="button", aria-label="Предыдущий слайд") ←
+                    button.merch__arrow.merch__arrow--next(type="button", aria-label="Следующий слайд") →
+            
+            // Slider
+            .merch__slider
+                .merch__track
+                    
+                    // Card 1
+                    .merch-card
+                        .merch-card__image-wrapper
+                            img.merch-card__image(src="images-min/merch/merch-1.webp", alt="Футболка с принтом картины №4", loading="lazy")
+                        .merch-card__body
+                            p.merch-card__type Футболка
+                            h3.merch-card__title Инвестиция №4
+                            p.merch-card__description Хлопок 100%, принт на спине
+                            .merch-card__bottom
+                                span.merch-card__price 3 500 ₽
+                                button.merch-card__button Заказать
+                    
+                    // Card 2
+                    .merch-card
+                        .merch-card__image-wrapper
+                            img.merch-card__image(src="images-min/merch/merch-2.webp", alt="Кепка с принтом", loading="lazy")
+                        .merch-card__body
+                            p.merch-card__type Кепка
+                            h3.merch-card__title Логотип InvestMe
+                            p.merch-card__description Хлопок, регулируемый размер
+                            .merch-card__bottom
+                                span.merch-card__price 2 200 ₽
+                                button.merch-card__button Заказать
+                    
+                    // Card 3
+                    .merch-card
+                        .merch-card__image-wrapper
+                            img.merch-card__image(src="images-min/merch/merch-3.webp", alt="Маска с принтом", loading="lazy")
+                        .merch-card__body
+                            p.merch-card__type Маска
+                            h3.merch-card__title Инвестиция №7
+                            p.merch-card__description Многоразовая, фильтр сменный
+                            .merch-card__bottom
+                                span.merch-card__price 1 800 ₽
+                                button.merch-card__button Заказать
+                    
+                    // Card 4
+                    .merch-card
+                        .merch-card__image-wrapper
+                            img.merch-card__image(src="images-min/merch/merch-4.webp", alt="Футболка с принтом", loading="lazy")
+                        .merch-card__body
+                            p.merch-card__type Футболка
+                            h3.merch-card__title Инвестиция №12
+                            p.merch-card__description Хлопок 100%, принт на груди
+                            .merch-card__bottom
+                                span.merch-card__price 3 500 ₽
+                                button.merch-card__button Заказать
+                    
+                    // Card 5
+                    .merch-card
+                        .merch-card__image-wrapper
+                            img.merch-card__image(src="images-min/merch/merch-5.webp", alt="Кепка с принтом", loading="lazy")
+                        .merch-card__body
+                            p.merch-card__type Кепка
+                            h3.merch-card__title Инвестиция №9
+                            p.merch-card__description Хлопок, регулируемый размер
+                            .merch-card__bottom
+                                span.merch-card__price 2 200 ₽
+                                button.merch-card__button Заказать
+                    
+                    // Card 6
+                    .merch-card
+                        .merch-card__image-wrapper
+                            img.merch-card__image(src="images-min/merch/merch-6.webp", alt="Шоппер с принтом", loading="lazy")
+                        .merch-card__body
+                            p.merch-card__type Шоппер
+                            h3.merch-card__title InvestMe Art
+                            p.merch-card__description Хлопок, вместительный
+                            .merch-card__bottom
+                                span.merch-card__price 2 800 ₽
+                                button.merch-card__button Заказать
+                
+            // Pagination
+            .merch__pagination

@@ -1,21 +1,31 @@
 mixin about
-  section.about(id="about")
-    .about__container
-      .about__image-wrapper
-        img.about__image(src="images-min/about/jane.jpg" alt="Jane Favsty — художник, арт-дизайнер, психолог")
-      .about__content
-        h2.about__name Jane Favsty
-        p.about__title Художник, арт-дизайнер, психолог
-        .about__text
-          p.about__paragraph Более 17 лет в фотографии и 7 лет в живописи.
-          p.about__paragraph Евгения Фавстрицкая объединяет междисциплинарный опыт — от журналистики и психологии (СПбГУ) до глубокой экспертизы в современном искусстве. Её работы — это результат синтеза аналитического склада ума и художественного видения.
-        .about__locations
-          span Санкт-Петербург
-          span.about__separator ·
-          span Париж
-          span.about__separator ·
-          span Нью-Йорк
-          span.about__separator ·
-          span Лос-Анджелес
-          span.about__separator ·
-          span Токио
+  //- Блок About (теперь это попап)
+  .popup#about-popup
+    .popup__overlay
+      .popup__container
+        button.popup__close(type="button" aria-label="Закрыть")
+          svg(width="24" height="24" viewBox="0 0 24 24" fill="none")
+            path(d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+            path(d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+        
+        .popup__content
+          .about
+            .about__container
+              .about__image-wrapper
+                img.about__image(src="images-min/about/about.jpg" alt="Jane Favsty — художник, арт-дизайнер, психолог")
+              .about__content
+                h2.about__name Jane Favsty
+                p.about__title Художник, арт-дизайнер, психолог
+                .about__text
+                  p.about__paragraph Более 17 лет в фотографии и 7 лет в живописи.
+                  p.about__paragraph Евгения Фавстрицкая объединяет междисциплинарный опыт — от журналистики и психологии (СПбГУ) до глубокой экспертизы в современном искусстве. Её работы — это результат синтеза аналитического склада ума и художественного видения.
+                .about__locations
+                  span Санкт-Петербург
+                  span.about__separator ·
+                  span Париж
+                  span.about__separator ·
+                  span Нью-Йорк
+                  span.about__separator ·
+                  span Лос-Анджелес
+                  span.about__separator ·
+                  span Токио

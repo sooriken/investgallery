@@ -6,9 +6,11 @@ $colorBlackSoft: #222222
 $colorGray: #949494
 $colorGrayLight: #cccccc
 
-$fontAnticva: "Playfair Display", serif
+//$fontAnticva: "Playfair Display", serif
+$fontAnticva: "Noto Serif", serif
 $fontGrotesk: "Inter", sans-serif
-$fontRusso: "Russo One", sans-serif
+//$fontRusso: "Russo One", sans-serif
+$fontRusso: "Zen Kaku Gothic New", sans-serif
 
 // ===== RESET & BASE =====
 *
@@ -16,7 +18,7 @@ $fontRusso: "Russo One", sans-serif
 
 html
   font-size: 100%
-  font-family: $fontAnticva
+  font-family: $fontAnticva 
   scroll-behavior: smooth
   //scroll-padding-top: 100px  // отступ сверху, чтобы секция не прилипала к краю
 
@@ -77,7 +79,7 @@ img
   font-family: $fontAnticva
   background-color: #000
   color: #fff
-  font-size: 1.5rem
+  font-size: 1.2rem
   font-weight: 500
   text-decoration: none
   cursor: pointer
@@ -98,8 +100,13 @@ img
     background-color: $colorWhite
     color: #000
     background-color: $colorWhite
+    background-color: transparent
+    color: $colorGray
+    border-color: $colorGray
     &:hover
-      background-color: $colorGrayLight
+      color: $colorGrayLight
+      border-color: $colorGrayLight
+      background-color: transparent
 
 a 
   text-decoration: none

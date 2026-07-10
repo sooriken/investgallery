@@ -1,0 +1,161 @@
+// === VARS ===
+$colorWhite: #fff
+$colorWhiteSecond: #f2f2f2
+$colorBlack: #000
+$colorBlackSoft: #222222
+$colorGray: #949494
+$colorGrayLight: #cccccc
+
+$fontAnticva: "Playfair Display", serif
+$fontGrotesk: "Inter", sans-serif
+$fontRusso: "Russo One", sans-serif
+    
+    
+// ===== FOOTER =====
+.footer
+  background-color: $colorWhite
+  padding-top: 60px
+  padding-bottom: 40px
+  color: $colorBlackSoft
+  border-top: 1px solid $colorBlack
+
+  &__container
+    max-width: 1600px
+    margin: 0 auto
+    padding: 0 120px
+
+    // +media-max(1024)
+    //   padding: 0 80px
+
+    // +media-max(768)
+    //   padding: 0 24px
+
+  &__grid
+    display: flex
+    justify-content: space-between
+    gap: 40px
+    margin-bottom: 40px
+
+    // +media-max(1024)
+    //   grid-template-columns: 1fr 1fr
+
+    // +media-max(768)
+    //   grid-template-columns: 1fr
+    //   gap: 32px
+
+  &__brand
+    display: flex
+    flex-direction: column
+    gap: 16px
+
+  &__logo
+    font-family: $fontAnticva
+    font-size: 28px
+    font-weight: 700
+    color: $colorBlack
+    letter-spacing: 2px
+    text-decoration: none
+    font-family: $fontRusso
+
+  &__description
+    font-family: $fontGrotesk
+    font-size: 14px
+    line-height: 1.6
+    color: $colorGray
+    max-width: 300px
+
+  &__socials
+    display: flex
+    margin-top: 8px
+    min-height: 100%
+    display: flex
+    justify-content: end
+    flex-direction: column
+
+  &__social-inner
+    display: flex
+    gap: 16px
+
+  &__social-link
+    display: inline-block
+    width: 40px
+    height: 40px
+    //border: 1px solid rgba($colorBlack, 1)
+    border-radius: 50%
+    display: flex
+    align-items: center
+    justify-content: center
+    color: $colorGrayLight
+    transition: all 0.25s ease
+    text-decoration: none
+
+    &:hover
+      border-color: $colorGray
+      color: $colorWhite
+
+    & > svg
+      width: 30px
+      height: 30px
+      transform: translateX(-2px)
+    
+    &--insta > svg
+      transform: translateX(0px)
+
+  &__column-title
+    font-family: $fontAnticva
+    font-size: 16px
+    font-weight: 600
+    color: $colorWhite
+    margin-bottom: 16px
+    letter-spacing: 1px
+
+  &__list
+    list-style: none
+    padding: 0
+    margin: 0
+    display: flex
+    flex-direction: column
+    gap: 12px
+
+  &__link
+    font-family: $fontGrotesk
+    font-size: 14px
+    color: $colorGray
+    text-decoration: none
+    transition: color 0.2s ease
+
+    &:hover
+      color: $colorWhite
+
+  &__bottom
+    border-top: 1px solid rgba($colorWhite, 0.08)
+    padding-top: 24px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    flex-wrap: wrap
+    gap: 16px
+
+    //+media-max(768)
+      //flex-direction: column
+      //align-items: flex-start
+
+  &__copy
+    font-family: $fontGrotesk
+    font-size: 13px
+    color: $colorGray
+
+  &__legal
+    display: flex
+    gap: 24px
+    flex-wrap: wrap
+
+  &__legal-link
+    font-family: $fontGrotesk
+    font-size: 13px
+    color: $colorGray
+    text-decoration: none
+    transition: color 0.2s ease
+
+    &:hover
+      color: $colorBlack

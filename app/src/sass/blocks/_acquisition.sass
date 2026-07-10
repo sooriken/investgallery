@@ -6,9 +6,11 @@ $colorBlackSoft: #222222
 $colorGray: #949494
 $colorGrayLight: #cccccc
 
-$fontAnticva: "Playfair Display", serif
+//$fontAnticva: "Playfair Display", serif
+$fontAnticva: "Noto Serif", serif
 $fontGrotesk: "Inter", sans-serif
-$fontRusso: "Russo One", sans-serif
+//$fontRusso: "Russo One", sans-serif
+$fontRusso: "Zen Kaku Gothic New", sans-serif
   
 .acquisition
   //padding: 2rem
@@ -38,6 +40,10 @@ $fontRusso: "Russo One", sans-serif
     font-family: $fontRusso
     text-transform: uppercase
     font-size: 3rem
+
+    &__inner
+      display: flex
+      justify-content: space-between
 
   &-intro
     font-family: $fontAnticva

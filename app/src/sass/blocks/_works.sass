@@ -73,7 +73,7 @@
   &__grid
     display: grid
     grid-template-columns: repeat(2, 1fr)
-    gap: 1rem
+    gap: 2rem
     margin-bottom: 2rem
     margin-top: 2rem
 
@@ -105,16 +105,29 @@
 
 .work-card
   position: relative
-  cursor: pointer
-  overflow: hidden
-  background: $colorWhiteSecond
+  background: $colorWhite
+  padding: 16px 16px 0 16px   // отступы внутри карточки как паспарту
+  box-shadow: 0 8px 32px rgba($colorBlack, 0.08), 0 2px 8px rgba($colorBlack, 0.04)
+  transition: box-shadow 0.3s ease, transform 0.3s ease
+  cursor: default
 
+  // Эффект "висит на стене" при ховере
+  &:hover
+    box-shadow: 0 16px 48px rgba($colorBlack, 0.14), 0 4px 12px rgba($colorBlack, 0.06)
+    transform: translateY(-4px)
+
+  // === Large-карточка (для акцентных работ) ===
   &--large
     grid-column: span 2
 
     .work-card__image
       aspect-ratio: 16 / 9
-      height: 100%
+
+      img
+        position: absolute
+        height: auto
+        top: 50%
+        transform: translateY(-50%)
 
     @media (max-width: 1023px)
       grid-column: span 1
@@ -122,70 +135,58 @@
       .work-card__image
         aspect-ratio: 3 / 4
 
-  picture
-    height: 100%
-
+  // === Изображение ===
   &__image
     width: 100%
-    aspect-ratio: 3 / 4
     overflow: hidden
+    box-shadow: 0 4px 24px rgba($colorBlack, 0.20), 0 1px 4px rgba($colorBlack, 0.16)
+    position: relative
 
     img
+      display: block
       width: 100%
       height: 100%
       object-fit: cover
-      //filter: grayscale(100%)
-      transition: filter 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)
+      transition: transform 0.5s ease
+  
 
-  &:hover &__image img 
-    //filter: grayscale(0%)
-    transform: scale(1.03)
 
+  // === Информация (всегда видна) ===
   &__info
-    position: absolute
-    bottom: 0
-    left: 0
-    right: 0
-    padding: 24px
-    background: linear-gradient(0deg, rgba($colorBlack, 0.7) 0%, rgba($colorBlack, 0) 100%)
-    opacity: 0
-    transform: translateY(8px)
-    transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
-
-  &:hover &__info
+    position: static           // убираем absolute
+    padding: 16px 4px 16px 4px  // отступы внутри карточки под фото
+    background: transparent
     opacity: 1
-    transform: translateY(0)
+    transform: none
 
   &__series
     display: block
-    font-family: $fontGrotesk
-    font-size: 12px
-    font-weight: 500
-    letter-spacing: 0.08em
-    text-transform: uppercase
-    color: $colorWhite
+    font-family: $fontRusso
+    font-size: 22px
+    font-weight: 600
+    line-height: 1.3
+    color: $colorBlack
     margin-bottom: 4px
 
   &__desc
     display: block
-    font-family: $fontAnticva
+    font-family: $fontGrotesk
     font-size: 14px
     font-weight: 400
     line-height: 1.4
-    color: rgba($colorWhite, 0.8)
+    color: $colorGray
 
   &__badge
     display: inline-block
     margin-top: 8px
-    padding: 4px 10px
-    border: 1px solid rgba($colorWhite, 0.4)
+    padding: 4px 12px
+    border: 1px solid $colorGrayLight
     font-family: $fontGrotesk
     font-size: 10px
     font-weight: 500
     letter-spacing: 0.06em
     text-transform: uppercase
-    color: $colorWhite
-
+    color: $colorGray
 
 // === WORK MODAL ===
 
