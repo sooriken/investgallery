@@ -1,0 +1,74 @@
+mixin brand
+  section.brand
+    .brand__container
+      
+      // Header
+      .brand__header
+        h2.brand__title Живое искусство
+        p.brand__subtitle InvestMe — зарегистрированный товарный знак. Мы создаём искусство, которое можно носить, дарить и коллекционировать.
+      
+      // Gallery (masonry)
+      .brand__gallery
+        
+        // Photo 1 - крупная (интерьер)
+        .brand__image.brand__image--large
+          img.brand__img(src="assets/images/brand/interior-1.webp", alt="Репродукция InvestMe в интерьере", loading="lazy")
+          button.brand__expand(type="button", aria-label="Увеличить фото")
+            svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
+              path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+        
+        // Photo 2 - средняя (человек в футболке)
+        .brand__image
+          img.brand__img(src="assets/images/brand/lifestyle-1.webp", alt="Человек в футболке InvestMe", loading="lazy")
+          button.brand__expand(type="button", aria-label="Увеличить фото")
+            svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
+              path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+        
+        // Photo 3 - средняя (упаковка)
+        .brand__image
+          img.brand__img(src="assets/images/brand/packaging-1.webp", alt="Подарочная упаковка репродукции", loading="lazy")
+          button.brand__expand(type="button", aria-label="Увеличить фото")
+            svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
+              path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+        
+        // Photo 4 - малая (деталь сертификата)
+        .brand__image.brand__image--small
+          img.brand__img(src="assets/images/brand/certificate-1.webp", alt="Сертификат подлинности InvestMe", loading="lazy")
+          button.brand__expand(type="button", aria-label="Увеличить фото")
+            svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
+              path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+        
+        // Photo 5 - малая (выставка)
+        .brand__image.brand__image--small
+          img.brand__img(src="assets/images/brand/event-1.webp", alt="Выставка InvestMe 2019", loading="lazy")
+          button.brand__expand(type="button", aria-label="Увеличить фото")
+            svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
+              path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+        
+        // Photo 6 - крупная (процесс печати)
+        .brand__image.brand__image--large
+          img.brand__img(src="assets/images/brand/process-1.webp", alt="Процесс создания репродукции", loading="lazy")
+          button.brand__expand(type="button", aria-label="Увеличить фото")
+            svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
+              path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+      
+      // Info block: registered trademark
+      .brand__info
+        .brand__registered
+          span.brand__mark ®
+          p.brand__legal InvestMe — зарегистрированный товарный знак. Все произведения имеют сертификаты подлинности.
+        //.brand__cta
+          a.brand__link(href="#order-form") Узнать больше о бренде
+
+
+  //- // ========================================
+  //- // LIGHTBOX (невидим, появляется по клику)
+  //- // ========================================
+
+  //- .lightbox
+  //-   .lightbox__overlay
+  //-   .lightbox__content
+  //-     img.lightbox__image(src="", alt="")
+  //-     button.lightbox__close(type="button", aria-label="Закрыть")
+  //-       svg(width="32", height="32", viewBox="0 0 32 32", fill="none")
+  //-         path(d="M8 8L24 24M24 8L8 24", stroke="currentColor", stroke-width="2", stroke-linecap="round")

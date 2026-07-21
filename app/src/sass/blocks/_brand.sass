@@ -1,0 +1,308 @@
+// ========================================
+// BRAND
+// ========================================
+
+.brand
+  padding: 80px 0 100px
+  background: $colorWhite
+
+  &__container
+    max-width: 1600px
+    margin: 0 auto
+    padding: 0 120px
+
+  &__header
+    max-width: 60%
+    margin-bottom: 48px
+
+  &__title
+    font-family: $fontAnticva
+    font-size: 40px
+    font-weight: 600
+    line-height: 1.2
+    color: $colorBlackSoft
+    margin: 0 0 12px 0
+    letter-spacing: -0.02em
+
+  &__subtitle
+    font-family: $fontGrotesk
+    font-size: 18px
+    font-weight: 400
+    line-height: 1.5
+    color: $colorGray
+    margin: 0
+
+  // ===== MASONRY GALLERY =====
+  &__gallery
+    column-count: 3
+    column-gap: 16px
+    margin-bottom: 48px
+
+  &__image
+    break-inside: avoid
+    margin-bottom: 16px
+    position: relative
+    overflow: hidden
+    border-radius: 12px
+    background: $colorWhiteSecond
+    cursor: pointer
+
+    &--large
+      // фото занимает больше места, но в CSS columns это задаётся через размер картинки
+      // поэтому просто добавляем класс, но реально размер зависит от высоты img
+
+    &--small
+      // аналогично
+
+    &:hover
+      .brand__expand
+        opacity: 1
+        transform: scale(1)
+
+      .brand__img
+        transform: scale(1.02)
+
+  &__img
+    display: block
+    width: 100%
+    height: auto
+    transition: transform 0.4s ease
+    will-change: transform
+
+  &__expand
+    position: absolute
+    top: 16px
+    right: 16px
+    width: 44px
+    height: 44px
+    border-radius: 50%
+    border: none
+    background: rgba(0, 0, 0, 0.6)
+    backdrop-filter: blur(8px)
+    color: $colorWhite
+    display: flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    opacity: 0
+    transform: scale(0.8)
+    transition: opacity 0.3s ease, transform 0.3s ease
+    z-index: 2
+
+    &:hover
+      background: rgba(0, 0, 0, 0.8)
+      transform: scale(1.05)
+
+  &__icon
+    width: 20px
+    height: 20px
+
+  // ===== INFO =====
+  &__info
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding-top: 40px
+    border-top: 1px solid rgba($colorGray, 0.2)
+
+  &__registered
+    display: flex
+    align-items: center
+    gap: 16px
+
+  &__mark
+    font-family: $fontGrotesk
+    font-size: 24px
+    font-weight: 700
+    color: $colorBlackSoft
+    line-height: 1
+
+  &__legal
+    font-family: $fontGrotesk
+    font-size: 14px
+    font-weight: 400
+    color: $colorGray
+    margin: 0
+    line-height: 1.4
+
+  &__cta
+    flex-shrink: 0
+
+  &__link
+    font-family: $fontGrotesk
+    font-size: 14px
+    font-weight: 500
+    color: $colorBlackSoft
+    text-decoration: none
+    border-bottom: 1px solid $colorBlackSoft
+    padding-bottom: 4px
+    transition: color 0.25s ease, border-color 0.25s ease
+
+    &:hover
+      color: $colorBlack
+      border-color: $colorBlack
+
+
+// ========================================
+// LIGHTBOX
+// ========================================
+
+.lightbox
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 9999
+  display: flex
+  align-items: center
+  justify-content: center
+  opacity: 0
+  pointer-events: none
+  transition: opacity 0.4s ease
+
+  &--active
+    opacity: 1
+    pointer-events: auto
+
+  &__overlay
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba(0, 0, 0, 0.85)
+    backdrop-filter: blur(12px)
+
+  &__content
+    position: relative
+    z-index: 2
+    max-width: 90vw
+    max-height: 90vh
+    transform: scale(0.95)
+    transition: transform 0.4s ease
+
+    .lightbox--active &
+      transform: scale(1)
+
+  &__image
+    display: block
+    max-width: 100%
+    max-height: 90vh
+    width: auto
+    height: auto
+    border-radius: 8px
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5)
+
+  &__close
+    position: absolute
+    top: -60px
+    right: 0
+    background: none
+    border: none
+    color: $colorWhite
+    cursor: pointer
+    padding: 8px
+    transition: transform 0.25s ease
+
+    &:hover
+      transform: rotate(90deg)
+
+    svg
+      display: block
+
+
+// ========================================
+// ADAPTIVE
+// ========================================
+
+@media (max-width: 1200px)
+  .brand
+    &__container
+      padding: 0 80px
+
+    &__gallery
+      column-count: 3
+      column-gap: 14px
+
+@media (max-width: 992px)
+  .brand
+    padding: 60px 0
+
+    &__container
+      padding: 0 48px
+
+    &__header
+      max-width: 80%
+
+    &__title
+      font-size: 32px
+
+    &__gallery
+      column-count: 2
+      column-gap: 12px
+
+    &__image
+      margin-bottom: 12px
+
+    &__info
+      flex-direction: column
+      align-items: flex-start
+      gap: 20px
+
+@media (max-width: 768px)
+  .brand
+    padding: 40px 0
+
+    &__container
+      padding: 0 24px
+
+    &__header
+      max-width: 100%
+      margin-bottom: 32px
+
+    &__title
+      font-size: 28px
+
+    &__subtitle
+      font-size: 16px
+
+    &__gallery
+      column-count: 2
+      column-gap: 8px
+
+    &__image
+      margin-bottom: 8px
+      border-radius: 8px
+
+    &__expand
+      width: 36px
+      height: 36px
+      top: 10px
+      right: 10px
+
+      svg
+        width: 16px
+        height: 16px
+
+    &__info
+      padding-top: 24px
+
+    &__registered
+      flex-direction: column
+      align-items: flex-start
+      gap: 8px
+
+    &__mark
+      font-size: 20px
+
+    &__legal
+      font-size: 13px
+
+  .lightbox
+    &__close
+      top: -48px
+
+      svg
+        width: 24px
+        height: 24px
