@@ -115,17 +115,24 @@
 .work-card
   position: relative
   background: $colorWhite
-  padding: 16px 16px 0 16px   // отступы внутри карточки как паспарту
+  padding: 16px 16px 0 16px
   box-shadow: 0 8px 32px rgba($colorBlack, 0.08), 0 2px 8px rgba($colorBlack, 0.04)
   transition: box-shadow 0.3s ease, transform 0.3s ease
   cursor: default
 
-  // Эффект "висит на стене" при ховере
   &:hover
     box-shadow: 0 16px 48px rgba($colorBlack, 0.14), 0 4px 12px rgba($colorBlack, 0.06)
     transform: translateY(-4px)
 
-  // === Large-карточка (для акцентных работ) ===
+    // При ховере на карточку — показываем overlay
+    .work-card__overlay
+      opacity: 1
+      visibility: visible
+
+    .work-card__image img
+      transform: scale(1.04)
+
+  // === Large-карточка ===
   &--large
     grid-column: span 2
 
@@ -136,7 +143,7 @@
         position: absolute
         height: auto
         top: 50%
-        transform: translateY(-50%)
+        transform: translateY(-50%) !important
 
     @media (max-width: 1023px)
       grid-column: span 1
@@ -157,16 +164,109 @@
       height: 100%
       object-fit: cover
       transition: transform 0.5s ease
-  
 
+  // === OVERLAY (затемнение + цены) ===
+  &__overlay
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba($colorBlack, 0.45)
+    backdrop-filter: blur(2px)
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    gap: 20px
+    opacity: 0
+    visibility: hidden
+    transition: opacity 0.4s ease, visibility 0.4s ease
+    padding: 20px
+    z-index: 2
+
+  // === Цены ===
+  &__prices
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 12px
+    text-align: center
+
+  &__price-group
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 2px
+
+  &__price-label
+    font-family: $fontGrotesk
+    font-size: 11px
+    font-weight: 400
+    text-transform: uppercase
+    letter-spacing: 0.12em
+    color: rgba($colorWhite, 0.5)
+
+  &__price-value
+    font-family: $fontGrotesk
+    font-size: 20px
+    font-weight: 600
+    color: $colorWhite
+    letter-spacing: -0.02em
+
+    // Для репродукций с диапазоном можно сделать чуть мельче
+    &--range
+      font-size: 17px
+      font-weight: 500
+
+  // === Кнопка на оверлее ===
+  &__button
+    font-family: $fontGrotesk
+    font-size: 13px
+    font-weight: 500
+    color: $colorWhite
+    background: transparent
+    border: 1px solid rgba($colorWhite, 0.4)
+    border-radius: 6px
+    padding: 10px 32px
+    cursor: pointer
+    transition: all 0.3s ease
+    margin-top: 4px
+
+    &:hover
+      background: $colorWhite
+      color: $colorBlackSoft
+      border-color: $colorWhite
+
+  // === Info (текст под фото) ===
+  &__info
+    padding: 16px 4px 14px 4px
+    display: flex
+    flex-direction: column
+    gap: 2px
+
+  &__series
+    font-family: $fontAnticva
+    font-size: 18px
+    font-weight: 500
+    color: $colorBlackSoft
+    line-height: 1.2
+
+  &__desc
+    font-family: $fontGrotesk
+    font-size: 13px
+    font-weight: 400
+    color: $colorGray
+    line-height: 1.3
 
   // === Информация (всегда видна) ===
   &__info
-    position: static           // убираем absolute
     padding: 16px 4px 16px 4px  // отступы внутри карточки под фото
     background: transparent
     opacity: 1
     transform: none
+    display: flex
+    flex-direction: column
 
   &__series
     display: block
@@ -186,7 +286,7 @@
     color: $colorGray
 
   &__badge
-    display: inline-block
+    display: block
     margin-top: 8px
     padding: 4px 12px
     border: 1px solid $colorGrayLight
@@ -196,6 +296,7 @@
     letter-spacing: 0.06em
     text-transform: uppercase
     color: $colorGray
+    width: fit-content
 
 // === WORK MODAL ===
 
