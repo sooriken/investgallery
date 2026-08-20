@@ -1,18 +1,4 @@
-// === VARS ===
-$colorWhite: #fff
-$colorWhiteSecond: #f2f2f2
-$colorBlack: #000
-$colorBlackSoft: #222222
-$colorGray: #949494
-$colorGrayLight: #cccccc
-
-//$fontAnticva: "Playfair Display", serif
-//$fontAnticva: "Noto Serif", serif
-$fontAnticva: "Roboto", sans-serif
-$fontGrotesk: "Inter", sans-serif
-//$fontRusso: "Russo One", sans-serif
-$fontRusso: "Zen Kaku Gothic New", sans-serif
-    
+@import './blocks/_variables.sass'
 // ===== POPUP OVERLAY =====
 
 .popup
@@ -113,6 +99,8 @@ $fontRusso: "Zen Kaku Gothic New", sans-serif
     gap: 60px
     align-items: stretch
     height: 100%
+    user-select: none
+    z-index: 800
   
   &__image-wrapper
     flex-shrink: 0
@@ -183,64 +171,216 @@ $fontRusso: "Zen Kaku Gothic New", sans-serif
     color: $colorGrayLight
 
 
-// ===== Адаптив для попапа =====
+// ========================================
+// ABOUT ADAPTIVE
+// ========================================
 
-@media (max-width: 1024px)
+// === BREAKPOINTS ===
+$bp-desktop: 1200px
+$bp-laptop: 992px
+$bp-tablet: 768px
+$bp-mobile: 576px
+
+
+// ===== POPUP =====
+
+// 1200px — маленькие ноутбуки
+@media (max-width: $bp-desktop)
+  .popup
+    &__container
+      width: 85%
+      height: 80%
+      padding: 2.4rem
+
+  .about
+    &__container
+      gap: 3rem
+
+    &__image-wrapper
+      width: 45%
+
+    &__name
+      font-size: 2.6rem
+      margin-bottom: 0.6rem
+
+    &__title
+      font-size: 0.7rem
+      margin-bottom: 2rem
+
+    &__paragraph
+      font-size: 1.2rem
+      margin-bottom: 1.2rem
+
+    &__locations
+      margin-top: 2.4rem
+      font-size: 0.7rem
+      gap: 0.4rem
+
+
+// 992px — планшеты горизонтально
+@media (max-width: $bp-laptop)
   .popup
     &__container
       width: 90%
       height: 85%
-      padding: 30px
-  
+      padding: 2rem
+
   .about
     &__container
-      gap: 40px
-    
-    &__name
-      font-size: 2.4rem
-    
-    &__paragraph
-      font-size: 1.6rem
+      gap: 2.4rem
 
-@media (max-width: 768px)
+    &__image-wrapper
+      width: 42%
+
+    &__name
+      font-size: 2.2rem
+      margin-bottom: 0.4rem
+
+    &__title
+      font-size: 0.65rem
+      margin-bottom: 1.6rem
+
+    &__paragraph
+      font-size: 1.1rem
+      margin-bottom: 1rem
+      line-height: 1.4
+
+    &__locations
+      margin-top: 2rem
+      font-size: 0.65rem
+
+
+// 768px — планшеты вертикально (заменяет твой старый адаптив)
+@media (max-width: $bp-tablet)
   .popup
     &__container
       width: 100%
       height: 100%
       max-height: 100%
-      padding: 20px
+      padding: 1.2rem
       border-radius: 0
-  
+      margin: 0
+
+    &__close
+      width: 2.4rem
+      height: 2.4rem
+      margin-bottom: 1rem
+      position: sticky
+      top: 0
+      float: right
+
+      svg
+        width: 1.2rem
+        height: 1.2rem
+
   .about
     &__container
       flex-direction: column
-      gap: 30px
-    
+      gap: 1.6rem
+      height: auto
+      min-height: 100%
+
     &__image-wrapper
       width: 100%
       aspect-ratio: 4 / 5
-      max-height: 300px
-    
+      max-height: 18rem
+      flex-shrink: 0
+
+    &__image
+      object-fit: cover
+      width: 100%
+      height: 100%
+
     &__content
       justify-content: flex-start
-    
-    &__name
-      font-size: 2rem
-    
-    &__paragraph
-      font-size: 1.4rem
-    
-    &__locations
-      margin-top: 24px
-      font-size: 10px
+      min-height: auto
+      padding-bottom: 0.8rem
 
-// Очень маленькие экраны
-@media (max-width: 480px)
+    &__name
+      font-size: 1.8rem
+      margin-bottom: 0.4rem
+
+    &__title
+      font-size: 0.6rem
+      margin-bottom: 1.2rem
+
+    &__paragraph
+      font-size: 1rem
+      margin-bottom: 0.8rem
+
+    &__locations
+      margin-top: 1.6rem
+      font-size: 0.6rem
+      gap: 0.4rem
+
+
+// 576px — телефоны
+@media (max-width: $bp-mobile)
   .popup
+    &__container
+      padding: 1rem
+      overflow-y: auto
+
     &__close
-      width: 32px
-      height: 32px
-      
+      width: 2rem
+      height: 2rem
+      margin-bottom: 0.6rem
+
       svg
-        width: 16px
-        height: 16px
+        width: 1rem
+        height: 1rem
+
+  .about
+    &__container
+      gap: 1.2rem
+
+    &__image-wrapper
+      max-height: 14rem
+      aspect-ratio: 3 / 4
+
+    &__name
+      font-size: 1.4rem
+      margin-bottom: 0.2rem
+
+    &__title
+      font-size: 0.55rem
+      margin-bottom: 1rem
+      letter-spacing: 0.06em
+
+    &__paragraph
+      font-size: 0.85rem
+      margin-bottom: 0.6rem
+      line-height: 1.4
+
+    &__locations
+      margin-top: 1.2rem
+      font-size: 0.55rem
+      gap: 0.2rem
+
+
+// 400px — очень маленькие телефоны
+@media (max-width: 400px)
+  .popup
+    &__container
+      padding: 0.8rem
+
+    &__close
+      width: 1.8rem
+      height: 1.8rem
+
+      svg
+        width: 0.9rem
+        height: 0.9rem
+
+  .about
+    &__image-wrapper
+      max-height: 12rem
+
+    &__name
+      font-size: 1.2rem
+
+    &__paragraph
+      font-size: 0.75rem
+
+    &__locations
+      font-size: 0.5rem

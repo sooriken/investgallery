@@ -64,6 +64,7 @@
     font-size: 18px
     color: $colorBlackSoft
     font-family: $fontGrotesk
+    user-select: none
 
     &:hover
       border-color: $colorBlackSoft
@@ -87,6 +88,7 @@
     gap: 24px
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     will-change: transform
+    padding-bottom: 5rem 
 
   &__pagination
     display: flex
@@ -202,53 +204,126 @@
 
 
 // ========================================
-// ADAPTIVE
+// MERCH ADAPTIVE
 // ========================================
 
-@media (max-width: 1200px)
-  .merch-card
-    flex: 0 0 calc(33.333% - 16px)
+// ===== MERCH =====
 
-@media (max-width: 992px)
+// 1200px — маленькие ноутбуки
+@media (max-width: $bp-desktop)
   .merch
-    padding: 60px 0
+    padding: 4rem 0
 
     &__container
-      padding: 0 48px
+      padding: 0 4rem
 
     &__title
-      font-size: 32px
+      font-size: 2.8rem
+
+    &__subtitle
+      font-size: 0.9rem
+
+    &__header
+      margin-bottom: 2.4rem
+
+    .merch-card
+      flex: 0 0 calc(33.333% - 16px)
+      min-width: 200px
+
+      &__title
+        font-size: 1rem
+
+      &__description
+        font-size: 0.8rem
+
+      &__price
+        font-size: 1rem
+
+      &__button
+        font-size: 0.75rem
+        padding: 6px 16px
+
+
+// 992px — планшеты горизонтально
+@media (max-width: $bp-laptop)
+  .merch
+    padding: 3rem 0
+
+    &__container
+      padding: 0 2.4rem
 
     &__header
       flex-direction: column
       align-items: flex-start
-      gap: 20px
+      gap: 1.2rem
+      margin-bottom: 2rem
 
     &__title-wrapper
       max-width: 100%
 
+    &__title
+      font-size: 2.2rem
+
+    &__subtitle
+      font-size: 0.85rem
+
+    &__controls
+      display: flex
+      gap: 8px
+
+    &__arrow
+      width: 2.4rem
+      height: 2.4rem
+      font-size: 0.9rem
+
     .merch-card
       flex: 0 0 calc(50% - 12px)
+      min-width: 180px
 
-@media (max-width: 768px)
+      &__body
+        padding: 16px 16px 20px
+
+      &__title
+        font-size: 0.95rem
+
+      &__description
+        font-size: 0.75rem
+        margin-bottom: 12px
+
+      &__price
+        font-size: 0.95rem
+
+      &__button
+        font-size: 0.7rem
+        padding: 6px 14px
+
+
+// 768px — планшеты вертикально (заменяет твой старый адаптив)
+@media (max-width: $bp-tablet)
   .merch
-    padding: 40px 0
+    padding: 2.4rem 0
 
     &__container
-      padding: 0 24px
+      padding: 0 1.6rem
+
+    &__header
+      gap: 0.8rem
+      margin-bottom: 1.6rem
 
     &__title
-      font-size: 28px
+      font-size: 1.8rem
+      margin-bottom: 0.2rem
+
+    &__subtitle
+      font-size: 0.8rem
 
     &__controls
       display: none
-
-    .merch-card
-      flex: 0 0 calc(100% - 0px)
-      min-width: unset
+    
+    &__track
+      padding-bottom: 1.6rem
 
     &__pagination
-      margin-top: 24px
       gap: 8px
 
     &__dot
@@ -257,3 +332,91 @@
 
       &--active
         width: 24px
+
+    .merch-card
+      flex: 0 0 calc(100% - 0px)
+      min-width: unset
+
+      &__body
+        padding: 14px 14px 18px
+
+      &__title
+        font-size: 0.9rem
+
+      &__description
+        font-size: 0.7rem
+
+      &__price
+        font-size: 0.9rem
+
+      &__button
+        font-size: 0.65rem
+        padding: 5px 12px
+
+
+// 576px — телефоны
+@media (max-width: $bp-mobile)
+  .merch
+    padding: 1.6rem 0
+
+    &__container
+      padding: 0 1rem
+
+    &__header
+      gap: 0.4rem
+      margin-bottom: 1.2rem
+
+    &__title
+      font-size: 1.4rem
+
+    &__subtitle
+      font-size: 0.7rem
+      
+    &__track
+      padding-bottom: 1.2rem
+      
+    &__pagination
+      gap: 6px
+
+    &__dot
+      width: 5px
+      height: 5px
+
+      &--active
+        width: 20px
+
+    .merch-card
+      flex: 0 0 calc(100% - 0px)
+      min-width: unset
+      border-radius: 8px
+
+      &__image-wrapper
+        padding-bottom: 100%
+
+      &__body
+        padding: 12px 12px 16px
+
+      &__type
+        font-size: 0.6rem
+        margin-bottom: 4px
+
+      &__title
+        font-size: 0.85rem
+
+      &__description
+        font-size: 0.65rem
+        margin-bottom: 10px
+
+      &__bottom
+        flex-wrap: wrap
+        gap: 8px
+
+      &__price
+        font-size: 0.85rem
+
+      &__button
+        font-size: 0.6rem
+        padding: 5px 12px
+        border-radius: 4px
+        width: 100%
+        text-align: center

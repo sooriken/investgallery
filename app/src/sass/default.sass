@@ -1,17 +1,4 @@
-// === VARS ===
-$colorWhite: #fff
-$colorWhiteSecond: #f2f2f2
-$colorBlack: #000
-$colorBlackSoft: #222222
-$colorGray: #949494
-$colorGrayLight: #cccccc
-
-//$fontAnticva: "Playfair Display", serif
-//$fontAnticva: "Noto Serif", serif
-$fontAnticva: "Roboto", sans-serif
-$fontGrotesk: "Inter", sans-serif
-//$fontRusso: "Russo One", sans-serif
-$fontRusso: "Zen Kaku Gothic New", sans-serif
+@import './blocks/_variables.sass'
 
 // ===== RESET & BASE =====
 *
@@ -180,3 +167,169 @@ h3, .h3
   font-family: $fontAnticva
   font-size: 2rem
   font-weight: 600
+  
+  
+  
+// ========================================
+// ADAPTIVE
+// ========================================
+
+
+// ===== CONTAINER =====
+@media (max-width: $bp-desktop)
+  .container
+    padding: 5rem 8rem
+
+@media (max-width: $bp-laptop)
+  .container
+    padding: 4rem 4rem
+
+@media (max-width: $bp-tablet)
+  .container
+    padding: 3rem 2rem
+
+@media (max-width: $bp-mobile)
+  .container
+    padding: 2rem 1.2rem
+
+
+// ===== TYPOGRAPHY =====
+@media (max-width: $bp-desktop)
+  h1, .h1
+    font-size: 4.5rem
+
+  h2, .h2
+    font-size: 3.2rem
+
+  .title
+    font-size: 2.8rem
+
+  .subtitle
+    font-size: 1.4rem
+
+  .uptitle
+    font-size: 3.5rem
+
+  .text-small
+    font-size: 1.2rem
+
+  .text-micro
+    font-size: 1rem
+
+@media (max-width: $bp-laptop)
+  h1, .h1
+    font-size: 3.6rem
+
+  h2, .h2
+    font-size: 2.8rem
+
+  h3, .h3
+    font-size: 2rem
+
+  .title
+    font-size: 2.4rem
+
+  .subtitle
+    font-size: 1.2rem
+    margin-bottom: 2rem
+
+  .uptitle
+    font-size: 2.8rem
+
+  .price
+    font-size: 1.6rem
+
+@media (max-width: $bp-tablet)
+  h1, .h1
+    font-size: 2.8rem
+
+  h2, .h2
+    font-size: 2.2rem
+
+  h3, .h3
+    font-size: 1.6rem
+
+  .title
+    font-size: 1.8rem
+    margin-bottom: 0.6rem
+
+  .subtitle
+    font-size: 1rem
+    margin-bottom: 1.6rem
+
+  .uptitle
+    font-size: 2.2rem
+
+  .price
+    font-size: 1.4rem
+
+  .text-small
+    font-size: 1rem
+
+  .text-micro
+    font-size: 0.9rem
+
+@media (max-width: $bp-mobile)
+  h1, .h1
+    font-size: 2rem
+
+  h2, .h2
+    font-size: 1.6rem
+
+  h3, .h3
+    font-size: 1.3rem
+
+  .title
+    font-size: 1.4rem
+
+  .subtitle
+    font-size: 0.9rem
+
+  .uptitle
+    font-size: 1.6rem
+
+  .price
+    font-size: 1.2rem
+
+  .text-small
+    font-size: 0.9rem
+
+  .text-micro
+    font-size: 0.8rem
+
+
+// ===== BUTTONS =====
+@media (max-width: $bp-tablet)
+  .button
+    padding: 0.8rem 1.2rem
+    font-size: 1rem
+
+@media (max-width: $bp-mobile)
+  .button
+    padding: 0.6rem 1rem
+    font-size: 0.9rem
+    width: 100%
+    text-align: center
+
+
+// ===== FORM ELEMENTS =====
+@media (max-width: $bp-tablet)
+  .input,
+  select,
+  textarea
+    padding: 10px 14px
+    font-size: 13px
+
+@media (max-width: $bp-mobile)
+  .input,
+  select,
+  textarea
+    padding: 8px 12px
+    font-size: 12px
+
+
+// ===== IMAGES =====
+@media (max-width: $bp-tablet)
+  img
+    max-width: 100%
+    height: auto

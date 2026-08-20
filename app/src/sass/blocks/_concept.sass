@@ -16,15 +16,6 @@
     margin-bottom: 1rem
 
   &__title
-    font-family: $fontAnticva
-    font-size: 3rem
-    font-weight: 700
-    line-height: 1.15
-    letter-spacing: -0.01em
-    color: $colorBlack
-    margin-bottom: 3rem
-    font-family: $fontRusso
-
     font-family: $fontRusso
     font-size: 48px
     font-weight: 400
@@ -76,3 +67,135 @@
 
       & + p
         margin-top: 24px
+
+// ========================================
+// CONCEPT ADAPTIVE
+// ========================================
+
+
+// ===== CONCEPT =====
+
+// 1200px — маленькие ноутбуки
+@media (max-width: $bp-desktop)
+  .concept
+    &__title
+      font-size: 2.8rem
+      margin-bottom: 2.4rem
+
+    &__icon
+      width: 4.2rem
+      height: 4.2rem
+      margin-bottom: 2.4rem
+
+    &__content
+      max-width: 560px
+
+    &__quote p
+      font-size: 1.4rem
+
+    &__text p
+      font-size: 0.95rem
+
+
+// 992px — планшеты горизонтально
+@media (max-width: $bp-laptop)
+  .concept
+    &__title
+      font-size: 2.2rem
+      margin-bottom: 2rem
+
+    &__icon
+      width: 3.6rem
+      height: 3.6rem
+      margin-bottom: 2rem
+
+    &__content
+      max-width: 100%
+      padding: 0 1.6rem
+
+      &--manifest
+        margin-top: 3rem
+
+    &__quote
+      margin-bottom: 1.6rem
+      padding-bottom: 1.6rem
+
+      p
+        font-size: 1.2rem
+
+    &__text p
+      font-size: 0.9rem
+      line-height: 1.6
+
+      & + p
+        margin-top: 1.2rem
+
+
+// 768px — планшеты вертикально
+@media (max-width: $bp-tablet)
+  .concept
+    &__container
+      text-align: left
+      text-align-last: left
+
+    &__title
+      font-size: 1.8rem
+      margin-bottom: 1.6rem
+
+    &__icon
+      width: 3rem
+      height: 3rem
+      margin: 0 auto 1.6rem
+
+    &__content
+      padding: 0 0.4rem
+
+      &--manifest
+        margin-top: 2.4rem
+
+    &__quote p
+      font-size: 1rem
+
+    &__text p
+      font-size: 0.85rem
+      line-height: 1.5
+
+      & + p
+        margin-top: 1rem
+
+
+// 576px — телефоны
+@media (max-width: $bp-mobile)
+  .concept
+    &__container
+      text-align: left
+      text-align-last: left
+
+    &__title
+      font-size: 1.4rem
+      margin-bottom: 1.2rem
+
+    &__icon
+      width: 2.4rem
+      height: 2.4rem
+      margin: 0 auto 1.2rem
+
+    &__content
+      padding: 0
+
+      &--manifest
+        margin-top: 1.6rem
+
+    &__quote
+      margin-bottom: 1.2rem
+      padding-bottom: 1.2rem
+
+      p
+        font-size: 0.9rem
+
+    &__text p
+      font-size: 0.8rem
+      line-height: 1.5
+
+      & + p
+        margin-top: 0.8rem

@@ -1,18 +1,4 @@
-// === VARS ===
-$colorWhite: #fff
-$colorWhiteSecond: #f2f2f2
-$colorBlack: #000
-$colorBlackSoft: #222222
-$colorGray: #949494
-$colorGrayLight: #cccccc
 
-//$fontAnticva: "Playfair Display", serif
-//$fontAnticva: "Noto Serif", serif
-$fontAnticva: "Roboto", sans-serif
-$fontGrotesk: "Inter", sans-serif
-//$fontRusso: "Russo One", sans-serif
-$fontRusso: "Zen Kaku Gothic New", sans-serif
-    
 .header
   position: sticky
   top: 0
@@ -54,3 +40,76 @@ $fontRusso: "Zen Kaku Gothic New", sans-serif
 
     &:hover
       color: $colorBlack
+    
+    
+// ========================================
+// HEADER ADAPTIVE
+// ========================================
+
+
+// ===== HEADER =====
+@media (max-width: $bp-desktop)
+  .header
+    padding: 0.5rem 4rem
+
+    &__logo-image
+      max-width: 12%
+
+    &__nav
+      gap: 1.6rem
+
+    &__link
+      font-size: 1rem
+      letter-spacing: 0.04rem
+
+
+@media (max-width: $bp-laptop)
+  .header
+    padding: 0.5rem 2.4rem
+
+    &__logo-image
+      max-width: 14%
+
+    &__nav
+      gap: 1.2rem
+
+    &__link
+      font-size: 0.9rem
+      letter-spacing: 0.03rem
+
+
+@media (max-width: $bp-tablet)
+  .header
+    padding: 0.5rem 1.6rem
+    border-bottom-width: 1px  // уже rem, оставляем
+
+    &__logo-image
+      max-width: 16%
+
+    &__nav
+      gap: 0.8rem
+      flex-wrap: wrap
+      justify-content: flex-end
+
+    &__link
+      font-size: 0.8rem
+      letter-spacing: 0.02rem
+      line-height: 1.2rem
+      padding: 0.2rem 0
+
+
+@media (max-width: $bp-mobile)
+  .header
+    padding: 0.4rem 1rem
+
+    &__logo-image
+      max-width: 20%
+
+    &__nav
+      gap: 0.4rem
+
+    &__link
+      font-size: 0.65rem
+      letter-spacing: 0.01rem
+      line-height: 1rem
+      padding: 0.1rem 0

@@ -8,15 +8,10 @@
 
   // Заголовок
   &__header
-    //text-align: center
-    //margin-bottom: 80px
-
-    display: grid
-    grid-template-columns: auto 1fr
-    grid-template-rows: auto auto
-    //column-gap: 24px
     row-gap: 8px
     margin: 0 auto
+    display: flex
+    flex-direction: column
 
   &__icon
     width: 48px
@@ -30,23 +25,6 @@
       object-fit: contain
 
   &__title
-    // font-family: $fontAnticva
-    // font-size: 48px
-    // font-weight: 700
-    // line-height: 1.15
-    // letter-spacing: -0.01em
-    // color: $colorBlack
-    // margin: 0 0 16px
-
-    grid-column: 2
-    grid-row: 1
-    font-family: $fontRusso
-    font-size: 48px
-    font-weight: 400
-    line-height: 1.1
-    letter-spacing: 0.02em
-    color: $colorBlack
-    margin: 0
 
     font-family: $fontRusso
     font-size: 48px
@@ -451,3 +429,338 @@
       background: $colorBlack
       color: $colorWhite
       border-color: $colorBlack
+    
+    
+// ========================================
+// WORKS ADAPTIVE
+// ========================================
+
+
+// ===== WORKS =====
+
+// 1200px — маленькие ноутбуки
+@media (max-width: $bp-desktop)
+  .works
+    padding: 4rem 4rem
+
+    &__header
+      margin-bottom: 2.4rem
+
+    &__title
+      font-size: 2.8rem
+
+    &__subtitle
+      font-size: 1rem
+      max-width: 400px
+
+    &__grid
+      gap: 1.6rem
+      margin-top: 1.6rem
+
+    .work-card
+      &__series
+        font-size: 1.2rem
+
+      &__desc
+        font-size: 0.85rem
+
+      &__price-value
+        font-size: 1.1rem
+
+    .work-card--large
+      .work-card__image
+        aspect-ratio: 16 / 9
+
+
+// 992px — планшеты горизонтально
+@media (max-width: $bp-laptop)
+  .works
+    padding: 3rem 2.4rem
+
+    &__header
+      margin-bottom: 2rem
+
+    &__icon
+      grid-row: 1
+      width: 36px
+      height: 36px
+      margin: 0 auto 0.4rem
+
+    &__title
+      grid-column: 1
+      grid-row: 2
+      font-size: 2.2rem
+
+    &__subtitle
+      grid-column: 1
+      grid-row: 3
+      font-size: 0.9rem
+      max-width: 100%
+
+    &__grid
+      grid-template-columns: repeat(2, 1fr)
+      gap: 1.2rem
+      margin-top: 1.2rem
+
+    .work-card
+      padding: 12px 12px 0 12px
+
+      &--large
+        grid-column: span 1
+
+        .work-card__image
+          aspect-ratio: 3 / 4
+
+          img
+            position: static
+            height: 100%
+            transform: none !important
+
+      &__image
+        aspect-ratio: 3 / 4
+
+      &__series
+        font-size: 1rem
+
+      &__desc
+        font-size: 0.8rem
+
+      &__badge
+        font-size: 0.6rem
+        padding: 2px 10px
+
+      &__overlay
+        gap: 12px
+        padding: 12px
+
+      &__price-label
+        font-size: 0.6rem
+
+      &__price-value
+        font-size: 1rem
+
+      &__button
+        font-size: 0.75rem
+        padding: 8px 20px
+
+    // Модальное окно
+    .work-modal
+      &__content
+        grid-template-columns: 1fr
+        max-height: 95vh
+        margin: 0 16px
+
+      &__image
+        aspect-ratio: 16 / 9
+
+      &__details
+        padding: 24px
+
+      &__title
+        font-size: 1.6rem
+
+      &__desc
+        font-size: 0.9rem
+
+
+// 768px — планшеты вертикально
+@media (max-width: $bp-tablet)
+  .works
+    padding: 2.4rem 1.6rem
+
+    &__header
+      margin-bottom: 1.6rem
+
+    &__title
+      font-size: 1.8rem
+
+    &__subtitle
+      font-size: 0.85rem
+
+    &__grid
+      grid-template-columns: repeat(2, 1fr)
+      gap: 1rem
+      margin-top: 1rem
+
+    .work-card
+      padding: 10px 10px 0 10px
+
+      &--large
+        grid-column: span 1
+
+        .work-card__image
+          aspect-ratio: 3 / 4
+
+      &__image
+        aspect-ratio: 3 / 4
+
+      &__series
+        font-size: 0.9rem
+
+      &__desc
+        font-size: 0.7rem
+
+      &__badge
+        font-size: 0.55rem
+        padding: 2px 8px
+        margin-top: 4px
+
+      &__overlay
+        gap: 10px
+        padding: 10px
+
+        backdrop-filter: none // убираем blur для производительности
+
+      &__price-group
+        gap: 1px
+
+      &__price-label
+        font-size: 0.55rem
+
+      &__price-value
+        font-size: 0.9rem
+
+      &__button
+        font-size: 0.7rem
+        padding: 6px 16px
+
+    .work-modal
+      &__details
+        padding: 20px
+
+      &__title
+        font-size: 1.4rem
+
+      &__desc
+        font-size: 0.85rem
+
+      &__meta
+        gap: 16px
+        padding-top: 16px
+
+      &__inquire
+        padding: 12px 24px
+        font-size: 0.7rem
+
+
+// 576px — телефоны
+@media (max-width: $bp-mobile)
+  .works
+    padding: 1.6rem 0.8rem
+
+    &__header
+      margin-bottom: 1.2rem
+
+    &__title
+      font-size: 1.4rem
+
+    &__subtitle
+      font-size: 0.8rem
+
+    &__grid
+      grid-template-columns: 1fr
+      gap: 1.2rem
+      margin-top: 0.8rem
+
+    .work-card
+      padding: 12px 12px 0 12px
+      max-width: 400px
+      margin: 0 auto
+
+      &--large
+        grid-column: span 1
+        max-width: 400px
+
+        .work-card__image
+          aspect-ratio: 3 / 4
+
+          img
+            position: static
+            height: 100%
+            transform: none !important
+
+      &__image
+        aspect-ratio: 3 / 4
+
+      &__info
+        padding: 12px 4px 12px 4px
+
+      &__series
+        font-size: 1rem
+
+      &__desc
+        font-size: 0.75rem
+
+      &__badge
+        font-size: 0.6rem
+        padding: 2px 10px
+
+      &__overlay
+        gap: 12px
+        padding: 16px
+        backdrop-filter: none
+
+      &__price-group
+        gap: 2px
+
+      &__price-label
+        font-size: 0.6rem
+
+      &__price-value
+        font-size: 1rem
+
+      &__button
+        font-size: 0.75rem
+        padding: 8px 24px
+
+    // Materials
+    &__materials
+      margin-top: 1.6rem
+
+    &__materials-line
+      width: 32px
+      margin-bottom: 12px
+
+    &__materials-text
+      font-size: 0.75rem
+
+    // Modal
+    .work-modal
+      &__content
+        margin: 0 8px
+        max-height: 98vh
+
+      &__image
+        aspect-ratio: 4 / 3
+
+      &__details
+        padding: 16px
+
+      &__series
+        font-size: 0.6rem
+
+      &__title
+        font-size: 1.2rem
+        margin-bottom: 8px
+
+      &__desc
+        font-size: 0.8rem
+        margin-bottom: 16px
+
+      &__meta
+        flex-direction: column
+        gap: 8px
+        padding-top: 12px
+        margin-bottom: 16px
+
+      &__inquire
+        padding: 10px 20px
+        font-size: 0.7rem
+        width: 100%
+        text-align: center
+
+      &__close
+        top: -40px
+        right: 4px
+        width: 24px
+        height: 24px

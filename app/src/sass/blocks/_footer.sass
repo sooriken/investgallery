@@ -1,19 +1,4 @@
-// === VARS ===
-$colorWhite: #fff
-$colorWhiteSecond: #f2f2f2
-$colorBlack: #000
-$colorBlackSoft: #222222
-$colorGray: #949494
-$colorGrayLight: #cccccc
 
-//$fontAnticva: "Playfair Display", serif
-//$fontAnticva: "Noto Serif", serif
-$fontAnticva: "Roboto", sans-serif
-$fontGrotesk: "Inter", sans-serif
-//$fontRusso: "Russo One", sans-serif
-$fontRusso: "Zen Kaku Gothic New", sans-serif
-    
-    
 // ===== FOOTER =====
 .footer
   background-color: $colorWhite
@@ -162,3 +147,205 @@ $fontRusso: "Zen Kaku Gothic New", sans-serif
 
     &:hover
       color: $colorBlack
+    
+    
+// ========================================
+// FOOTER ADAPTIVE
+// ========================================
+
+// ===== FOOTER =====
+
+// 1200px — маленькие ноутбуки
+@media (max-width: $bp-desktop)
+  .footer
+    padding-top: 3rem
+    padding-bottom: 2rem
+
+    &__container
+      padding: 0 4rem
+
+    &__grid
+      gap: 2.4rem
+      margin-bottom: 2.4rem
+
+    &__logo
+      font-size: 1.6rem
+
+    &__description
+      font-size: 0.85rem
+      max-width: 240px
+
+    &__social-link
+      width: 2.4rem
+      height: 2.4rem
+
+      > svg
+        width: 1.6rem
+        height: 1.6rem
+
+    &__bottom
+      padding-top: 1.6rem
+
+
+// 992px — планшеты горизонтально
+@media (max-width: $bp-laptop)
+  .footer
+    padding-top: 2.4rem
+    padding-bottom: 1.6rem
+
+    &__container
+      padding: 0 2.4rem
+
+    &__grid
+      gap: 2rem
+      margin-bottom: 2rem
+
+    &__brand
+      gap: 0.8rem
+
+    &__logo
+      font-size: 1.4rem
+
+    &__description
+      font-size: 0.8rem
+      max-width: 200px
+
+    &__socials
+      margin-top: 0
+
+    &__social-inner
+      gap: 0.8rem
+
+    &__social-link
+      width: 2rem
+      height: 2rem
+
+      > svg
+        width: 1.4rem
+        height: 1.4rem
+
+    &__bottom
+      flex-direction: column
+      align-items: flex-start
+      gap: 0.8rem
+      padding-top: 1.2rem
+
+    &__copy
+      font-size: 0.75rem
+
+    &__legal
+      gap: 1.2rem
+
+    &__legal-link
+      font-size: 0.75rem
+
+
+// 768px — планшеты вертикально
+@media (max-width: $bp-tablet)
+  .footer
+    padding-top: 2rem
+    padding-bottom: 1.2rem
+
+    &__container
+      padding: 0 1.6rem
+
+    &__grid
+      flex-direction: column
+      gap: 1.6rem
+      margin-bottom: 1.6rem
+
+    &__brand
+      gap: 0.6rem
+
+    &__logo
+      font-size: 1.2rem
+
+    &__description
+      font-size: 0.75rem
+      max-width: 100%
+
+    &__socials
+      justify-content: flex-start
+      margin-top: 0
+
+    &__social-inner
+      gap: 0.6rem
+
+    &__social-link
+      width: 2rem
+      height: 2rem
+
+      > svg
+        width: 1.2rem
+        height: 1.2rem
+
+    &__bottom
+      flex-direction: column
+      align-items: flex-start
+      gap: 0.6rem
+      padding-top: 1rem
+
+    &__copy
+      font-size: 0.7rem
+
+    &__legal
+      gap: 0.8rem
+      flex-wrap: wrap
+
+    &__legal-link
+      font-size: 0.7rem
+
+
+// 576px — телефоны
+@media (max-width: $bp-mobile)
+  .footer
+    padding-top: 1.6rem
+    padding-bottom: 1rem
+
+    &__container
+      padding: 0 1rem
+
+    &__grid
+      gap: 1.2rem
+      margin-bottom: 1.2rem
+
+    &__brand
+      gap: 0.4rem
+
+    &__logo
+      font-size: 1.1rem
+
+    &__description
+      font-size: 0.7rem
+      max-width: 100%
+
+    &__socials
+      justify-content: flex-start
+
+    &__social-inner
+      gap: 0.4rem
+
+    &__social-link
+      width: 1.6rem
+      height: 1.6rem
+
+      > svg
+        width: 1rem
+        height: 1rem
+
+    &__bottom
+      flex-direction: column
+      align-items: flex-start
+      gap: 0.4rem
+      padding-top: 0.8rem
+
+    &__copy
+      font-size: 0.65rem
+
+    &__legal
+      gap: 0.6rem
+      flex-direction: column
+      align-items: flex-start
+
+    &__legal-link
+      font-size: 0.65rem

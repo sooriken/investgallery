@@ -217,3 +217,150 @@
 .interier__counter-total
   font-weight: 400
   color: $colorGray
+  
+
+// ========================================
+// INTERIER ADAPTIVE
+// ========================================
+
+
+// ===== INTERIER =====
+
+// 1200px — маленькие ноутбуки
+@media (max-width: $bp-desktop)
+  .interier
+    &__header
+      padding: 4rem 8rem 0rem
+
+    &__title
+      font-size: 2.8rem
+
+    &__subtitle
+      font-size: 1rem
+
+    &__slider
+      padding-left: 8rem
+
+    &__slide
+      flex: 0 0 calc(80% - 12px)
+
+
+// 992px — планшеты горизонтально
+@media (max-width: $bp-laptop)
+  .interier
+    &__header
+      padding: 3rem 4rem 0rem
+      grid-template-columns: 1fr
+      grid-template-rows: auto auto auto
+      row-gap: 0.4rem
+      margin-bottom: 2.4rem
+
+    &__icon
+      grid-row: 1
+      width: 40px
+      height: 40px
+      margin-bottom: 0.4rem
+
+    &__title
+      grid-column: 1
+      grid-row: 2
+      font-size: 2.2rem
+
+    &__subtitle
+      grid-column: 1
+      grid-row: 3
+      font-size: 0.95rem
+      max-width: 100%
+
+    &__slider
+      padding-left: 4rem
+
+    &__slide
+      flex: 0 0 calc(85% - 12px)
+
+    &__progress
+      max-width: 240px
+      margin-top: 2rem
+
+
+// 768px — планшеты вертикально
+@media (max-width: $bp-tablet)
+  .interier
+    &__header
+      padding: 2.4rem 2rem 0rem
+      margin-bottom: 2rem
+
+    &__icon
+      width: 32px
+      height: 32px
+
+    &__title
+      font-size: 1.8rem
+
+    &__subtitle
+      font-size: 0.85rem
+
+    &__slider
+      padding-left: 2rem
+
+    &__slide
+      flex: 0 0 calc(90% - 12px)
+
+    &__image-wrapper
+      aspect-ratio: 4 / 3
+
+    &__progress
+      max-width: 200px
+      margin-top: 1.6rem
+      gap: 12px
+
+    &__counter
+      font-size: 11px
+
+    &__track
+      gap: 16px
+
+
+// 576px — телефоны
+@media (max-width: $bp-mobile)
+  .interier
+    &__header
+      padding: 1.6rem 1.2rem 0rem
+      margin-bottom: 1.6rem
+
+    &__icon
+      width: 28px
+      height: 28px
+
+    &__title
+      font-size: 1.4rem
+
+    &__subtitle
+      font-size: 0.8rem
+      line-height: 1.4
+
+    &__slider
+      padding-left: 1.2rem
+
+    &__slide
+      flex: 0 0 calc(100% - 12px)
+
+      &:last-child
+        margin-right: calc(0% - 12px)
+
+    &__image-wrapper
+      aspect-ratio: 4 / 3
+
+    &__progress
+      max-width: 160px
+      margin-top: 1.2rem
+      gap: 8px
+
+    &__counter
+      font-size: 10px
+
+    &__counter-current
+      min-width: 14px
+
+    &__track
+      gap: 12px

@@ -1,17 +1,4 @@
-// === VARS ===
-$colorWhite: #fff
-$colorWhiteSecond: #f2f2f2
-$colorBlack: #000
-$colorBlackSoft: #222222
-$colorGray: #949494
-$colorGrayLight: #cccccc
 
-//$fontAnticva: "Playfair Display", serif
-//$fontAnticva: "Noto Serif", serif
-$fontAnticva: "Roboto", sans-serif
-$fontGrotesk: "Inter", sans-serif
-//$fontRusso: "Russo One", sans-serif
-$fontRusso: "Zen Kaku Gothic New", sans-serif
   
 .acquisition
   //padding: 2rem
@@ -97,3 +84,245 @@ $fontRusso: "Zen Kaku Gothic New", sans-serif
     display: flex
     justify-content: center
 
+    // ===== INFO =====
+  &__info
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding-top: 40px
+    border-top: 1px solid rgba($colorGray, 0.2)
+    margin-bottom: 40px
+
+  &__registered
+    display: flex
+    align-items: center
+    gap: 16px
+
+  &__mark
+    font-family: $fontGrotesk
+    font-size: 24px
+    font-weight: 700
+    color: $colorBlackSoft
+    line-height: 1
+
+  &__legal
+    font-family: $fontGrotesk
+    font-size: 14px
+    font-weight: 400
+    color: $colorGray
+    margin: 0
+    line-height: 1.4
+    
+    
+// ========================================
+// ACQUISITION ADAPTIVE
+// ========================================
+
+// ===== ACQUISITION =====
+
+// 1200px — маленькие ноутбуки
+@media (max-width: $bp-desktop)
+  .acquisition
+    &-header
+      padding: 0 8rem
+
+    &-title
+      font-size: 2.8rem
+
+      &__inner
+        flex-direction: column
+        gap: 0.8rem
+
+    &-intro
+      font-size: 1rem
+      max-width: 500px
+
+    &-options
+      padding: 0 8rem
+      gap: 3rem
+
+    &-actions
+      padding: 0 8rem
+
+    &__info
+      padding-top: 2rem
+      margin-bottom: 2rem
+      flex-wrap: wrap
+      gap: 1.2rem
+
+    &__mark
+      font-size: 1.4rem
+
+    &__legal
+      font-size: 0.85rem
+
+
+// 992px — планшеты горизонтально
+@media (max-width: $bp-laptop)
+  .acquisition
+    &-header
+      padding: 0 4rem
+
+    &-title
+      font-size: 2.2rem
+
+      &__inner
+        flex-direction: column
+        gap: 0.6rem
+
+    .concept__icon
+      width: 3rem
+      height: 3rem
+      margin: 0
+
+    &-intro
+      font-size: 0.9rem
+      max-width: 100%
+
+    &-options
+      padding: 0 4rem
+      grid-template-columns: repeat(2, 1fr)
+      gap: 2rem
+
+    &-option
+      &__title
+        font-size: 0.9rem
+
+      &__text
+        font-size: 0.8rem
+
+    &-actions
+      padding: 0 4rem
+
+    &__info
+      flex-direction: column
+      align-items: flex-start
+      gap: 0.8rem
+      padding-top: 1.6rem
+      margin-bottom: 1.6rem
+
+    &__registered
+      gap: 0.8rem
+
+    &__mark
+      font-size: 1.2rem
+
+    &__legal
+      font-size: 0.8rem
+
+
+// 768px — планшеты вертикально
+@media (max-width: $bp-tablet)
+  .acquisition
+    &-divider
+      margin: 0 0 1.6rem 0
+
+      &:last-child
+        margin: 1.6rem 0 0 0
+
+    &-header
+      padding: 0 2rem
+
+    &-title
+      font-size: 1.8rem
+
+      &__inner
+        flex-direction: column
+        gap: 0.4rem
+
+    .concept__icon
+      width: 2.4rem
+      height: 2.4rem
+
+    &-intro
+      font-size: 0.85rem
+
+    &-options
+      padding: 0 2rem
+      grid-template-columns: 1fr
+      gap: 1.6rem
+
+    &-option
+      &__title
+        font-size: 0.85rem
+
+      &__text
+        font-size: 0.8rem
+
+    &-actions
+      padding: 0 2rem
+
+    &__info
+      padding-top: 1.2rem
+      margin-bottom: 1.2rem
+
+    &__mark
+      font-size: 1rem
+
+    &__legal
+      font-size: 0.75rem
+
+
+// 576px — телефоны
+@media (max-width: $bp-mobile)
+  .acquisition
+    &-divider
+      margin: 0 0 1.2rem 0
+
+      &:last-child
+        margin: 1.2rem 0 0 0
+
+    &-header
+      padding: 0 1.2rem
+
+    &-title
+      font-size: 1.4rem
+
+      &__inner
+        flex-direction: column
+        gap: 0.4rem
+
+    .concept__icon
+      width: 2rem
+      height: 2rem
+      margin: 0
+
+    &-intro
+      font-size: 0.8rem
+
+    &-options
+      padding: 0 1.2rem
+      grid-template-columns: 1fr
+      gap: 1.2rem
+
+    &-option
+      &__title
+        font-size: 0.8rem
+
+      &__text
+        font-size: 0.7rem
+
+    &-actions
+      padding: 0 1.2rem
+
+      .button
+        width: 100%
+        text-align: center
+
+    &__info
+      flex-direction: column
+      align-items: flex-start
+      gap: 0.6rem
+      padding-top: 1rem
+      margin-bottom: 1rem
+
+    &__registered
+      flex-direction: column
+      align-items: flex-start
+      gap: 0.4rem
+
+    &__mark
+      font-size: 0.9rem
+
+    &__legal
+      font-size: 0.7rem
