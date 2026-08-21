@@ -30,7 +30,7 @@
     display: flex
     gap: 2rem
   &__link
-    font-size: 1.2rem
+    font-size: 1rem
     font-weight: 500
     letter-spacing: 0.06rem
     color: $colorGray
@@ -59,7 +59,7 @@
       gap: 1.6rem
 
     &__link
-      font-size: 1rem
+      font-size: 0.8rem
       letter-spacing: 0.04rem
 
 
@@ -92,7 +92,7 @@
       justify-content: flex-end
 
     &__link
-      font-size: 0.8rem
+      font-size: 0.65rem
       letter-spacing: 0.02rem
       line-height: 1.2rem
       padding: 0.2rem 0
@@ -109,7 +109,428 @@
       gap: 0.4rem
 
     &__link
-      font-size: 0.65rem
+      font-size: 0.5rem
       letter-spacing: 0.01rem
       line-height: 1rem
       padding: 0.1rem 0
+
+
+// ========================================
+// BURGER BUTTON
+// ========================================
+
+.header__burger
+  display: none  // скрыт на десктопе
+  flex-direction: column
+  justify-content: space-between
+  width: 28px
+  height: 20px
+  background: transparent
+  border: none
+  cursor: pointer
+  padding: 0
+  z-index: 110
+  transition: all 0.3s ease
+
+  &:focus
+    outline: none
+
+  &-line
+    display: block
+    width: 100%
+    height: 2px
+    background: $colorBlackSoft
+    border-radius: 2px
+    transition: all 0.3s ease
+    transform-origin: center
+
+  // Анимация бургера в крестик при открытом меню
+  &.is-active
+    .header__burger-line:nth-child(1)
+      transform: translateY(9px) rotate(45deg)
+
+    .header__burger-line:nth-child(2)
+      opacity: 0
+      transform: scaleX(0)
+
+    .header__burger-line:nth-child(3)
+      transform: translateY(-9px) rotate(-45deg)
+
+
+// ========================================
+// MOBILE MENU (выдвижная панель)
+// ========================================
+
+.mobile-menu
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 200
+  display: flex
+  visibility: hidden
+  opacity: 0
+  transition: visibility 0s 0.4s, opacity 0.4s ease
+
+  &.is-active
+    visibility: visible
+    opacity: 1
+    transition: visibility 0s, opacity 0.4s ease
+
+    .mobile-menu__panel
+      transform: translateX(0)
+
+  &__overlay
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba($colorBlack, 0.4)
+    backdrop-filter: blur(4px)
+    -webkit-backdrop-filter: blur(4px)
+    cursor: pointer
+
+  &__panel
+    position: absolute
+    top: 0
+    right: 0
+    width: 320px
+    height: 100%
+    background: $colorWhite
+    padding: 2rem 1.6rem
+    display: flex
+    flex-direction: column
+    gap: 2rem
+    transform: translateX(100%)
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
+    overflow-y: auto
+    box-shadow: -8px 0 32px rgba($colorBlack, 0.1)
+
+  &__close
+    position: absolute
+    top: 1.2rem
+    right: 1.2rem
+    width: 40px
+    height: 40px
+    display: flex
+    align-items: center
+    justify-content: center
+    background: transparent
+    border: none
+    cursor: pointer
+    color: $colorBlackSoft
+    transition: transform 0.3s ease
+
+    &:hover
+      transform: rotate(90deg)
+
+    svg
+      display: block
+      width: 24px
+      height: 24px
+
+  &__logo
+    margin-top: 1.6rem
+    max-width: 120px
+
+    img
+      width: 100%
+      height: auto
+      display: block
+
+  &__nav
+    display: flex
+    flex-direction: column
+    gap: 0.8rem
+
+  &__link
+    font-family: $fontRusso
+    font-size: 1.2rem
+    font-weight: 400
+    text-transform: uppercase
+    letter-spacing: 0.04em
+    color: $colorBlackSoft
+    text-decoration: none
+    padding: 0.4rem 0
+    border-bottom: 1px solid rgba($colorGrayLight, 0.3)
+    transition: color 0.3s ease, padding-left 0.3s ease
+
+    &:hover
+      color: $colorBlack
+      padding-left: 0.8rem
+
+  &__contacts
+    margin-top: auto
+    padding-top: 1.6rem
+    border-top: 1px solid $colorGrayLight
+    display: flex
+    flex-direction: column
+    gap: 0.6rem
+
+  &__contact
+    font-family: $fontGrotesk
+    font-size: 0.85rem
+    color: $colorGray
+    text-decoration: none
+    transition: color 0.3s ease
+
+    &:hover
+      color: $colorBlack
+
+
+// ========================================
+// HEADER ADAPTIVE (обновлённый)
+// ========================================
+
+// 1200px — показываем бургер, скрываем навигацию
+@media (max-width: $bp-desktop)
+  .header
+    padding: 0.5rem 2.4rem
+
+    &__logo-image
+      max-width: 12%
+
+    &__burger
+      display: flex  // показываем бургер
+
+    &__nav
+      display: none  // скрываем десктопную навигацию
+
+
+// 768px — планшеты
+@media (max-width: $bp-tablet)
+  .header
+    padding: 0.4rem 1.6rem
+
+    &__logo-image
+      max-width: 16%
+
+    &__burger
+      width: 24px
+      height: 18px
+
+      &-line
+        height: 2px
+
+      &.is-active .header__burger-line:nth-child(1)
+        transform: translateY(8px) rotate(45deg)
+
+      &.is-active .header__burger-line:nth-child(3)
+        transform: translateY(-8px) rotate(-45deg)
+
+  .mobile-menu
+    &__panel
+      width: 280px
+      padding: 1.6rem 1.2rem
+
+    &__link
+      font-size: 1rem
+
+
+// 576px — телефоны
+@media (max-width: $bp-mobile)
+  .header
+    padding: 0.3rem 1rem
+
+    &__logo-image
+      max-width: 20%
+
+    &__burger
+      width: 20px
+      height: 16px
+
+      &-line
+        height: 1.5px
+
+      &.is-active .header__burger-line:nth-child(1)
+        transform: translateY(7px) rotate(45deg)
+
+      &.is-active .header__burger-line:nth-child(3)
+        transform: translateY(-7px) rotate(-45deg)
+
+  .mobile-menu
+    &__panel
+      width: 260px
+      padding: 1.2rem 1rem
+
+    &__link
+      font-size: 0.9rem
+
+    &__logo
+      max-width: 80px
+
+    &__contact
+      font-size: 0.75rem
+
+
+// ========================================
+// POPUP OVERLAY
+// ========================================
+
+.popup
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 1000
+  display: none  // скрыт по умолчанию
+  align-items: center
+  justify-content: center
+  
+  &.is-active
+    display: flex
+  
+  &__overlay
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba(0, 0, 0, 0.6)
+    backdrop-filter: blur(4px)
+    -webkit-backdrop-filter: blur(4px)
+    cursor: pointer
+  
+  &__container
+    position: relative
+    width: 80%
+    height: 80%
+    background: $colorWhiteSecond
+    overflow-y: auto
+    z-index: 1
+    padding: 2.4rem
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3)
+    margin: auto auto
+    transform: translateY(-50%)
+    top: 50%
+    
+    &::-webkit-scrollbar
+      width: 4px
+      
+    &::-webkit-scrollbar-track
+      background: transparent
+      
+    &::-webkit-scrollbar-thumb
+      background: $colorGray
+      border-radius: 2px
+  
+  &__close
+    position: sticky
+    top: 0
+    float: right
+    width: 2.4rem
+    height: 2.4rem
+    display: flex
+    align-items: center
+    justify-content: center
+    background: $colorWhiteSecond
+    border: none
+    border-radius: 50%
+    cursor: pointer
+    color: $colorBlackSoft
+    transition: all 0.2s ease
+    margin-bottom: 1.2rem
+    z-index: 2
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06)
+    
+    &:hover
+      background: $colorBlackSoft
+      color: $colorWhite
+      transform: rotate(90deg)
+    
+    svg
+      display: block
+      width: 1.2rem
+      height: 1.2rem
+  
+  &__content
+    width: 100%
+    height: 100%
+    overflow-y: visible
+
+
+// ========================================
+// ABOUT (внутри попапа)
+// ========================================
+
+.about
+  padding: 0
+  height: 100%
+  
+  &__container
+    margin: 0 auto
+    padding: 0
+    display: flex
+    align-items: flex-start
+    gap: 3rem
+    align-items: stretch
+    height: 100%
+  
+  &__image-wrapper
+    flex-shrink: 0
+    width: 50%
+  
+  &__image
+    width: 100%
+    height: 100%
+    object-fit: cover
+  
+  &__content
+    display: flex
+    flex-direction: column
+    justify-content: center
+    min-height: 100%
+  
+  &__name
+    font-family: $fontRusso
+    font-size: 2.6rem
+    font-weight: 400
+    line-height: 1.1
+    letter-spacing: 0.02em
+    color: $colorBlack
+    margin: 0 0 0.6rem 0
+    text-transform: uppercase
+  
+  &__title
+    font-family: $fontGrotesk
+    font-size: 0.7rem
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.08em
+    color: $colorGray
+    margin: 0 0 2rem 0
+  
+  &__text
+    flex-grow: 1
+    display: flex
+    flex-direction: column
+    justify-content: center
+  
+  &__paragraph
+    font-family: $fontAnticva
+    font-size: 1.2rem
+    font-weight: 400
+    line-height: 1.4
+    color: $colorBlack
+    margin: 0 0 1.2rem 0
+    
+    &:last-child
+      margin-bottom: 0
+  
+  &__locations
+    margin-top: 2.4rem
+    font-family: $fontGrotesk
+    font-size: 0.7rem
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.08em
+    color: $colorGray
+    display: flex
+    flex-wrap: wrap
+    gap: 0.4rem
+  
+  &__separator
+    color: $colorGrayLight

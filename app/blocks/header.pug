@@ -1,14 +1,51 @@
 mixin header
   header.header(id="header")
     .header__container
-      //a.header__logo(href="#hero") INVESTME
+      // Логотип
       .header__logo-image
-            img(src="images-min/logo.png" alt="Логотип" loading="lazy")
+        img(src="images-min/logo.png" alt="Логотип" loading="lazy")
+      
+      // Кнопка бургера (появляется на мобилках)
+      button.header__burger(type="button" aria-label="Открыть меню" aria-expanded="false")
+        span.header__burger-line
+        span.header__burger-line
+        span.header__burger-line
+      
+      // Навигация (десктоп)
       nav.header__nav
         a.header__link(href="#interier") Интерьер
         a.header__link(href="#concept") Концепция
         a.header__link(href="#provenance") Признание
         a.header__link(href="#works") Работы
         a.header__link(href="#acquisition") Коллекционерам
-        a.header__link(href="#about") Об авторе
+        a.header__link.js-open-popup(href="#about-popup") Об авторе
         a.header__link(href="#feedback") Заказ
+
+// ===== Мобильное меню (выдвижная панель) =====
+.mobile-menu(id="mobileMenu")
+  .mobile-menu__overlay
+  .mobile-menu__panel
+    // Кнопка закрытия
+    button.mobile-menu__close(type="button" aria-label="Закрыть меню")
+      svg(width="24" height="24" viewBox="0 0 24 24" fill="none")
+        path(d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+        path(d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+    
+    // Логотип в меню
+    .mobile-menu__logo
+      img(src="images-min/logo.png" alt="Логотип" loading="lazy")
+    
+    // Ссылки
+    nav.mobile-menu__nav
+      a.mobile-menu__link(href="#interier") Интерьер
+      a.mobile-menu__link(href="#concept") Концепция
+      a.mobile-menu__link(href="#provenance") Признание
+      a.mobile-menu__link(href="#works") Работы
+      a.mobile-menu__link(href="#acquisition") Коллекционерам
+      a.mobile-menu__link.js-open-popup(href="#about-popup") Об авторе
+      a.mobile-menu__link(href="#feedback") Заказ
+    
+    // Контакты в меню
+    .mobile-menu__contacts
+      a.mobile-menu__contact(href="mailto:info@investme.ru") info@investme.ru
+      a.mobile-menu__contact(href="https://t.me/investme") @investme

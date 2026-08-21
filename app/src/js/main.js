@@ -431,3 +431,151 @@ console.log("1");
 console.log("1");
 
 })();
+
+
+
+// ========================================
+// MOBILE MENU (бургер)
+// ========================================
+
+(function() {
+  'use strict';
+
+  // === DOM refs ===
+  const burger = document.querySelector('.header__burger');
+  const menu = document.querySelector('.mobile-menu');
+  const overlay = menu ? menu.querySelector('.mobile-menu__overlay') : null;
+  const closeBtn = menu ? menu.querySelector('.mobile-menu__close') : null;
+  const menuLinks = menu ? menu.querySelectorAll('.mobile-menu__link') : [];
+
+  // === Функции меню ===
+  function openMenu() {
+    if (!menu || !burger) return;
+    menu.classList.add('is-active');
+    burger.classList.add('is-active');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    if (!menu || !burger) return;
+    menu.classList.remove('is-active');
+    burger.classList.remove('is-active');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  function toggleMenu() {
+    if (menu && menu.classList.contains('is-active')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  // === Events меню ===
+  if (burger) {
+    burger.addEventListener('click', toggleMenu);
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', closeMenu);
+  }
+
+  if (menuLinks.length > 0) {
+    menuLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        
+        // Если ссылка ведёт на попап (#about-popup) — не закрываем меню, открываем попап
+        if (targetId === '#about-popup') {
+          e.preventDefault();
+          closeMenu();
+          openPopup();
+          return;
+        }
+        
+        // Обычные якоря — скроллим
+        if (targetId && targetId.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+        closeMenu();
+      });
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && menu && menu.classList.contains('is-active')) {
+      closeMenu();
+    }
+  });
+
+  let resizeTimeout = null;
+  window.addEventListener('resize', function() {
+    if (resizeTimeout) {
+      cancelAnimationFrame(resizeTimeout);
+    }
+    resizeTimeout = requestAnimationFrame(function() {
+      if (window.innerWidth > 1200 && menu && menu.classList.contains('is-active')) {
+        closeMenu();
+      }
+      resizeTimeout = null;
+    });
+  });
+
+
+  // ========================================
+  // POPUP (открытие по ссылке "Об авторе")
+  // ========================================
+
+  const popup = document.querySelector('.popup');
+  const popupOverlay = popup ? popup.querySelector('.popup__overlay') : null;
+  const popupClose = popup ? popup.querySelector('.popup__close') : null;
+  const popupLinks = document.querySelectorAll('.js-open-popup');
+
+  function openPopup() {
+    if (!popup) return;
+    popup.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    if (!popup) return;
+    popup.classList.remove('is-active');
+    document.body.style.overflow = '';
+  }
+
+  // === Ссылки "Об авторе" — открываем попап ===
+  if (popupLinks.length > 0) {
+    popupLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPopup();
+      });
+    });
+  }
+
+  // === Закрытие попапа ===
+  if (popupClose) {
+    popupClose.addEventListener('click', closePopup);
+  }
+
+  if (popupOverlay) {
+    popupOverlay.addEventListener('click', closePopup);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && popup && popup.classList.contains('is-active')) {
+      closePopup();
+    }
+  });
+
+})();
