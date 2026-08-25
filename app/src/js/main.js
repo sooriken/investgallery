@@ -1,4 +1,6 @@
-// interier-slider.js — добавляем одну строку в init()
+// ========================================
+// INTERIER SLIDER
+// ========================================
 
 class InterierSlider {
   constructor(section) {
@@ -13,46 +15,54 @@ class InterierSlider {
     this.isDragging = false
     this.startX = 0
     this.scrollStartX = 0
+    this.isTouching = false
 
     this.init()
   }
 
   init() {
-    // Автоматически подставляем количество слайдов
     this.counterTotal.textContent = String(this.totalSlides).padStart(2, '0')
-
-    this.track.addEventListener('mousedown', (e) => this.onDragStart(e))
-    this.track.addEventListener('mousemove', (e) => this.onDragMove(e))
-    this.track.addEventListener('mouseup', () => this.onDragEnd())
-    this.track.addEventListener('mouseleave', () => this.onDragEnd())
-    this.track.addEventListener('scroll', () => this.onScroll())
-    this.track.addEventListener('scrollend', () => this.onScrollEnd())
-
-    this.track.addEventListener('touchstart', (e) => this.onDragStart(e), { passive: false })
-    this.track.addEventListener('touchmove', (e) => this.onDragMove(e), { passive: false })
-    this.track.addEventListener('touchend', () => this.onDragEnd())
-
     this.updateProgress()
+
+    // Mouse events
+    this.track.addEventListener('mousedown', (e) => this.onDragStart(e))
+    document.addEventListener('mousemove', (e) => this.onDragMove(e))
+    document.addEventListener('mouseup', () => this.onDragEnd())
+
+    // Touch events (с улучшенной обработкой для iOS)
+    this.track.addEventListener('touchstart', (e) => this.onTouchStart(e), { passive: true })
+    this.track.addEventListener('touchmove', (e) => this.onTouchMove(e), { passive: false })
+    this.track.addEventListener('touchend', () => this.onTouchEnd(), { passive: true })
+
+    // Scroll events
+    this.track.addEventListener('scroll', () => {
+      this.updateProgress()
+      this.onScrollEnd()
+    })
+
+    // Resize
+    let resizeTimer
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => this.updateProgress(), 200)
+    })
   }
 
-  // ... остальные методы без изменений
   onDragStart(e) {
     this.isDragging = true
     this.track.style.cursor = 'grabbing'
     this.track.style.userSelect = 'none'
     this.track.style.scrollBehavior = 'auto'
 
-    const pageX = e.type.includes('touch') ? e.touches[0].pageX : e.pageX
-    this.startX = pageX
+    this.startX = e.pageX
     this.scrollStartX = this.track.scrollLeft
   }
 
   onDragMove(e) {
     if (!this.isDragging) return
-
     e.preventDefault()
-    const pageX = e.type.includes('touch') ? e.touches[0].pageX : e.pageX
-    const diff = this.startX - pageX
+
+    const diff = this.startX - e.pageX
     this.track.scrollLeft = this.scrollStartX + diff
   }
 
@@ -66,43 +76,87 @@ class InterierSlider {
     this.snapToNearestSlide()
   }
 
-  snapToNearestSlide() {
-    const slideWidth = this.slides[0].offsetWidth
-    const gap = 24
-    const slideTotal = slideWidth + gap
-    const currentScroll = this.track.scrollLeft
-    const nearestIndex = Math.round(currentScroll / slideTotal)
-    const targetScroll = nearestIndex * slideTotal
-
-    this.track.scrollTo({
-      left: targetScroll,
-      behavior: 'smooth'
-    })
+  onTouchStart(e) {
+    this.isTouching = true
+    this.track.style.scrollBehavior = 'auto'
+    const touch = e.touches[0]
+    this.startX = touch.pageX
+    this.scrollStartX = this.track.scrollLeft
   }
 
-  onScroll() {
-    this.updateProgress()
+  onTouchMove(e) {
+    if (!this.isTouching) return
+    e.preventDefault()
+
+    const touch = e.touches[0]
+    const diff = this.startX - touch.pageX
+    this.track.scrollLeft = this.scrollStartX + diff
+  }
+
+  onTouchEnd() {
+    if (!this.isTouching) return
+    this.isTouching = false
+    this.track.style.scrollBehavior = 'smooth'
+
+    // Небольшая задержка перед snap, чтобы iOS успел обработать скролл
+    setTimeout(() => {
+      this.snapToNearestSlide()
+    }, 50)
+  }
+
+  snapToNearestSlide() {
+    const slideWidth = this.slides[0].offsetWidth
+    const gap = parseInt(getComputedStyle(this.track).gap) || 24
+    const slideTotal = slideWidth + gap
+    const currentScroll = this.track.scrollLeft
+
+    // Находим индекс ближайшего слайда
+    let nearestIndex = Math.round(currentScroll / slideTotal)
+    nearestIndex = Math.max(0, Math.min(nearestIndex, this.totalSlides - 1))
+
+    const targetScroll = nearestIndex * slideTotal
+
+    // Проверяем, нужно ли вообще двигать
+    if (Math.abs(this.track.scrollLeft - targetScroll) > 5) {
+      this.track.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      })
+    }
+
+    // Обновляем прогресс после анимации
+    setTimeout(() => {
+      this.updateProgress()
+    }, 400)
   }
 
   onScrollEnd() {
-    this.snapToNearestSlide()
+    // Защита от множественных вызовов
+    if (this._scrollTimeout) {
+      clearTimeout(this._scrollTimeout)
+    }
+    this._scrollTimeout = setTimeout(() => {
+      this.updateProgress()
+      this._scrollTimeout = null
+    }, 100)
   }
 
   updateProgress() {
     const slideWidth = this.slides[0].offsetWidth
-    const gap = 24
+    const gap = parseInt(getComputedStyle(this.track).gap) || 24
     const slideTotal = slideWidth + gap
-    const maxScroll = this.track.scrollWidth - this.track.clientWidth
     const currentScroll = this.track.scrollLeft
 
-    const currentIndex = Math.min(
-      Math.round(currentScroll / slideTotal),
-      this.totalSlides - 1
-    )
+    // Текущий индекс
+    let currentIndex = Math.round(currentScroll / slideTotal)
+    currentIndex = Math.max(0, Math.min(currentIndex, this.totalSlides - 1))
 
-    const progress = Math.min((currentIndex / (this.totalSlides - 1)) * 100, 100)
+    // Прогресс в %
+    const progress = this.totalSlides > 1
+      ? Math.min((currentIndex / (this.totalSlides - 1)) * 100, 100)
+      : 0
+
     this.progressFill.style.width = `${progress}%`
-
     this.counterCurrent.textContent = String(currentIndex + 1).padStart(2, '0')
   }
 }
@@ -272,7 +326,7 @@ console.log("provenance works");
 // ========================================
 
 (function() {
-  'use strict'; 
+  'use strict';
 
   // === DOM refs ===
   const track = document.querySelector('.merch__track');
@@ -285,6 +339,12 @@ console.log("provenance works");
   let currentIndex = 0;
   let visibleCount = getVisibleCount();
   let totalSlides = Math.max(1, cards.length - visibleCount + 1);
+
+  // === Drag state (для мобильных) ===
+  let isDragging = false;
+  let startX = 0;
+  let currentTranslateX = 0;
+  let startTranslateX = 0;
 
   // === Helpers ===
   function getVisibleCount() {
@@ -308,22 +368,37 @@ console.log("provenance works");
 
   function getCardWidth() {
     if (!track) return 0;
-    const gap = 24; // соответствует gap в CSS
+    const gap = 24;
     const trackWidth = track.offsetWidth;
     const cardWidth = (trackWidth - gap * (visibleCount - 1)) / visibleCount;
-    return cardWidth + gap; // ширина карточки + gap
+    return cardWidth + gap;
   }
 
-  function getTranslateX() {
+  function getTranslateX(index) {
     const cardWidth = getCardWidth();
-    return -currentIndex * cardWidth;
+    return -index * cardWidth;
   }
 
   // === Render ===
-  function render() {
+  function render(animate = true) {
     if (!track) return;
-    const translateX = getTranslateX();
+    const translateX = getTranslateX(currentIndex);
+    currentTranslateX = translateX;
+    
+    if (!animate) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    }
+    
     track.style.transform = `translateX(${translateX}px)`;
+    
+    if (!animate) {
+      // Force reflow
+      track.offsetHeight;
+      track.style.transition = '';
+    }
+    
     updateDots();
     updateButtons();
   }
@@ -372,7 +447,7 @@ console.log("provenance works");
     if (index >= totalSlides) index = totalSlides - 1;
     if (index === currentIndex) return;
     currentIndex = index;
-    render();
+    render(true);
   }
 
   function next() {
@@ -387,6 +462,46 @@ console.log("provenance works");
     }
   }
 
+  // === Drag handling (для мобильных и десктопа) ===
+  function onDragStart(e) {
+    const pageX = e.type === 'touchstart' ? e.touches[0].pageX : e.pageX;
+    isDragging = true;
+    startX = pageX;
+    startTranslateX = currentTranslateX;
+    track.classList.add('is-dragging');
+    track.style.transition = 'none';
+  }
+
+  function onDragMove(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    
+    const pageX = e.type === 'touchmove' ? e.touches[0].pageX : e.pageX;
+    const diff = startX - pageX;
+    const cardWidth = getCardWidth();
+    const maxTranslate = 0;
+    const minTranslate = -(totalSlides - 1) * cardWidth;
+    
+    let newTranslate = startTranslateX - diff;
+    newTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTranslate));
+    
+    track.style.transform = `translateX(${newTranslate}px)`;
+  }
+
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    track.classList.remove('is-dragging');
+    track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    
+    // Определяем ближайший слайд
+    const cardWidth = getCardWidth();
+    const currentTranslate = parseFloat(track.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    const nearestIndex = Math.round(Math.abs(currentTranslate) / cardWidth);
+    
+    goTo(nearestIndex);
+  }
+
   // === Recalculate on resize ===
   let resizeTimeout = null;
 
@@ -399,10 +514,9 @@ console.log("provenance works");
       if (newVisible !== visibleCount) {
         updateTotalSlides();
         generateDots();
-        render();
+        render(false);
       } else {
-        // просто обновляем позицию (ширина карточки могла измениться)
-        render();
+        render(false);
       }
       resizeTimeout = null;
     });
@@ -415,9 +529,14 @@ console.log("provenance works");
       return;
     }
 
+    // Добавляем курсор grab только для десктопа
+    if (window.innerWidth >= 768) {
+      track.style.cursor = 'grab';
+    }
+
     updateTotalSlides();
     generateDots();
-    render();
+    render(false);
 
     // Events
     if (prevBtn) {
@@ -427,11 +546,21 @@ console.log("provenance works");
       nextBtn.addEventListener('click', next);
     }
 
+    // Mouse drag
+    track.addEventListener('mousedown', onDragStart);
+    document.addEventListener('mousemove', onDragMove);
+    document.addEventListener('mouseup', onDragEnd);
+
+    // Touch drag
+    track.addEventListener('touchstart', onDragStart, { passive: true });
+    document.addEventListener('touchmove', onDragMove, { passive: false });
+    document.addEventListener('touchend', onDragEnd, { passive: true });
+
+    // Resize
     window.addEventListener('resize', handleResize);
 
-    // Keyboard navigation (опционально)
+    // Keyboard navigation
     document.addEventListener('keydown', function(e) {
-      // Только если фокус не в поле ввода
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -443,7 +572,7 @@ console.log("provenance works");
     });
   }
 
-  // === Запуск после загрузки DOM ===
+  // === Запуск ===
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

@@ -420,3 +420,29 @@
         border-radius: 4px
         width: 100%
         text-align: center
+
+// ========================================
+// MERCH TOUCH SCROLL (мобильные экраны)
+// ========================================
+
+.merch
+  &__slider
+    position: relative
+    overflow: hidden
+
+  &__track
+    display: flex
+    gap: 24px
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    will-change: transform
+    padding-bottom: 1rem
+    cursor: grab
+
+    &.is-dragging
+      transition: none !important
+      cursor: grabbing
+      user-select: none
+
+    img
+      pointer-events: none
+      user-select: none

@@ -16,7 +16,6 @@
     padding-left: 20rem
  
   &__title
-
     font-family: $fontRusso
     font-size: 48px
     font-weight: 400
@@ -42,6 +41,12 @@
     &:active
       cursor: grabbing
 
+    &.is-dragging
+      cursor: grabbing
+      
+      .provenance__slider
+        pointer-events: none
+
   &__slider
     display: flex
     gap: 0
@@ -66,14 +71,14 @@
 
   &__item-image
     width: 100%
-    height: auto
     flex-shrink: 0
     overflow: hidden
+    background: rgba($colorWhite, 0.05)
 
     img
+      display: block
       width: 100%
-      height: 100%
-      object-fit: cover
+      height: auto
       pointer-events: none
 
   &__item-content
@@ -131,6 +136,10 @@
     &__item-text
       font-size: 1rem
 
+    &__item-image
+      img
+        height: auto
+
 
 // 992px — планшеты горизонтально
 @media (max-width: $bp-laptop)
@@ -161,6 +170,10 @@
 
     &__item-text
       font-size: 0.85rem
+
+    &__item-image
+      img
+        height: auto
 
 
 // 768px — планшеты вертикально
@@ -203,6 +216,10 @@
       font-size: 0.8rem
       line-height: 1.4
 
+    &__item-image
+      img
+        height: auto
+
 
 // 576px — телефоны
 @media (max-width: $bp-mobile)
@@ -232,9 +249,6 @@
       gap: 0.8rem
       border-right: 1px solid rgba($colorGrayLight, 0.3)
 
-    &__item-image
-      height: auto
-
     &__item-label
       font-size: 0.95rem
 
@@ -244,3 +258,7 @@
 
     &__item-content
       flex-shrink: 0
+
+    &__item-image
+      img
+        height: auto
