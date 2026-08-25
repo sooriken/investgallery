@@ -340,11 +340,12 @@ console.log("provenance works");
   let visibleCount = getVisibleCount();
   let totalSlides = Math.max(1, cards.length - visibleCount + 1);
 
-  // === Drag state (для мобильных) ===
+  // === Drag state ===
   let isDragging = false;
   let startX = 0;
   let currentTranslateX = 0;
   let startTranslateX = 0;
+  let dragDiff = 0;
 
   // === Helpers ===
   function getVisibleCount() {
@@ -384,21 +385,20 @@ console.log("provenance works");
     if (!track) return;
     const translateX = getTranslateX(currentIndex);
     currentTranslateX = translateX;
-    
+
     if (!animate) {
       track.style.transition = 'none';
     } else {
       track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     }
-    
+
     track.style.transform = `translateX(${translateX}px)`;
-    
+
     if (!animate) {
-      // Force reflow
       track.offsetHeight;
       track.style.transition = '';
     }
-    
+
     updateDots();
     updateButtons();
   }
@@ -462,12 +462,13 @@ console.log("provenance works");
     }
   }
 
-  // === Drag handling (для мобильных и десктопа) ===
+  // === Drag handling ===
   function onDragStart(e) {
     const pageX = e.type === 'touchstart' ? e.touches[0].pageX : e.pageX;
     isDragging = true;
     startX = pageX;
     startTranslateX = currentTranslateX;
+    dragDiff = 0;
     track.classList.add('is-dragging');
     track.style.transition = 'none';
   }
@@ -475,16 +476,17 @@ console.log("provenance works");
   function onDragMove(e) {
     if (!isDragging) return;
     e.preventDefault();
-    
+
     const pageX = e.type === 'touchmove' ? e.touches[0].pageX : e.pageX;
     const diff = startX - pageX;
+    dragDiff = diff;
     const cardWidth = getCardWidth();
     const maxTranslate = 0;
     const minTranslate = -(totalSlides - 1) * cardWidth;
-    
+
     let newTranslate = startTranslateX - diff;
     newTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTranslate));
-    
+
     track.style.transform = `translateX(${newTranslate}px)`;
   }
 
@@ -493,13 +495,34 @@ console.log("provenance works");
     isDragging = false;
     track.classList.remove('is-dragging');
     track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    
-    // Определяем ближайший слайд
+
     const cardWidth = getCardWidth();
-    const currentTranslate = parseFloat(track.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
-    const nearestIndex = Math.round(Math.abs(currentTranslate) / cardWidth);
-    
-    goTo(nearestIndex);
+
+    // === Расчёт ближайшего индекса ===
+    // Используем текущий индекс как основу, корректируем на основе смещения
+    let offset = dragDiff / cardWidth;
+
+    // Ограничиваем смещение, чтобы не перелистывать слишком много за раз
+    if (Math.abs(offset) < 0.2) {
+      // Если смещение маленькое — остаёмся на текущем слайде
+      render(true);
+      return;
+    }
+
+    let targetIndex = currentIndex + Math.round(offset);
+
+    // Ограничиваем границы
+    if (targetIndex < 0) targetIndex = 0;
+    if (targetIndex >= totalSlides) targetIndex = totalSlides - 1;
+
+    // Если индекс не изменился — просто рендерим
+    if (targetIndex === currentIndex) {
+      render(true);
+      return;
+    }
+
+    currentIndex = targetIndex;
+    render(true);
   }
 
   // === Recalculate on resize ===
@@ -529,7 +552,6 @@ console.log("provenance works");
       return;
     }
 
-    // Добавляем курсор grab только для десктопа
     if (window.innerWidth >= 768) {
       track.style.cursor = 'grab';
     }
@@ -538,7 +560,7 @@ console.log("provenance works");
     generateDots();
     render(false);
 
-    // Events
+    // === Events ===
     if (prevBtn) {
       prevBtn.addEventListener('click', prev);
     }
@@ -551,15 +573,22 @@ console.log("provenance works");
     document.addEventListener('mousemove', onDragMove);
     document.addEventListener('mouseup', onDragEnd);
 
-    // Touch drag
+    // Touch drag (для iOS)
     track.addEventListener('touchstart', onDragStart, { passive: true });
-    document.addEventListener('touchmove', onDragMove, { passive: false });
-    document.addEventListener('touchend', onDragEnd, { passive: true });
+    track.addEventListener('touchmove', onDragMove, { passive: false });
+    track.addEventListener('touchend', onDragEnd, { passive: true });
+    track.addEventListener('touchcancel', function() {
+      if (isDragging) {
+        isDragging = false;
+        track.classList.remove('is-dragging');
+        render(true);
+      }
+    }, { passive: true });
 
     // Resize
     window.addEventListener('resize', handleResize);
 
-    // Keyboard navigation
+    // Keyboard
     document.addEventListener('keydown', function(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (e.key === 'ArrowLeft') {
@@ -579,6 +608,109 @@ console.log("provenance works");
     init();
   }
 
+})();
+console.log("merch works");
+
+
+
+
+
+// ========================================
+// MOBILE MENU (бургер)
+// ========================================
+
+(function() {
+  'use strict';
+
+  // === DOM refs ===
+  const burger = document.querySelector('.header__burger');
+  const menu = document.querySelector('.mobile-menu');
+  const overlay = menu ? menu.querySelector('.mobile-menu__overlay') : null;
+  const closeBtn = menu ? menu.querySelector('.mobile-menu__close') : null;
+  const menuLinks = menu ? menu.querySelectorAll('.mobile-menu__link') : [];
+
+  // === Функции меню ===
+  function openMenu() {
+    if (!menu || !burger) return;
+    menu.classList.add('is-active');
+    burger.classList.add('is-active');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    if (!menu || !burger) return;
+    menu.classList.remove('is-active');
+    burger.classList.remove('is-active');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  function toggleMenu() {
+    if (menu && menu.classList.contains('is-active')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  // === Events меню ===
+  if (burger) {
+    burger.addEventListener('click', toggleMenu);
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', closeMenu);
+  }
+
+  if (menuLinks.length > 0) {
+    menuLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        
+        // Если ссылка ведёт на попап (#about-popup) — не закрываем меню, открываем попап
+        if (targetId === '#about-popup') {
+          e.preventDefault();
+          closeMenu();
+          openPopup();
+          return;
+        }
+        
+        // Обычные якоря — скроллим
+        if (targetId && targetId.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+        closeMenu();
+      });
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && menu && menu.classList.contains('is-active')) {
+      closeMenu();
+    }
+  });
+
+  let resizeTimeout = null;
+  window.addEventListener('resize', function() {
+    if (resizeTimeout) {
+      cancelAnimationFrame(resizeTimeout);
+    }
+    resizeTimeout = requestAnimationFrame(function() {
+      if (window.innerWidth > 1200 && menu && menu.classList.contains('is-active')) {
+        closeMenu();
+      }
+      resizeTimeout = null;
+    });
+  });
 })();
 
 console.log("mobile menu works");
