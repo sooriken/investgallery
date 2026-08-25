@@ -97,12 +97,13 @@
   box-shadow: 0 8px 32px rgba($colorBlack, 0.08), 0 2px 8px rgba($colorBlack, 0.04)
   transition: box-shadow 0.3s ease, transform 0.3s ease
   cursor: default
+  display: flex
+  flex-direction: column  // ← важно: карточка — колонка
 
   &:hover
     box-shadow: 0 16px 48px rgba($colorBlack, 0.14), 0 4px 12px rgba($colorBlack, 0.06)
     transform: translateY(-4px)
 
-    // При ховере на карточку — показываем overlay
     .work-card__overlay
       opacity: 1
       visibility: visible
@@ -135,6 +136,7 @@
     overflow: hidden
     box-shadow: 0 4px 24px rgba($colorBlack, 0.20), 0 1px 4px rgba($colorBlack, 0.16)
     position: relative
+    flex-shrink: 0  // ← запрещаем сжиматься
 
     img
       display: block
@@ -143,7 +145,7 @@
       object-fit: cover
       transition: transform 0.5s ease
 
-  // === OVERLAY (затемнение + цены) ===
+  // === OVERLAY ===
   &__overlay
     position: absolute
     top: 0
@@ -184,7 +186,7 @@
     text-transform: uppercase
     letter-spacing: 0.12em
     color: rgba($colorWhite, 0.5)
-    max-width: 50%
+    max-width: 80%  // ← исправлено: было 50%, текст обрезался
 
   &__price-value
     font-family: $fontGrotesk
@@ -193,7 +195,6 @@
     color: $colorWhite
     letter-spacing: -0.02em
 
-    // Для репродукций с диапазоном можно сделать чуть мельче
     &--range
       font-size: 17px
       font-weight: 500
@@ -211,41 +212,22 @@
     cursor: pointer
     transition: all 0.3s ease
     margin-top: 4px
+    text-decoration: none
+    display: inline-block
 
     &:hover
       background: $colorWhite
       color: $colorBlackSoft
       border-color: $colorWhite
 
-  // === Info (текст под фото) ===
+  // === Информация (всегда видна, под фото) ===
   &__info
-    padding: 16px 4px 14px 4px
-    display: flex
-    flex-direction: column
-    gap: 2px
-
-  &__series
-    font-family: $fontAnticva
-    font-size: 18px
-    font-weight: 500
-    color: $colorBlackSoft
-    line-height: 1.2
-
-  &__desc
-    font-family: $fontGrotesk
-    font-size: 13px
-    font-weight: 400
-    color: $colorGray
-    line-height: 1.3
-
-  // === Информация (всегда видна) ===
-  &__info
-    padding: 16px 4px 16px 4px  // отступы внутри карточки под фото
+    padding: 16px 4px 16px 4px
     background: transparent
-    opacity: 1
-    transform: none
     display: flex
     flex-direction: column
+    flex-grow: 1  // ← растягивается на оставшееся место
+    justify-content: flex-start
 
   &__series
     display: block
@@ -276,7 +258,6 @@
     text-transform: uppercase
     color: $colorGray
     width: fit-content
-
 // === WORK MODAL ===
 
 .work-modal

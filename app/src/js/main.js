@@ -1,72 +1,3 @@
-
-// popup.js
-(function() {
-  // Ждём загрузки DOM
-  document.addEventListener('DOMContentLoaded', function() {
-    
-    const popup = document.getElementById('about-popup');
-    
-    // Если попапа нет на странице — выходим
-    if (!popup) return;
-    
-    const overlay = popup.querySelector('.popup__overlay');
-    const closeBtn = popup.querySelector('.popup__close');
-    const triggerLink = document.querySelector('a.header__link[href="#about"]');
-    
-    // Функция открытия
-    function openPopup(e) {
-      if (e) e.preventDefault();
-      popup.classList.add('is-active');
-      document.body.style.overflow = 'hidden';
-    }
-    
-    // Функция закрытия
-    function closePopup() {
-      popup.classList.remove('is-active');
-      document.body.style.overflow = '';
-    }
-    
-    // Открытие по клику на ссылку
-    if (triggerLink) {
-      triggerLink.addEventListener('click', openPopup);
-    } else {
-      console.warn('Ссылка a.header__link[href="#about"] не найдена');
-    }
-    
-    // Закрытие по клику на крестик
-    if (closeBtn) {
-      closeBtn.addEventListener('click', closePopup);
-    }
-    
-    // Закрытие по клику на затемнение
-    if (overlay) {
-      overlay.addEventListener('click', closePopup);
-    }
-    
-    // Закрытие по Escape
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && popup.classList.contains('is-active')) {
-        closePopup();
-      }
-    });
-    
-    // Закрытие при клике на сам попап (не на контент)
-    popup.addEventListener('click', function(e) {
-      if (e.target === popup) {
-        closePopup();
-      }
-    });
-    
-  }); // конец DOMContentLoaded
-})();
-
-
-
-
-
-
-
-
 // interier-slider.js — добавляем одну строку в init()
 
 class InterierSlider {
@@ -182,68 +113,159 @@ document.addEventListener('DOMContentLoaded', () => {
   sliderSections.forEach(section => new InterierSlider(section))
 })
 
-
-// provenance-slider.js
-const slider = document.querySelector('[data-slider="provenance"]')
-let isDown = false
-let startX
-let scrollLeft
-
-slider.addEventListener('mousedown', (e) => {
-  isDown = true
-  slider.style.cursor = 'grabbing'
-  startX = e.pageX - slider.offsetLeft
-  scrollLeft = slider.parentElement.scrollLeft
-})
-
-slider.addEventListener('mouseleave', () => {
-  isDown = false
-  slider.style.cursor = 'grab'
-})
-
-slider.addEventListener('mouseup', () => {
-  isDown = false
-  slider.style.cursor = 'grab'
-})
-
-slider.addEventListener('mousemove', (e) => {
-  if (!isDown) return
-  e.preventDefault()
-  const x = e.pageX - slider.offsetLeft
-  const walk = (x - startX) * 2
-  slider.parentElement.scrollLeft = scrollLeft - walk
-})
+console.log("interier work");
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  const header = document.getElementById('header')
-  const links = header.querySelectorAll('a[href^="#"]')
 
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault()
 
-      const targetId = link.getAttribute('href')
-      const target = document.querySelector(targetId)
 
+
+// ========================================
+// CONCEPT MANIFEST EXPAND
+// ========================================
+
+(function() {
+  'use strict';
+
+  const expandButtons = document.querySelectorAll('.concept__expand');
+
+  expandButtons.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Ищем .concept__manifest-wrapper через .concept__manifest-inner
+      const inner = this.closest('.concept__manifest-inner');
+      if (!inner) return;
+      
+      const wrapper = inner.querySelector('.concept__manifest-wrapper');
+      if (!wrapper) return;
+      
+      // Переключаем класс
+      wrapper.classList.toggle('is-expanded');
+    });
+  });
+
+})(); 
+
+console.log("manifest works");
+
+
+
+
+
+
+
+// ========================================
+// PROVENANCE SLIDER
+// ========================================
+
+(function() {
+  'use strict';
+
+  const sliderWrapper = document.querySelector('.provenance__slider-wrapper');
+  const slider = document.querySelector('[data-slider="provenance"]');
+  
+  if (!sliderWrapper || !slider) return;
+
+  let isDown = false;
+  let startX = 0;
+  let scrollLeft = 0;
+
+  // === Mouse events ===
+  sliderWrapper.addEventListener('mousedown', function(e) {
+    isDown = true;
+    sliderWrapper.style.cursor = 'grabbing';
+    startX = e.pageX - sliderWrapper.offsetLeft;
+    scrollLeft = sliderWrapper.scrollLeft;
+    sliderWrapper.classList.add('is-dragging');
+  });
+
+  sliderWrapper.addEventListener('mouseleave', function() {
+    isDown = false;
+    sliderWrapper.style.cursor = 'grab';
+    sliderWrapper.classList.remove('is-dragging');
+  });
+
+  sliderWrapper.addEventListener('mouseup', function() {
+    isDown = false;
+    sliderWrapper.style.cursor = 'grab';
+    sliderWrapper.classList.remove('is-dragging');
+  });
+
+  sliderWrapper.addEventListener('mousemove', function(e) {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - sliderWrapper.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    sliderWrapper.scrollLeft = scrollLeft - walk;
+  });
+
+  // === Touch events (для мобильных) ===
+  let touchStartX = 0;
+  let touchScrollLeft = 0;
+
+  sliderWrapper.addEventListener('touchstart', function(e) {
+    const touch = e.touches[0];
+    touchStartX = touch.pageX - sliderWrapper.offsetLeft;
+    touchScrollLeft = sliderWrapper.scrollLeft;
+    sliderWrapper.classList.add('is-dragging');
+  }, { passive: true });
+
+  sliderWrapper.addEventListener('touchmove', function(e) {
+    const touch = e.touches[0];
+    const x = touch.pageX - sliderWrapper.offsetLeft;
+    const walk = (x - touchStartX) * 1.5;
+    sliderWrapper.scrollLeft = touchScrollLeft - walk;
+  }, { passive: true });
+
+  sliderWrapper.addEventListener('touchend', function() {
+    sliderWrapper.classList.remove('is-dragging');
+  }, { passive: true });
+
+})();
+
+
+// ========================================
+// SMOOTH SCROLL FOR ANCHOR LINKS
+// ========================================
+
+(function() {
+  'use strict';
+
+  const header = document.getElementById('header');
+  if (!header) return;
+
+  const links = header.querySelectorAll('a[href^="#"]');
+
+  links.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      
+      // Пропускаем ссылки на попап
+      if (targetId === '#about-popup') return;
+      
+      const target = document.querySelector(targetId);
       if (target) {
+        e.preventDefault();
         target.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
-        })
+        });
       }
-    })
-  })
-})
+    });
+  });
+
+})();
+
+console.log("provenance works");
 
 
- 
 
 
 
 
-console.log("1");
+
 
 // ========================================
 // MERCH SLIDER
@@ -264,7 +286,6 @@ console.log("1");
   let visibleCount = getVisibleCount();
   let totalSlides = Math.max(1, cards.length - visibleCount + 1);
 
-  console.log("1");
   // === Helpers ===
   function getVisibleCount() {
     const width = window.innerWidth;
@@ -428,9 +449,12 @@ console.log("1");
   } else {
     init();
   }
-console.log("1");
 
 })();
+
+console.log("merch works");
+
+
 
 
 
@@ -530,6 +554,17 @@ console.log("1");
       resizeTimeout = null;
     });
   });
+})();
+
+console.log("mobile menu works");
+
+
+
+
+
+
+
+
 
 
   // ========================================
@@ -578,4 +613,73 @@ console.log("1");
     }
   });
 
+
+
+
+
+
+
+
+
+
+
+// popup.js
+(function() {
+  // Ждём загрузки DOM
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    const popup = document.getElementById('about-popup');
+    
+    // Если попапа нет на странице — выходим
+    if (!popup) return;
+    
+    const overlay = popup.querySelector('.popup__overlay');
+    const closeBtn = popup.querySelector('.popup__close');
+    const triggerLink = document.querySelector('a.header__link[href="#about"]');
+    
+    // Функция открытия
+    function openPopup(e) {
+      if (e) e.preventDefault();
+      popup.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Функция закрытия
+    function closePopup() {
+      popup.classList.remove('is-active');
+      document.body.style.overflow = '';
+    }
+    
+    // Открытие по клику на ссылку
+    if (triggerLink) {
+      triggerLink.addEventListener('click', openPopup);
+    } else {
+      console.warn('Ссылка a.header__link[href="#about"] не найдена');
+    }
+    
+    // Закрытие по клику на крестик
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closePopup);
+    }
+    
+    // Закрытие по клику на затемнение
+    if (overlay) {
+      overlay.addEventListener('click', closePopup);
+    }
+    
+    // Закрытие по Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && popup.classList.contains('is-active')) {
+        closePopup();
+      }
+    });
+    
+    // Закрытие при клике на сам попап (не на контент)
+    popup.addEventListener('click', function(e) {
+      if (e.target === popup) {
+        closePopup();
+      }
+    });
+    
+  }); // конец DOMContentLoaded
 })();
