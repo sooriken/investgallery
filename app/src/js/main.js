@@ -319,7 +319,7 @@ console.log("provenance works");
 
 
 
-
+ 
 
 // ========================================
 // MERCH SLIDER
@@ -347,6 +347,9 @@ console.log("provenance works");
   let startTranslateX = 0;
   let dragDiff = 0;
 
+  // === Константы ===
+  const CARD_MARGIN = 16; // 1rem = 16px (если базовый размер 16px)
+
   // === Helpers ===
   function getVisibleCount() {
     const width = window.innerWidth;
@@ -368,11 +371,14 @@ console.log("provenance works");
   }
 
   function getCardWidth() {
-    if (!track) return 0;
-    const gap = 24;
+    if (!track || cards.length === 0) return 0;
+    const gap = 24; // соответствует gap в CSS
+    const margin = CARD_MARGIN;
     const trackWidth = track.offsetWidth;
-    const cardWidth = (trackWidth - gap * (visibleCount - 1)) / visibleCount;
-    return cardWidth + gap;
+    // Ширина карточки с учётом margin: (ширина трека - gap * (кол-во - 1) - margin * 2 * кол-во) / кол-во
+    const cardWidth = (trackWidth - gap * (visibleCount - 1) - margin * 2 * visibleCount) / visibleCount;
+    // Возвращаем полную ширину (карточка + gap + margin с двух сторон)
+    return cardWidth + gap + margin * 2;
   }
 
   function getTranslateX(index) {
@@ -499,23 +505,18 @@ console.log("provenance works");
     const cardWidth = getCardWidth();
 
     // === Расчёт ближайшего индекса ===
-    // Используем текущий индекс как основу, корректируем на основе смещения
     let offset = dragDiff / cardWidth;
 
-    // Ограничиваем смещение, чтобы не перелистывать слишком много за раз
     if (Math.abs(offset) < 0.2) {
-      // Если смещение маленькое — остаёмся на текущем слайде
       render(true);
       return;
     }
 
     let targetIndex = currentIndex + Math.round(offset);
 
-    // Ограничиваем границы
     if (targetIndex < 0) targetIndex = 0;
     if (targetIndex >= totalSlides) targetIndex = totalSlides - 1;
 
-    // Если индекс не изменился — просто рендерим
     if (targetIndex === currentIndex) {
       render(true);
       return;

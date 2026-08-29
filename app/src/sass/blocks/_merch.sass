@@ -120,13 +120,14 @@
 // ========================================
 
 .merch-card
-  flex: 0 0 calc(25% - 18px)
+  flex: 0 0 calc(25% - 18px - 2rem)
   min-width: 240px
   background: $colorWhite
   border-radius: 12px
   overflow: hidden
   transition: transform 0.3s ease, box-shadow 0.3s ease
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04)
+  margin: 1rem
 
   &:hover
     transform: translateY(-4px)
@@ -227,7 +228,7 @@
       margin-bottom: 2.4rem
 
     .merch-card
-      flex: 0 0 calc(33.333% - 16px)
+      flex: 0 0 calc(33.333% - 16px - 2rem)
       min-width: 200px
 
       &__title
@@ -277,7 +278,7 @@
       font-size: 0.9rem
 
     .merch-card
-      flex: 0 0 calc(50% - 12px)
+      flex: 0 0 calc(50% - 12px - 2rem)
       min-width: 180px
 
       &__body
@@ -334,7 +335,7 @@
         width: 24px
 
     .merch-card
-      flex: 0 0 calc(100% - 0px)
+      flex: 0 0 calc(100% - 2rem)
       min-width: unset
 
       &__body
@@ -386,7 +387,7 @@
         width: 20px
 
     .merch-card
-      flex: 0 0 calc(100% - 0px)
+      flex: 0 0 calc(100% - 2rem)
       min-width: unset
       border-radius: 8px
 
