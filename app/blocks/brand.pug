@@ -11,7 +11,7 @@ mixin brand
       .brand__gallery
         
         // Photo 1 - крупная (интерьер)
-        .brand__image
+        //.brand__image
           img.brand__img(src="images-min/brand/brand-2.webp", alt="Репродукция InvestMe в интерьере", loading="lazy")
           //button.brand__expand(type="button", aria-label="Увеличить фото")
             svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
@@ -24,13 +24,10 @@ mixin brand
             svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
               path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
 
-      // Photo 1 - крупная (интерьер)
-      .brand__image.brand__image--large
-        img.brand__img(src="images-min/brand/brand-certificate.webp", alt="Репродукция InvestMe в интерьере", loading="lazy")
-        //button.brand__expand(type="button", aria-label="Увеличить фото")
-          svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
-            path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
-        
+        // Photo 1 - крупная (интерьер)
+        .brand__image.brand__image--large
+          img.brand__img(src="images-min/brand/brand-certificate.webp", alt="Репродукция InvestMe в интерьере", loading="lazy")
+
         // Photo 3 - средняя (упаковка)
         //.brand__image
           img.brand__img(src="assets/images/brand/packaging-1.webp", alt="Подарочная упаковка репродукции", loading="lazy")
