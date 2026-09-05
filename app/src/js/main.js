@@ -328,283 +328,906 @@ console.log("provenance works");
 (function() {
   'use strict';
 
-  // === DOM refs ===
+  // ========================================
+  // DOM
+  // ========================================
+
+  const slider = document.querySelector('.merch__slider');
   const track = document.querySelector('.merch__track');
-  const cards = document.querySelectorAll('.merch-card');
-  const prevBtn = document.querySelector('.merch__arrow--prev');
-  const nextBtn = document.querySelector('.merch__arrow--next');
-  const pagination = document.querySelector('.merch__pagination');
+  const cards = Array.from(
+    document.querySelectorAll('.merch-card')
+  );
 
-  // === State ===
+  const prevBtn =
+    document.querySelector('.merch__arrow--prev');
+
+  const nextBtn =
+    document.querySelector('.merch__arrow--next');
+
+  const pagination =
+    document.querySelector('.merch__pagination');
+
+
+  // ========================================
+  // State
+  // ========================================
+
   let currentIndex = 0;
-  let visibleCount = getVisibleCount();
-  let totalSlides = Math.max(1, cards.length - visibleCount + 1);
 
-  // === Drag state ===
-  let isDragging = false;
-  let startX = 0;
+  let visibleCount = 1;
+
+  let maxIndex = 0;
+
+  let cardStep = 0;
+
+  let maxTranslate = 0;
+
   let currentTranslateX = 0;
+
+
+  // ========================================
+  // Drag state
+  // ========================================
+
+  let isDragging = false;
+
+  let startX = 0;
+
   let startTranslateX = 0;
+
   let dragDiff = 0;
 
-  // === Константы ===
-  const CARD_MARGIN = 16; // 1rem = 16px (если базовый размер 16px)
 
-  // === Helpers ===
-  function getVisibleCount() {
-    const width = window.innerWidth;
-    if (width >= 1200) return 4;
-    if (width >= 992) return 3;
-    if (width >= 768) return 2;
-    return 1;
+  // ========================================
+  // Get actual gap
+  // ========================================
+
+  function getGap() {
+    if (!track) {
+      return 0;
+    }
+
+    const styles =
+      window.getComputedStyle(track);
+
+    const gap =
+      parseFloat(
+        styles.columnGap || styles.gap
+      );
+
+    return Number.isFinite(gap)
+      ? gap
+      : 0;
   }
 
-  function updateTotalSlides() {
-    visibleCount = getVisibleCount();
-    totalSlides = Math.max(1, cards.length - visibleCount + 1);
-    if (currentIndex >= totalSlides) {
-      currentIndex = totalSlides - 1;
+
+  // ========================================
+  // Calculate actual geometry
+  // ========================================
+
+  function calculateSlider() {
+    if (
+      !slider ||
+      !track ||
+      cards.length === 0
+    ) {
+      return;
     }
+
+
+    const firstCard = cards[0];
+
+
+    const cardWidth =
+      firstCard.getBoundingClientRect().width;
+
+
+    const gap = getGap();
+
+
+    /*
+     * Полный физический шаг:
+     *
+     * карточка + gap
+     */
+    cardStep =
+      cardWidth + gap;
+
+
+    /*
+     * Реальная ширина области просмотра.
+     */
+    const sliderWidth =
+      slider.clientWidth;
+
+
+    /*
+     * Определяем, сколько ПОЛНЫХ карточек
+     * действительно помещается внутри слайдера.
+     *
+     * Например:
+     *
+     * slider = 700px
+     * card   = 330px
+     * gap    = 24px
+     *
+     * (700 + 24) / (330 + 24) = 2.05
+     *
+     * Значит реально видно 2 карточки.
+     */
+    if (cardStep > 0) {
+      visibleCount = Math.floor(
+        (sliderWidth + gap + 0.01) /
+        cardStep
+      );
+    } else {
+      visibleCount = 1;
+    }
+
+
+    /*
+     * Защита от странных значений.
+     */
+    visibleCount = Math.max(
+      1,
+      Math.min(
+        visibleCount,
+        cards.length
+      )
+    );
+
+
+    /*
+     * Последний ДОПУСТИМЫЙ индекс.
+     *
+     * 4 карточки / 3 видно:
+     * 4 - 3 = 1
+     *
+     * Индексы:
+     * 0 → первый
+     * 1 → последний
+     *
+     * Никакого индекса 2.
+     */
+    maxIndex = Math.max(
+      0,
+      cards.length - visibleCount
+    );
+
+
+    /*
+     * Реальная ширина всего track.
+     */
+    const trackWidth =
+      track.scrollWidth;
+
+
+    /*
+     * Максимальное допустимое физическое
+     * смещение.
+     */
+    maxTranslate = Math.max(
+      0,
+      trackWidth - sliderWidth
+    );
+
+
+    /*
+     * Если карточек помещается больше
+     * или столько же, сколько существует,
+     * прокрутка полностью отключается.
+     */
+    if (
+      visibleCount >= cards.length
+    ) {
+      maxIndex = 0;
+      maxTranslate = 0;
+    }
+
+
+    /*
+     * Защищаем текущую позицию после resize.
+     */
+    if (currentIndex > maxIndex) {
+      currentIndex = maxIndex;
+    }
+
+
     if (currentIndex < 0) {
       currentIndex = 0;
     }
   }
 
-  function getCardWidth() {
-    if (!track || cards.length === 0) return 0;
-    const gap = 24; // соответствует gap в CSS
-    const margin = CARD_MARGIN;
-    const trackWidth = track.offsetWidth;
-    // Ширина карточки с учётом margin: (ширина трека - gap * (кол-во - 1) - margin * 2 * кол-во) / кол-во
-    const cardWidth = (trackWidth - gap * (visibleCount - 1) - margin * 2 * visibleCount) / visibleCount;
-    // Возвращаем полную ширину (карточка + gap + margin с двух сторон)
-    return cardWidth + gap + margin * 2;
-  }
+
+  // ========================================
+  // Translate
+  // ========================================
 
   function getTranslateX(index) {
-    const cardWidth = getCardWidth();
-    return -index * cardWidth;
-  }
-
-  // === Render ===
-  function render(animate = true) {
-    if (!track) return;
-    const translateX = getTranslateX(currentIndex);
-    currentTranslateX = translateX;
-
-    if (!animate) {
-      track.style.transition = 'none';
-    } else {
-      track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    if (
+      maxIndex <= 0 ||
+      cardStep <= 0
+    ) {
+      return 0;
     }
 
-    track.style.transform = `translateX(${translateX}px)`;
+
+    /*
+     * Обычное смещение.
+     */
+    let translate =
+      index * cardStep;
+
+
+    /*
+     * Последняя позиция НЕ должна
+     * выходить за физический конец track.
+     *
+     * Это особенно важно из-за дробных
+     * размеров карточек.
+     */
+    if (index >= maxIndex) {
+      translate = maxTranslate;
+    } else {
+      translate = Math.min(
+        translate,
+        maxTranslate
+      );
+    }
+
+
+    return -translate;
+  }
+
+
+  // ========================================
+  // Render
+  // ========================================
+
+  function render(animate = true) {
+    if (!track) {
+      return;
+    }
+
+
+    const translateX =
+      getTranslateX(currentIndex);
+
+
+    currentTranslateX =
+      translateX;
+
+
+    if (animate) {
+      track.style.transition =
+        'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    } else {
+      track.style.transition =
+        'none';
+    }
+
+
+    track.style.transform =
+      `translate3d(${translateX}px, 0, 0)`;
+
 
     if (!animate) {
       track.offsetHeight;
       track.style.transition = '';
     }
 
+
     updateDots();
     updateButtons();
   }
 
-  // === Dots ===
+
+  // ========================================
+  // Pagination
+  // ========================================
+
   function generateDots() {
-    if (!pagination) return;
+    if (!pagination) {
+      return;
+    }
+
+
     pagination.innerHTML = '';
-    for (let i = 0; i < totalSlides; i++) {
-      const dot = document.createElement('button');
-      dot.className = 'merch__dot';
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Слайд ${i + 1}`);
-      dot.dataset.index = i;
-      if (i === currentIndex) {
-        dot.classList.add('merch__dot--active');
+
+
+    /*
+     * Количество точек:
+     *
+     * maxIndex + 1
+     *
+     * 4 карточки / 3 видно:
+     * maxIndex = 1
+     * точек = 2
+     */
+    const dotsCount =
+      maxIndex + 1;
+
+
+    for (
+      let i = 0;
+      i < dotsCount;
+      i++
+    ) {
+      const dot =
+        document.createElement('button');
+
+
+      dot.className =
+        'merch__dot';
+
+
+      dot.type =
+        'button';
+
+
+      dot.setAttribute(
+        'aria-label',
+        `Слайд ${i + 1}`
+      );
+
+
+      dot.dataset.index =
+        i;
+
+
+      if (
+        i === currentIndex
+      ) {
+        dot.classList.add(
+          'merch__dot--active'
+        );
       }
-      dot.addEventListener('click', function() {
-        const index = parseInt(this.dataset.index, 10);
-        goTo(index);
-      });
+
+
+      dot.addEventListener(
+        'click',
+        function() {
+          const index =
+            Number(this.dataset.index);
+
+          goTo(index);
+        }
+      );
+
+
       pagination.appendChild(dot);
     }
   }
 
+
   function updateDots() {
-    const dots = pagination ? pagination.querySelectorAll('.merch__dot') : [];
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('merch__dot--active', i === currentIndex);
-    });
+    if (!pagination) {
+      return;
+    }
+
+
+    const dots =
+      pagination.querySelectorAll(
+        '.merch__dot'
+      );
+
+
+    dots.forEach(
+      (dot, index) => {
+        dot.classList.toggle(
+          'merch__dot--active',
+          index === currentIndex
+        );
+      }
+    );
   }
 
-  // === Buttons ===
+
+  // ========================================
+  // Buttons
+  // ========================================
+
   function updateButtons() {
     if (prevBtn) {
-      prevBtn.disabled = currentIndex === 0;
+      prevBtn.disabled =
+        currentIndex <= 0;
     }
+
+
     if (nextBtn) {
-      nextBtn.disabled = currentIndex >= totalSlides - 1;
+      nextBtn.disabled =
+        currentIndex >= maxIndex;
     }
   }
 
-  // === Navigation ===
+
+  // ========================================
+  // Navigation
+  // ========================================
+
   function goTo(index) {
-    if (index < 0) index = 0;
-    if (index >= totalSlides) index = totalSlides - 1;
-    if (index === currentIndex) return;
-    currentIndex = index;
+    /*
+     * Жесткое ограничение.
+     */
+    index = Math.max(
+      0,
+      Math.min(
+        maxIndex,
+        index
+      )
+    );
+
+
+    /*
+     * Если это уже последняя позиция,
+     * ничего не делаем.
+     */
+    if (index === currentIndex) {
+      return;
+    }
+
+
+    currentIndex =
+      index;
+
+
     render(true);
   }
+
 
   function next() {
-    if (currentIndex < totalSlides - 1) {
-      goTo(currentIndex + 1);
-    }
-  }
-
-  function prev() {
-    if (currentIndex > 0) {
-      goTo(currentIndex - 1);
-    }
-  }
-
-  // === Drag handling ===
-  function onDragStart(e) {
-    const pageX = e.type === 'touchstart' ? e.touches[0].pageX : e.pageX;
-    isDragging = true;
-    startX = pageX;
-    startTranslateX = currentTranslateX;
-    dragDiff = 0;
-    track.classList.add('is-dragging');
-    track.style.transition = 'none';
-  }
-
-  function onDragMove(e) {
-    if (!isDragging) return;
-    e.preventDefault();
-
-    const pageX = e.type === 'touchmove' ? e.touches[0].pageX : e.pageX;
-    const diff = startX - pageX;
-    dragDiff = diff;
-    const cardWidth = getCardWidth();
-    const maxTranslate = 0;
-    const minTranslate = -(totalSlides - 1) * cardWidth;
-
-    let newTranslate = startTranslateX - diff;
-    newTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTranslate));
-
-    track.style.transform = `translateX(${newTranslate}px)`;
-  }
-
-  function onDragEnd() {
-    if (!isDragging) return;
-    isDragging = false;
-    track.classList.remove('is-dragging');
-    track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-
-    const cardWidth = getCardWidth();
-
-    // === Расчёт ближайшего индекса ===
-    let offset = dragDiff / cardWidth;
-
-    if (Math.abs(offset) < 0.2) {
-      render(true);
+    /*
+     * СТРОГОЕ ограничение.
+     *
+     * После последнего индекса
+     * функция вообще ничего не делает.
+     */
+    if (
+      currentIndex >= maxIndex
+    ) {
+      updateButtons();
       return;
     }
 
-    let targetIndex = currentIndex + Math.round(offset);
 
-    if (targetIndex < 0) targetIndex = 0;
-    if (targetIndex >= totalSlides) targetIndex = totalSlides - 1;
+    currentIndex++;
 
-    if (targetIndex === currentIndex) {
-      render(true);
-      return;
-    }
 
-    currentIndex = targetIndex;
     render(true);
   }
 
-  // === Recalculate on resize ===
-  let resizeTimeout = null;
 
-  function handleResize() {
-    if (resizeTimeout) {
-      cancelAnimationFrame(resizeTimeout);
-    }
-    resizeTimeout = requestAnimationFrame(function() {
-      const newVisible = getVisibleCount();
-      if (newVisible !== visibleCount) {
-        updateTotalSlides();
-        generateDots();
-        render(false);
-      } else {
-        render(false);
-      }
-      resizeTimeout = null;
-    });
-  }
-
-  // === Init ===
-  function init() {
-    if (!track || cards.length === 0) {
-      console.warn('Merch slider: track or cards not found');
+  function prev() {
+    if (
+      currentIndex <= 0
+    ) {
+      updateButtons();
       return;
     }
 
-    if (window.innerWidth >= 768) {
-      track.style.cursor = 'grab';
-    }
 
-    updateTotalSlides();
-    generateDots();
-    render(false);
+    currentIndex--;
 
-    // === Events ===
-    if (prevBtn) {
-      prevBtn.addEventListener('click', prev);
-    }
-    if (nextBtn) {
-      nextBtn.addEventListener('click', next);
-    }
 
-    // Mouse drag
-    track.addEventListener('mousedown', onDragStart);
-    document.addEventListener('mousemove', onDragMove);
-    document.addEventListener('mouseup', onDragEnd);
-
-    // Touch drag (для iOS)
-    track.addEventListener('touchstart', onDragStart, { passive: true });
-    track.addEventListener('touchmove', onDragMove, { passive: false });
-    track.addEventListener('touchend', onDragEnd, { passive: true });
-    track.addEventListener('touchcancel', function() {
-      if (isDragging) {
-        isDragging = false;
-        track.classList.remove('is-dragging');
-        render(true);
-      }
-    }, { passive: true });
-
-    // Resize
-    window.addEventListener('resize', handleResize);
-
-    // Keyboard
-    document.addEventListener('keydown', function(e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        prev();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        next();
-      }
-    });
+    render(true);
   }
 
-  // === Запуск ===
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+
+  // ========================================
+  // Drag start
+  // ========================================
+
+  function onDragStart(e) {
+    if (
+      maxIndex <= 0
+    ) {
+      return;
+    }
+
+
+    const pageX =
+      e.type === 'touchstart'
+        ? e.touches[0].pageX
+        : e.pageX;
+
+
+    isDragging = true;
+
+
+    startX =
+      pageX;
+
+
+    startTranslateX =
+      currentTranslateX;
+
+
+    dragDiff = 0;
+
+
+    track.classList.add(
+      'is-dragging'
+    );
+
+
+    track.style.transition =
+      'none';
+  }
+
+
+  // ========================================
+  // Drag move
+  // ========================================
+
+  function onDragMove(e) {
+    if (!isDragging) {
+      return;
+    }
+
+
+    e.preventDefault();
+
+
+    const pageX =
+      e.type === 'touchmove'
+        ? e.touches[0].pageX
+        : e.pageX;
+
+
+    const diff =
+      startX - pageX;
+
+
+    dragDiff =
+      diff;
+
+
+    let newTranslate =
+      startTranslateX - diff;
+
+
+    /*
+     * Ограничения:
+     *
+     * начало = 0
+     * конец = -maxTranslate
+     */
+    newTranslate =
+      Math.max(
+        -maxTranslate,
+        Math.min(
+          0,
+          newTranslate
+        )
+      );
+
+
+    track.style.transform =
+      `translate3d(${newTranslate}px, 0, 0)`;
+  }
+
+
+  // ========================================
+  // Drag end
+  // ========================================
+
+  function onDragEnd() {
+    if (!isDragging) {
+      return;
+    }
+
+
+    isDragging = false;
+
+
+    track.classList.remove(
+      'is-dragging'
+    );
+
+
+    track.style.transition =
+      'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+
+    if (
+      cardStep <= 0
+    ) {
+      render(true);
+      return;
+    }
+
+
+    /*
+     * Вычисляем направление движения.
+     */
+    const offset =
+      dragDiff / cardStep;
+
+
+    /*
+     * Маленькое движение —
+     * возвращаем текущий слайд.
+     */
+    if (
+      Math.abs(offset) < 0.2
+    ) {
+      render(true);
+      return;
+    }
+
+
+    let targetIndex =
+      currentIndex +
+      Math.round(offset);
+
+
+    /*
+     * Жесткое ограничение.
+     */
+    targetIndex =
+      Math.max(
+        0,
+        Math.min(
+          maxIndex,
+          targetIndex
+        )
+      );
+
+
+    currentIndex =
+      targetIndex;
+
+
+    render(true);
+  }
+
+
+  // ========================================
+  // Resize
+  // ========================================
+
+  let resizeFrame = null;
+
+
+  function handleResize() {
+    if (resizeFrame) {
+      cancelAnimationFrame(
+        resizeFrame
+      );
+    }
+
+
+    resizeFrame =
+      requestAnimationFrame(
+        function() {
+
+          /*
+           * Сбрасываем геометрию.
+           */
+          calculateSlider();
+
+
+          /*
+           * После пересчета текущий индекс
+           * может стать недопустимым.
+           */
+          if (
+            currentIndex > maxIndex
+          ) {
+            currentIndex =
+              maxIndex;
+          }
+
+
+          /*
+           * Пересоздаем pagination.
+           */
+          generateDots();
+
+
+          /*
+           * Рисуем без анимации.
+           */
+          render(false);
+
+
+          resizeFrame = null;
+        }
+      );
+  }
+
+
+  // ========================================
+  // Init
+  // ========================================
+
+  function init() {
+    if (
+      !slider ||
+      !track ||
+      cards.length === 0
+    ) {
+      console.warn(
+        'Merch slider: required elements not found'
+      );
+
+      return;
+    }
+
+
+    /*
+     * Первичный расчет.
+     */
+    calculateSlider();
+
+
+    /*
+     * Создаем точки.
+     */
+    generateDots();
+
+
+    /*
+     * Начальный render.
+     */
+    render(false);
+
+
+    // ======================================
+    // Buttons
+    // ======================================
+
+    if (prevBtn) {
+      prevBtn.addEventListener(
+        'click',
+        prev
+      );
+    }
+
+
+    if (nextBtn) {
+      nextBtn.addEventListener(
+        'click',
+        next
+      );
+    }
+
+
+    // ======================================
+    // Mouse drag
+    // ======================================
+
+    track.addEventListener(
+      'mousedown',
+      onDragStart
+    );
+
+
+    document.addEventListener(
+      'mousemove',
+      onDragMove
+    );
+
+
+    document.addEventListener(
+      'mouseup',
+      onDragEnd
+    );
+
+
+    // ======================================
+    // Touch
+    // ======================================
+
+    track.addEventListener(
+      'touchstart',
+      onDragStart,
+      {
+        passive: true
+      }
+    );
+
+
+    track.addEventListener(
+      'touchmove',
+      onDragMove,
+      {
+        passive: false
+      }
+    );
+
+
+    track.addEventListener(
+      'touchend',
+      onDragEnd,
+      {
+        passive: true
+      }
+    );
+
+
+    track.addEventListener(
+      'touchcancel',
+      function() {
+
+        if (!isDragging) {
+          return;
+        }
+
+
+        isDragging = false;
+
+
+        track.classList.remove(
+          'is-dragging'
+        );
+
+
+        render(true);
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    // ======================================
+    // Resize
+    // ======================================
+
+    window.addEventListener(
+      'resize',
+      handleResize
+    );
+
+
+    // ======================================
+    // Keyboard
+    // ======================================
+
+    document.addEventListener(
+      'keydown',
+      function(e) {
+
+        if (
+          e.target.tagName === 'INPUT' ||
+          e.target.tagName === 'TEXTAREA'
+        ) {
+          return;
+        }
+
+
+        if (
+          e.key === 'ArrowLeft'
+        ) {
+          e.preventDefault();
+
+          prev();
+
+        } else if (
+          e.key === 'ArrowRight'
+        ) {
+          e.preventDefault();
+
+          next();
+        }
+      }
+    );
+  }
+
+
+  // ========================================
+  // Start
+  // ========================================
+
+  if (
+    document.readyState ===
+    'loading'
+  ) {
+    document.addEventListener(
+      'DOMContentLoaded',
+      init
+    );
   } else {
     init();
   }

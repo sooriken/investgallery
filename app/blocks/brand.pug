@@ -8,45 +8,52 @@ mixin brand
         p.brand__subtitle InvestMe — зарегистрированный товарный знак. Искусство, которое можно носить, дарить и коллекционировать.
       
       // Gallery (masonry)
-      //.brand__gallery
+      .brand__gallery
         
         // Photo 1 - крупная (интерьер)
-        .brand__image.brand__image--large
-          img.brand__img(src="assets/images/brand/interior-1.webp", alt="Репродукция InvestMe в интерьере", loading="lazy")
-          button.brand__expand(type="button", aria-label="Увеличить фото")
+        .brand__image
+          img.brand__img(src="images-min/brand/brand-2.webp", alt="Репродукция InvestMe в интерьере", loading="lazy")
+          //button.brand__expand(type="button", aria-label="Увеличить фото")
             svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
               path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
         
         // Photo 2 - средняя (человек в футболке)
         .brand__image
-          img.brand__img(src="assets/images/brand/lifestyle-1.webp", alt="Человек в футболке InvestMe", loading="lazy")
-          button.brand__expand(type="button", aria-label="Увеличить фото")
+          img.brand__img(src="images-min/brand/brand-1.webp", alt="Человек в футболке InvestMe", loading="lazy")
+          //button.brand__expand(type="button", aria-label="Увеличить фото")
             svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
               path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+
+      // Photo 1 - крупная (интерьер)
+      .brand__image.brand__image--large
+        img.brand__img(src="images-min/brand/brand-certificate.webp", alt="Репродукция InvestMe в интерьере", loading="lazy")
+        //button.brand__expand(type="button", aria-label="Увеличить фото")
+          svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
+            path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
         
         // Photo 3 - средняя (упаковка)
-        .brand__image
+        //.brand__image
           img.brand__img(src="assets/images/brand/packaging-1.webp", alt="Подарочная упаковка репродукции", loading="lazy")
           button.brand__expand(type="button", aria-label="Увеличить фото")
             svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
               path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
         
         // Photo 4 - малая (деталь сертификата)
-        .brand__image.brand__image--small
+        //.brand__image.brand__image--small
           img.brand__img(src="assets/images/brand/certificate-1.webp", alt="Сертификат подлинности InvestMe", loading="lazy")
           button.brand__expand(type="button", aria-label="Увеличить фото")
             svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
               path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
         
         // Photo 5 - малая (выставка)
-        .brand__image.brand__image--small
+        //.brand__image.brand__image--small
           img.brand__img(src="assets/images/brand/event-1.webp", alt="Выставка InvestMe 2019", loading="lazy")
           button.brand__expand(type="button", aria-label="Увеличить фото")
             svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
               path(d="M15 3H21V9M21 3L14 10M9 21H3V15M3 21L10 14", stroke="currentColor", stroke-width="2", stroke-linecap="round")
         
         // Photo 6 - крупная (процесс печати)
-        .brand__image.brand__image--large
+        //.brand__image.brand__image--large
           img.brand__img(src="assets/images/brand/process-1.webp", alt="Процесс создания репродукции", loading="lazy")
           button.brand__expand(type="button", aria-label="Увеличить фото")
             svg.brand__icon(width="24", height="24", viewBox="0 0 24 24", fill="none")
