@@ -2,44 +2,39 @@ mixin provenance
   section.provenance(id="provenance")
     .provenance__container
       .provenance__header
-        h2.provenance__title Экспозиция и признание
-        p.provenance__intro Проект получил экспертное признание и&nbsp;прошёл проверку институциональными площадками.
+        h2.provenance__title(data-i18n="provenance.title") Экспозиция и признание
+        p.provenance__intro(data-i18n="provenance.intro") Проект получил экспертное признание и прошёл проверку институциональными площадками.
+      
       .provenance__slider-wrapper
         .provenance__slider(data-slider="provenance")
-          //item
+          // item 1
           .provenance__item
             .provenance__item-image
               img(src="images-min/provenance/spb.png" alt="Аудитория выставки")
             .provenance__item-content
-              span.provenance__item-label Медиа-присутствие
-              p.provenance__item-text Освещение в прайм-тайм на федеральных каналах и публикация в ведущих профильных изданиях.
-            
-          //item
-          //.provenance__item
-            .provenance__item-image
-              img(src="images-min/provenance/brics.jpg" alt="Аудитория выставки")
-            .provenance__item-content
-              span.provenance__item-label Благодарность Брикс
-              p.provenance__item-text Официальный документ от Организационного комитета Международного Форума стран Брикс.
-          //item
+              span.provenance__item-label(data-i18n="provenance.items[0].label") Медиа-присутствие
+              p.provenance__item-text(data-i18n="provenance.items[0].text") Освещение в прайм-тайм на федеральных каналах и публикация в ведущих профильных изданиях.
+          
+          // item 2
           .provenance__item
             .provenance__item-content
-              span.provenance__item-label  Экспертный совет
-              p.provenance__item-text Признан профессиональными искусствоведами
+              span.provenance__item-label(data-i18n="provenance.items[1].label") Экспертный совет
+              p.provenance__item-text(data-i18n="provenance.items[1].text") Признан профессиональными искусствоведами
             .provenance__item-image
               img(src="images-min/provenance/petrova.jpg" alt="Аудитория выставки")
-          //item
+          
+          // item 3
           .provenance__item
             .provenance__item-image
               img(src="images-min/provenance/skulskaia.jpg" alt="Аудитория выставки")
             .provenance__item-content
-              span.provenance__item-label Аудитория 
-              p.provenance__item-text Более 2 000 посетителей на знаковых мероприятиях.
-          //item
+              span.provenance__item-label(data-i18n="provenance.items[2].label") Аудитория
+              p.provenance__item-text(data-i18n="provenance.items[2].text") Более 2 000 посетителей на знаковых мероприятиях.
+          
+          // item 4
           .provenance__item
             .provenance__item-content
-              span.provenance__item-label Философия рынка
-              p.provenance__item-text Статья Артёма Заренкова о визуальной метафоре экономических пузырей в пространстве современного искусства.
+              span.provenance__item-label(data-i18n="provenance.items[3].label") Философия рынка
+              p.provenance__item-text(data-i18n="provenance.items[3].text") Статья Артёма Заренкова о визуальной метафоре экономических пузырей в пространстве современного искусства.
             .provenance__item-image
               img(src="images-min/provenance/zarenkov.jpg" alt="Аудитория выставки")
-          

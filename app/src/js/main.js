@@ -195,12 +195,12 @@ console.log("interier work");
       const wrapper = inner.querySelector('.concept__manifest-wrapper');
       if (!wrapper) return;
       
-      // Переключаем класс
+      // Переключаем класс на wrapper
       wrapper.classList.toggle('is-expanded');
     });
   });
 
-})(); 
+})();
 
 console.log("manifest works");
 
@@ -1503,3 +1503,438 @@ document.querySelector('.feedback__form').addEventListener('submit', function(e)
     submitBtn.disabled = false;
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ========================================
+// LANGUAGE TOGGLE
+// ========================================
+
+(function() {
+  'use strict';
+
+  // === Translations ===
+  const translations = {
+    ru: {
+      header: {
+        nav: ['Интерьер', 'Концепция', 'Признание', 'Работы', 'Коллекционерам', 'Об авторе', 'Заказ']
+      },
+      mobile: {
+        nav: ['Интерьер', 'Концепция', 'Признание', 'Работы', 'Коллекционерам', 'Об авторе', 'Заказ'],
+        contacts: ['info@investme.ru', '@investme']
+      },
+      hero: {
+        title: 'The Magical Shine<br>of Financial Bubbles',
+        subtitle: 'Мировая экономика как объект искусства',
+        button: 'Вход в галерею'
+      },
+      interier: {
+        title: 'Искусство в интерьере',
+        subtitle: 'Картины органично интегрируются в архитектурную среду, становясь смысловым центром пространства'
+      },
+      concept: {
+        title: 'Философия проекта',
+        quote: '«Рынок акций безумен», — Уоррен Баффет.',
+        text: [
+          'Проект «The Magical Shine of Financial Bubbles» исследует, как сухая математика рынков трансформируется в иррациональную человеческую драму. Это не иллюстрация экономики, а перевод её на язык визуальной метафоры.',
+          'На пересечении искусства, психологии и экономической истории создаются объекты, фиксирующие архитектуру человеческих желаний — от Тюльпаномании XVII века до цифровой эфемерности Биткоина. Это искусство для тех, кто ищет интеллектуальную глубину в интерьере.'
+        ],
+        manifest: 'Манифест выставки',
+        manifest_text: [
+          'Фондовый рынок это загадка, одновременно сложная, но в тоже время простая. Это параллельный мир - зеркальная версия нашего мира, где можно инвестировать в будущее. Он никогда не бывает очевиден и вводит в заблуждение большинство людей. Фондовый рынок - это его участники - это живой, дышащий, голодный организм, который не остановить. Он проник в нашу реальность, в еду на вашем столе, в ваш дом - он везде. Все что угодно можно купить или продать. Только фондовый рынок меняет реальный мир и когда кто-то нарушает правила, обманывает рынок, страдают обычные люди. Фантазии людей о богатстве и деньгах безграничны последствия реальны. Пространство между вымыслом и реальностью — это место, где формируются экономические пузыри. Воздух страхов и надежд заполняет это пространство.',
+          'Люди во все времена мечтают о волшебном рецепте богатства, магическом способе, который поможет решить все их беды. В такой ситуации продавать красивую легенду о великолепно идущей торговле невероятно легко. Когда спекуляции, ожидания и невежество сталкиваются, создавая идеальный шторм иррационального финансового изобилия возникает удивительное по своим масштабам и психологии явление - Экономический пузырь. Этот проект впервые объединяет искусство и экономику, он показывает графики самых ярких финансовых пузырей в истории фондового рынка, в поле той природы, в которой они возникли, используя визуальный язык искусства. Окружая график живописью вдохновивших автора контекстов времени и места экономических аномалий. Проект призван показать, что за острой кривой каждого графика, с его взлетом и падением, стоят человеческие судьбы, выбор и разрушенные надежды реальных людей. Ведь пузыри всегда лопаются - это их природа.'
+        ],
+        expand: 'Читать далее'
+      },
+      provenance: {
+        title: 'Экспозиция и признание',
+        intro: 'Проект получил экспертное признание и прошёл проверку институциональными площадками.',
+        items: [
+          { label: 'Медиа-присутствие', text: 'Освещение в прайм-тайм на федеральных каналах и публикация в ведущих профильных изданиях.' },
+          { label: 'Экспертный совет', text: 'Признан профессиональными искусствоведами' },
+          { label: 'Аудитория', text: 'Более 2 000 посетителей на знаковых мероприятиях.' },
+          { label: 'Философия рынка', text: 'Статья Артёма Заренкова о визуальной метафоре экономических пузырей в пространстве современного искусства.' }
+        ]
+      },
+      works: {
+        title: 'Избранные работы',
+        materials: '*Цена на репродукции зависит от её размера.',
+        original: 'Оригинал',
+        reproduction: 'Репродукция',
+        button: 'Заказать',
+        badge: 'Диптих',
+        series: {
+          benjamin: 'Benjamin',
+          tulipomania: 'Tulip Mania',
+          astronaut: 'Astronaut',
+          bitcoin: 'BTC',
+          bull1: 'Wall Street / Bull',
+          bull2: 'Wall Street / Bull 2',
+          wallstreetbets: 'Wallstreetbets',
+          depression: 'Great Depression. Beginning',
+          jcoin: 'J Coin',
+          ginger1: 'Ginger 1',
+          ginger2: 'Ginger 2'
+        },
+        price_labels: {
+          original: 'Оригинал',
+          reproduction: 'Репродукция',
+          archival: 'Архивная галерейная печать + пластификация (способ премиального оформления снимков, при котором распечатанное изображение помещают между прозрачным акриловым стеклом спереди и прочной алюминиевой панелью сзади). Размер 700х900 мм'
+        }
+      },
+      brand: {
+        title: 'Живое искусство',
+        registered: 'InvestMe — зарегистрированный товарный знак. Все произведения имеют сертификаты подлинности.'
+      },
+      merch: {
+        title: 'Дизайн',
+        subtitle: 'Ограниченная коллекция с принтами картин InvestMe',
+        button: 'Заказать',
+        types: {
+          tshirt: 'Футболка',
+          cap: 'Кепка',
+          mask: 'Маска',
+          tote: 'Шоппер'
+        },
+        items: {
+          bitcoin: 'Биткоин',
+          benjamin: 'Бенджамин',
+          dev: 'Dev',
+          astronaut: 'Астронавт'
+        },
+        descriptions: {
+          bitcoin: 'Хлопок 100%',
+          benjamin: 'Хлопок 100%, принт на груди',
+          dev: 'Хлопок 100%, принт на спине',
+          astronaut: 'Хлопок 100%, оверсайз'
+        }
+      },
+      acquisition: {
+        title: 'Коллекционерам и Дизайнерам',
+        intro: 'Арт-дизайн для интерьеров. Под брендом INVESTME ART DESIGN создаются объекты, адаптируемые под архитектурное пространство любого масштаба.',
+        options: [
+          { title: '· Оригиналы', text: 'Уникальные полотна из выставочной серии. Каждая работа существует в единственном экземпляре или лимитированном тираже с сертификацией.' },
+          { title: '· Адаптация', text: 'Возможность изменения формата и масштабирования работ под конкретный интерьерный запрос без потери художественной ценности.' },
+          { title: '· Сотрудничество', text: 'Открытость к сотрудничеству с архитекторами и дизайнерами интерьеров. Индивидуальные условия подбора и интеграции искусства в проект.' }
+        ],
+        button: 'Запросить каталог'
+      },
+      feedback: {
+        title: 'Оформить заказ',
+        subtitle: 'Ограниченный тираж. Каждое произведение — 1000 экземпляров с сертификатом подлинности.',
+        name: 'Имя',
+        phone: 'Телефон',
+        telegram: 'Telegram',
+        artwork: 'Произведение',
+        size: 'Размер',
+        consent_html: 'Я принимаю условия&nbsp;<a href="pages/privacy.html" target="_blank" class="feedback__link">обработки персональных данных</a>',
+        submit: 'Отправить запрос',
+        placeholder: {
+          name: 'Ваше имя',
+          phone: '+7 (999) 000-00-00',
+          telegram: '@username',
+          artwork: 'Выберите работу'
+        },
+        sizes: ['S', 'M', 'L', 'Оригинал'],
+        artworks: [
+          'Benjamin',
+          'Wall Street Bull (диптих)',
+          'Tulip Mania',
+          'Mississippi Company',
+          'Железнодорожная лихорадка',
+          'South Sea Company',
+          'Великая депрессия. Начало',
+          'Wallstreetbets',
+          'Wallstreetbets. Алмазные руки',
+          'Космонавт',
+          'Bitcoin',
+          'J Coin',
+          'Имбирь (диптих)'
+        ]
+      },
+      footer: {
+        description: 'Зарегистрированный бренд. Лимитированные репродукции с сертификатами.',
+        copy: '© 2026 InvestMe. Все права защищены.',
+        privacy: 'Политика конфиденциальности',
+        consent: 'Согласие на обработку данных'
+      }
+    },
+    en: {
+      header: {
+        nav: ['Interior', 'Concept', 'Recognition', 'Works', 'Collectors', 'About', 'Order']
+      },
+      mobile: {
+        nav: ['Interior', 'Concept', 'Recognition', 'Works', 'Collectors', 'About', 'Order'],
+        contacts: ['info@investme.ru', '@investme']
+      },
+      hero: {
+        title: 'The Magical Shine<br>of Financial Bubbles',
+        subtitle: 'Global economy as an art object',
+        button: 'Enter Gallery'
+      },
+      interier: {
+        title: 'Art in Interior',
+        subtitle: 'Paintings organically integrate into architectural environments, becoming the semantic center of space'
+      },
+      concept: {
+        title: 'Project Philosophy',
+        quote: '«The stock market is crazy», — Warren Buffett.',
+        text: [
+          'The project «The Magical Shine of Financial Bubbles» explores how dry market mathematics transforms into irrational human drama. This is not an illustration of economics, but a translation into the language of visual metaphor.',
+          'At the intersection of art, psychology and economic history, objects are created that capture the architecture of human desires — from the Tulipomania of the 17th century to the digital ephemerality of Bitcoin. This is art for those seeking intellectual depth in interiors.'
+        ],
+        manifest: 'Exhibition Manifesto',
+        manifest_text: [
+          'The stock market is a mystery, simultaneously complex, yet simple. It is a parallel world — a mirror version of our world where you can invest in the future. It is never obvious and misleads most people. The stock market is its participants — it is a living, breathing, hungry organism that cannot be stopped. It has penetrated our reality, into the food on your table, into your home — it is everywhere. Anything can be bought or sold. Only the stock market changes the real world, and when someone breaks the rules, deceives the market, ordinary people suffer. People\'s fantasies about wealth and money are limitless, but the consequences are real. The space between fiction and reality is where economic bubbles form. The air of fears and hopes fills this space.',
+          'Throughout history, people have dreamed of a magical recipe for wealth, a magical way that will solve all their problems. In such a situation, selling a beautiful legend about splendidly going trade is incredibly easy. When speculation, expectations and ignorance collide, creating a perfect storm of irrational financial abundance, an amazing phenomenon arises in its scale and psychology — the Economic Bubble. This project for the first time unites art and economics, it shows the graphs of the brightest financial bubbles in the history of the stock market, in the field of the nature in which they arose, using the visual language of art. Surrounding the graph with painting inspired by the contexts of time and place of economic anomalies. The project is designed to show that behind the sharp curve of each graph, with its rise and fall, there are human destinies, choices and destroyed hopes of real people. After all, bubbles always burst — that is their nature.'
+        ],
+        expand: 'Read more'
+      },
+      provenance: {
+        title: 'Exhibition & Recognition',
+        intro: 'The project has received expert recognition and has been verified by institutional platforms.',
+        items: [
+          { label: 'Media Presence', text: 'Prime-time coverage on federal channels and publications in leading industry media.' },
+          { label: 'Expert Council', text: 'Recognized by professional art critics' },
+          { label: 'Audience', text: 'Over 2,000 visitors at landmark events.' },
+          { label: 'Market Philosophy', text: 'Article by Artyom Zarenkov on the visual metaphor of economic bubbles in contemporary art.' }
+        ]
+      },
+      works: {
+        title: 'Featured Works',
+        materials: '*The price of reproductions depends on size.',
+        original: 'Original',
+        reproduction: 'Reproduction',
+        button: 'Order',
+        badge: 'Diptych',
+        series: {
+          benjamin: 'Benjamin',
+          tulipomania: 'Tulip Mania',
+          astronaut: 'Astronaut',
+          bitcoin: 'BTC',
+          bull1: 'Wall Street / Bull',
+          bull2: 'Wall Street / Bull 2',
+          wallstreetbets: 'Wallstreetbets',
+          depression: 'Great Depression. Beginning',
+          jcoin: 'J Coin',
+          ginger1: 'Ginger 1',
+          ginger2: 'Ginger 2'
+        },
+        price_labels: {
+          original: 'Original',
+          reproduction: 'Reproduction',
+          archival: 'Archival gallery print + lamination (a premium method of photo finishing in which the printed image is placed between transparent acrylic glass on the front and a durable aluminum panel on the back). Size 700x900 mm'
+        }
+      },
+      brand: {
+        title: 'Living Art',
+        registered: 'InvestMe is a registered trademark. All works have authenticity certificates.'
+      },
+      merch: {
+        title: 'Design',
+        subtitle: 'Limited collection with InvestMe prints',
+        button: 'Order',
+        types: {
+          tshirt: 'T-shirt',
+          cap: 'Cap',
+          mask: 'Mask',
+          tote: 'Tote bag'
+        },
+        items: {
+          bitcoin: 'Bitcoin',
+          benjamin: 'Benjamin',
+          dev: 'Dev',
+          astronaut: 'Astronaut'
+        },
+        descriptions: {
+          bitcoin: '100% Cotton',
+          benjamin: '100% Cotton, front print',
+          dev: '100% Cotton, back print',
+          astronaut: '100% Cotton, oversized'
+        }
+      },
+      acquisition: {
+        title: 'For Collectors & Designers',
+        intro: 'Art design for interiors. Under the INVESTME ART DESIGN brand, objects are created that adapt to architectural spaces of any scale.',
+        options: [
+          { title: '· Originals', text: 'Unique canvases from the exhibition series. Each work exists in a single copy or limited edition with certification.' },
+          { title: '· Adaptation', text: 'Ability to change format and scale works for specific interior needs without losing artistic value.' },
+          { title: '· Collaboration', text: 'Open to collaboration with architects and interior designers. Individual terms for selecting and integrating art into projects.' }
+        ],
+        button: 'Request catalog'
+      },
+      feedback: {
+        title: 'Place an Order',
+        subtitle: 'Limited edition. Each work — 1000 copies with authenticity certificate.',
+        name: 'Name',
+        phone: 'Phone',
+        telegram: 'Telegram',
+        artwork: 'Artwork',
+        size: 'Size',
+        consent_html: 'I accept the terms of&nbsp;<a href="pages/privacy.html" target="_blank" class="feedback__link">personal data processing</a>',
+        submit: 'Send request',
+        placeholder: {
+          name: 'Your name',
+          phone: '+7 (999) 000-00-00',
+          telegram: '@username',
+          artwork: 'Select artwork'
+        },
+        sizes: ['S', 'M', 'L', 'Original'],
+        artworks: [
+          'Benjamin',
+          'Wall Street Bull (diptych)',
+          'Tulip Mania',
+          'Mississippi Company',
+          'Railway Fever',
+          'South Sea Company',
+          'Great Depression. Beginning',
+          'Wallstreetbets',
+          'Wallstreetbets. Diamond Hands',
+          'Cosmonaut',
+          'Bitcoin',
+          'J Coin',
+          'Ginger (diptych)'
+        ]
+      },
+      footer: {
+        description: 'Registered brand. Limited edition reproductions with certificates.',
+        copy: '© 2026 InvestMe. All rights reserved.',
+        privacy: 'Privacy Policy',
+        consent: 'Data Processing Consent'
+      }
+    }
+  };
+
+  // === DOM refs ===
+  const langBtns = document.querySelectorAll('.header__lang-btn');
+  let currentLang = localStorage.getItem('lang') || 'ru';
+
+  // === Функция получения значения по ключу ===
+  function getValueByPath(obj, path) {
+    const keys = path.split('.');
+    let result = obj;
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      var match = key.match(/^(.+)\[(\d+)\]$/);
+      if (match) {
+        var arrayKey = match[1];
+        var index = parseInt(match[2], 10);
+        if (result && result[arrayKey] && Array.isArray(result[arrayKey])) {
+          result = result[arrayKey][index];
+        } else {
+          result = undefined;
+          break;
+        }
+      } else {
+        if (result && result[key] !== undefined) {
+          result = result[key];
+        } else {
+          result = undefined;
+          break;
+        }
+      }
+    }
+
+    return result;
+  }
+
+  // === Функция переключения ===
+  function switchLanguage(lang) {
+    if (!translations[lang]) return;
+
+    const texts = translations[lang];
+
+    // Обновляем элементы с data-i18n (обычный текст)
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      const key = el.getAttribute('data-i18n');
+      let value = getValueByPath(texts, key);
+
+      if (value === undefined || value === null) {
+        value = el.innerHTML.trim() || '';
+      }
+
+      if (Array.isArray(value)) {
+        value = value.join(' ');
+      }
+
+      el.innerHTML = value;
+    });
+
+    // Обновляем элементы с data-i18n-html (HTML-содержимое)
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+      const key = el.getAttribute('data-i18n-html');
+      let value = getValueByPath(texts, key);
+
+      if (value === undefined || value === null) {
+        value = el.innerHTML.trim() || '';
+      }
+
+      el.innerHTML = value;
+    });
+
+    // Обновляем плейсхолдеры
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+      const key = el.getAttribute('data-i18n-placeholder');
+      let value = getValueByPath(texts, key);
+
+      if (value === undefined || value === null) {
+        value = '';
+      }
+
+      el.placeholder = value;
+    });
+
+    // Обновляем активный класс у кнопок
+    langBtns.forEach(function(btn) {
+      btn.classList.toggle('is-active', btn.getAttribute('data-lang') === lang);
+    });
+
+    localStorage.setItem('lang', lang);
+    currentLang = lang;
+    document.documentElement.setAttribute('lang', lang);
+  }
+
+  // === Events ===
+  langBtns.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const lang = this.getAttribute('data-lang');
+      if (lang === currentLang) return;
+      switchLanguage(lang);
+    });
+  });
+
+  // === Init ===
+  if (localStorage.getItem('lang')) {
+    const savedLang = localStorage.getItem('lang');
+    if (translations[savedLang]) {
+      switchLanguage(savedLang);
+      return;
+    }
+  }
+
+  const browserLang = navigator.language.slice(0, 2);
+  if (translations[browserLang]) {
+    switchLanguage(browserLang);
+  } else {
+    switchLanguage('ru');
+  }
+
+})();

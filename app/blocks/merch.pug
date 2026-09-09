@@ -6,8 +6,8 @@ mixin merch
             // Header with title and controls
             .merch__header
                 .merch__title-wrapper
-                    h2.merch__title Дизайн
-                    p.merch__subtitle Ограниченная коллекция с принтами картин InvestMe
+                    h2.merch__title(data-i18n="merch.title") Дизайн
+                    p.merch__subtitle(data-i18n="merch.subtitle") Ограниченная коллекция с принтами картин InvestMe
                 .merch__controls
                     button.merch__arrow.merch__arrow--prev(type="button", aria-label="Предыдущий слайд") ←
                     button.merch__arrow.merch__arrow--next(type="button", aria-label="Следующий слайд") →
@@ -16,92 +16,53 @@ mixin merch
             .merch__slider
                 .merch__track
                     
-                    // Card 1
-                    //.merch-card
-                        .merch-card__image-wrapper
-                            img.merch-card__image(src="images-min/merch/merch-1.webp", alt="Футболка с принтом картины №4", loading="lazy")
-                        .merch-card__body
-                            p.merch-card__type Футболка
-                            h3.merch-card__title Инвестиция №4
-                            p.merch-card__description Хлопок 100%, принт на спине
-                            .merch-card__bottom
-                                span.merch-card__price 3 500 ₽
-                                button.merch-card__button Заказать
-                    
-                    // Card 2
-                    //.merch-card
-                        .merch-card__image-wrapper
-                            img.merch-card__image(src="images-min/merch/merch-2.webp", alt="Кепка с принтом", loading="lazy")
-                        .merch-card__body
-                            p.merch-card__type Кепка
-                            h3.merch-card__title Логотип InvestMe
-                            p.merch-card__description Хлопок, регулируемый размер
-                            .merch-card__bottom
-                                span.merch-card__price 2 200 ₽
-                                button.merch-card__button Заказать
-
-                    // Card 4
+                    // Card 1 — Bitcoin
                     .merch-card
                         .merch-card__image-wrapper
                             img.merch-card__image(src="images-min/merch/merch-7.webp", alt="Футболка с принтом", loading="lazy")
                         .merch-card__body
-                            p.merch-card__type Футболка
-                            h3.merch-card__title Биткоин
-                            p.merch-card__description Хлопок 100%
+                            p.merch-card__type(data-i18n="merch.types.tshirt") Футболка
+                            h3.merch-card__title(data-i18n="merch.items.bitcoin") Биткоин
+                            p.merch-card__description(data-i18n="merch.descriptions.bitcoin") Хлопок 100%
                             .merch-card__bottom
                                 span.merch-card__price 5 500 ₽
-                                a.merch-card__button(href="#feedback") Заказать
+                                a.merch-card__button(href="#feedback" data-i18n="merch.button") Заказать
 
-
-                    // Card 4
+                    // Card 2 — Dev
                     .merch-card
                         .merch-card__image-wrapper
                             img.merch-card__image(src="images-min/merch/merch-10.webp", alt="Футболка с принтом", loading="lazy")
                         .merch-card__body
-                            p.merch-card__type Футболка
-                            h3.merch-card__title Dev
-                            p.merch-card__description Хлопок 100%, принт на спине
+                            p.merch-card__type(data-i18n="merch.types.tshirt") Футболка
+                            h3.merch-card__title(data-i18n="merch.items.dev") Dev
+                            p.merch-card__description(data-i18n="merch.descriptions.dev") Хлопок 100%, принт на спине
                             .merch-card__bottom
                                 span.merch-card__price 5 500 ₽
-                                a.merch-card__button(href="#feedback") Заказать
+                                a.merch-card__button(href="#feedback" data-i18n="merch.button") Заказать
                     
-                    // Card 3
+                    // Card 3 — Benjamin
                     .merch-card
                         .merch-card__image-wrapper
-                            img.merch-card__image(src="images-min/merch/merch-8.webp", alt="Маска с принтом", loading="lazy")
+                            img.merch-card__image(src="images-min/merch/merch-8.webp", alt="Футболка с принтом", loading="lazy")
                         .merch-card__body
-                            p.merch-card__type Футболка
-                            h3.merch-card__title Бенджамин
-                            p.merch-card__description Хлопок 100%, принт на груди
+                            p.merch-card__type(data-i18n="merch.types.tshirt") Футболка
+                            h3.merch-card__title(data-i18n="merch.items.benjamin") Бенджамин
+                            p.merch-card__description(data-i18n="merch.descriptions.benjamin") Хлопок 100%, принт на груди
                             .merch-card__bottom
                                 span.merch-card__price 5 500 ₽
-                                a.merch-card__button(href="#feedback") Заказать
+                                a.merch-card__button(href="#feedback" data-i18n="merch.button") Заказать
                     
-                    
-                    
-                    // Card 5
-                    //.merch-card
-                        .merch-card__image-wrapper
-                            img.merch-card__image(src="images-min/merch/merch-5.webp", alt="Кепка с принтом", loading="lazy")
-                        .merch-card__body
-                            p.merch-card__type Кепка
-                            h3.merch-card__title Инвестиция №9
-                            p.merch-card__description Хлопок, регулируемый размер
-                            .merch-card__bottom
-                                span.merch-card__price 5 500 ₽
-                                button.merch-card__button Заказать
-                    
-                    // Card 6
+                    // Card 4 — Astronaut
                     .merch-card
                         .merch-card__image-wrapper
-                            img.merch-card__image(src="images-min/merch/merch-9.webp", alt="Шоппер с принтом", loading="lazy")
+                            img.merch-card__image(src="images-min/merch/merch-9.webp", alt="Футболка с принтом", loading="lazy")
                         .merch-card__body
-                            p.merch-card__type Футболка
-                            h3.merch-card__title Астронавт
-                            p.merch-card__description Хлопок 100%, оверсайз
+                            p.merch-card__type(data-i18n="merch.types.tshirt") Футболка
+                            h3.merch-card__title(data-i18n="merch.items.astronaut") Астронавт
+                            p.merch-card__description(data-i18n="merch.descriptions.astronaut") Хлопок 100%, оверсайз
                             .merch-card__bottom
                                 span.merch-card__price 5 500 ₽
-                                a.merch-card__button(href="#feedback") Заказать
+                                a.merch-card__button(href="#feedback" data-i18n="merch.button") Заказать
                 
             // Pagination
             .merch__pagination

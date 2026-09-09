@@ -2,8 +2,8 @@ mixin feedback
   section.feedback(id="feedback")
     .feedback__container
       .feedback__header
-        h2.feedback__title Оформить заказ
-        p.feedback__subtitle Ограниченный тираж. Каждое произведение — 1000 экземпляров с сертификатом подлинности.
+        h2.feedback__title(data-i18n="feedback.title") Оформить заказ
+        p.feedback__subtitle(data-i18n="feedback.subtitle") Ограниченный тираж. Каждое произведение — 1000 экземпляров с сертификатом подлинности.
 
       form.feedback__form(action="https://api.web3forms.com/submit" method="POST")
         //- Web3Forms: ключ доступа
@@ -14,61 +14,80 @@ mixin feedback
         input(type="hidden" name="_captcha" value="false")
         input(type="hidden" name="_template" value="table")
         
-        //- Web3Forms: редирект после отправки (опционально)
-        //- input(type="hidden" name="_redirect" value="https://investmeart.ru/thanks.html")
-        
         .feedback__grid
           .feedback__group
-            label.feedback__label(for="name") Имя
-            input.feedback__input(type="text" id="name" name="name" placeholder="Ваше имя" required)
+            label.feedback__label(for="name" data-i18n="feedback.name") Имя
+            input.feedback__input(
+              type="text" 
+              id="name" 
+              name="name" 
+              placeholder="Ваше имя" 
+              data-i18n-placeholder="feedback.placeholder.name"
+              required
+            )
 
           .feedback__group
-            label.feedback__label(for="phone") Телефон
-            input.feedback__input(type="tel" id="phone" name="phone" placeholder="+7 (999) 000-00-00" required)
+            label.feedback__label(for="phone" data-i18n="feedback.phone") Телефон
+            input.feedback__input(
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              placeholder="+7 (999) 000-00-00" 
+              data-i18n-placeholder="feedback.placeholder.phone"
+              required
+            )
 
           .feedback__group
-            label.feedback__label(for="telegram") Telegram
-            input.feedback__input(type="text" id="telegram" name="telegram" placeholder="@username")
+            label.feedback__label(for="telegram" data-i18n="feedback.telegram") Telegram
+            input.feedback__input(
+              type="text" 
+              id="telegram" 
+              name="telegram" 
+              placeholder="@username" 
+              data-i18n-placeholder="feedback.placeholder.telegram"
+            )
 
           .feedback__group
-            label.feedback__label(for="artwork") Произведение
+            label.feedback__label(for="artwork" data-i18n="feedback.artwork") Произведение
             .feedback__select-wrapper
               select.feedback__select(id="artwork" name="artwork" required)
-                option(value="" disabled selected) Выберите работу
-                option(value="benjamin") Benjamin
-                option(value="bull") Wall Street Bull (диптих)
-                option(value="tulip") Tulip Mania
-                option(value="mississippi") Mississippi Company
-                option(value="railway") Железнодорожная лихорадка
-                option(value="south-sea") South Sea Company
-                option(value="depression") Великая депрессия. Начало
-                option(value="wallstreetbets") Wallstreetbets
-                option(value="diamond-hands") Wallstreetbets. Алмазные руки
-                option(value="cosmonaut") Космонавт
-                option(value="bitcoin") Bitcoin
-                option(value="jcoin") J Coin
-                option(value="ginger") Имбирь (диптих)
+                option(value="" disabled selected data-i18n="feedback.placeholder.artwork") Выберите работу
+                option(value="benjamin" data-i18n="feedback.artworks[0]") Benjamin
+                option(value="bull" data-i18n="feedback.artworks[1]") Wall Street Bull (диптих)
+                option(value="tulip" data-i18n="feedback.artworks[2]") Tulip Mania
+                option(value="mississippi" data-i18n="feedback.artworks[3]") Mississippi Company
+                option(value="railway" data-i18n="feedback.artworks[4]") Железнодорожная лихорадка
+                option(value="south-sea" data-i18n="feedback.artworks[5]") South Sea Company
+                option(value="depression" data-i18n="feedback.artworks[6]") Великая депрессия. Начало
+                option(value="wallstreetbets" data-i18n="feedback.artworks[7]") Wallstreetbets
+                option(value="diamond-hands" data-i18n="feedback.artworks[8]") Wallstreetbets. Алмазные руки
+                option(value="cosmonaut" data-i18n="feedback.artworks[9]") Космонавт
+                option(value="bitcoin" data-i18n="feedback.artworks[10]") Bitcoin
+                option(value="jcoin" data-i18n="feedback.artworks[11]") J Coin
+                option(value="ginger" data-i18n="feedback.artworks[12]") Имбирь (диптих)
 
         .feedback__group
-          label.feedback__label Размер
+          label.feedback__label(data-i18n="feedback.size") Размер
           .feedback__sizes
             input.feedback__radio(type="radio" id="size-S" name="size" value="S" checked)
-            label.feedback__size-label(for="size-S") S
+            label.feedback__size-label(for="size-S" data-i18n="feedback.sizes[0]") S
 
             input.feedback__radio(type="radio" id="size-M" name="size" value="M")
-            label.feedback__size-label(for="size-M") M
+            label.feedback__size-label(for="size-M" data-i18n="feedback.sizes[1]") M
 
             input.feedback__radio(type="radio" id="size-L" name="size" value="L")
-            label.feedback__size-label(for="size-L") L
+            label.feedback__size-label(for="size-L" data-i18n="feedback.sizes[2]") L
 
             input.feedback__radio(type="radio" id="size-original" name="size" value="original")
-            label.feedback__size-label(for="size-original") Оригинал
+            label.feedback__size-label(for="size-original" data-i18n="feedback.sizes[3]") Оригинал
 
         .feedback__group
           .feedback__consent
             input.feedback__checkbox(type="checkbox" id="consent" name="consent" required)
             label.feedback__consent-label(for="consent")
-              span Я принимаю условия&nbsp;
-              a.feedback__link(href="pages/privacy.html" target="_blank") обработки персональных данных
+              //- Весь блок переводится через data-i18n-html
+              span(data-i18n-html="feedback.consent_html")
+                | Я принимаю условия&nbsp;
+                a.feedback__link(href="pages/privacy.html" target="_blank") обработки персональных данных
 
-        button.feedback__submit(type="submit") Отправить запрос
+        button.feedback__submit(type="submit" data-i18n="feedback.submit") Отправить запрос

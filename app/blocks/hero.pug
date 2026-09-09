@@ -2,8 +2,11 @@ mixin hero
   section.hero(id="hero")
     .hero__background
       img.hero__image(src="images-min/hero.jpg" alt="The Magical Shine of Financial Bubbles")
-    //.hero__overlay
     .hero__content
-      h1.hero__title The Magical Shine<br>of Financial Bubbles
-      p.hero__subtitle Мировая экономика как объект искусства
-      a.hero__cta.button.button--white(type="button" href="#interier") Вход в галерею
+      h1.hero__title(data-i18n="hero.title") The Magical Shine<br>of Financial Bubbles
+      p.hero__subtitle(data-i18n="hero.subtitle") Мировая экономика как объект искусства
+      a.hero__cta.button.button--white(
+        type="button" 
+        href="#interier" 
+        data-i18n="hero.button"
+      ) Вход в галерею

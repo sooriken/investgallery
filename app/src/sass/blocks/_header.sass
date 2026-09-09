@@ -284,8 +284,8 @@
 // HEADER ADAPTIVE (обновлённый)
 // ========================================
 
-// 1200px — показываем бургер, скрываем навигацию
-@media (max-width: $bp-desktop)
+// 1300px — показываем бургер, скрываем навигацию
+@media (max-width: 1300px)
   .header
     padding: 0.5rem 2.4rem
 
@@ -452,3 +452,68 @@
     overflow-y: visible
 
 
+// ========================================
+// LANGUAGE TOGGLE
+// ========================================
+
+.header
+  &__lang
+    display: flex
+    align-items: center
+    gap: 0.25rem
+    font-family: $fontGrotesk
+    font-size: 0.75rem
+    font-weight: 500
+    margin-left: 1.5rem
+    flex-shrink: 0
+
+  &__lang-btn
+    background: none
+    border: none
+    color: $colorGray
+    cursor: pointer
+    font-family: $fontGrotesk
+    font-size: 0.75rem
+    font-weight: 500
+    padding: 0.125rem 0.25rem
+    transition: color 0.3s ease, opacity 0.3s ease
+    text-transform: uppercase
+    letter-spacing: 0.04em
+
+    &:hover
+      color: $colorBlack
+
+    &.is-active
+      color: $colorBlack
+      font-weight: 600
+
+  &__lang-divider
+    color: $colorGrayLight
+    font-size: 0.7rem
+    user-select: none
+
+
+// ========================================
+// LANGUAGE TOGGLE ADAPTIVE
+// ========================================
+
+@media (max-width: $bp-desktop)
+  .header
+    &__lang
+      margin-left: 1rem
+
+@media (max-width: $bp-laptop)
+  .header
+    &__lang
+      margin-left: 0.8rem
+      
+    &__lang-btn
+      font-size: 0.65rem
+
+@media (max-width: $bp-tablet)
+  .header
+    &__lang
+      margin-left: 0.6rem
+      
+    &__lang-btn
+      font-size: 0.6rem

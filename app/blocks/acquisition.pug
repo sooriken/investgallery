@@ -4,35 +4,29 @@ mixin acquisition
 
     .acquisition-header
       .acquisition-title__inner
-        h2.acquisition-title Коллекционерам и Дизайнерам
+        h2.acquisition-title(data-i18n="acquisition.title") Коллекционерам и Дизайнерам
         .concept__icon
           img(src="images-min/bear_bull.png" alt="Bull and Bear icon")
           
-      //.acquisition__info
-        .acquisition__registered
-          span.acquisition__mark ®
-          p.acquisition__legal InvestMe — зарегистрированный товарный знак. Все произведения имеют сертификаты подлинности.
-          
-      p.acquisition-intro
+      p.acquisition-intro(data-i18n="acquisition.intro")
         | Арт-дизайн для интерьеров. Под брендом&nbsp;
         span.Acquisition-brand INVESTME ART DESIGN
         | &nbsp;создаются объекты, адаптируемые под архитектурное пространство любого масштаба.
 
-  
     .acquisition-options
       .acquisition-option
-        h3.acquisition-option__title · Оригиналы
-        p.acquisition-option__text Уникальные полотна из выставочной серии. Каждая работа существует в единственном экземпляре или лимитированном тираже с сертификацией.
+        h3.acquisition-option__title(data-i18n="acquisition.options[0].title") · Оригиналы
+        p.acquisition-option__text(data-i18n="acquisition.options[0].text") Уникальные полотна из выставочной серии. Каждая работа существует в единственном экземпляре или лимитированном тираже с сертификацией.
 
       .acquisition-option
-        h3.acquisition-option__title · Адаптация
-        p.acquisition-option__text Возможность изменения формата и масштабирования работ под конкретный интерьерный запрос без потери художественной ценности.
+        h3.acquisition-option__title(data-i18n="acquisition.options[1].title") · Адаптация
+        p.acquisition-option__text(data-i18n="acquisition.options[1].text") Возможность изменения формата и масштабирования работ под конкретный интерьерный запрос без потери художественной ценности.
 
       .acquisition-option
-        h3.acquisition-option__title · Сотрудничество
-        p.acquisition-option__text Открытость к сотрудничеству с архитекторами и дизайнерами интерьеров. Индивидуальные условия подбора и интеграции искусства в проект.
+        h3.acquisition-option__title(data-i18n="acquisition.options[2].title") · Сотрудничество
+        p.acquisition-option__text(data-i18n="acquisition.options[2].text") Открытость к сотрудничеству с архитекторами и дизайнерами интерьеров. Индивидуальные условия подбора и интеграции искусства в проект.
 
     .acquisition-actions
-      a.acquisition-btn.button(href="#") Запросить каталог
+      a.acquisition-btn.button(href="#" data-i18n="acquisition.button") Запросить каталог
 
     .acquisition-divider
