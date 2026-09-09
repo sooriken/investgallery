@@ -5,7 +5,18 @@ mixin feedback
         h2.feedback__title Оформить заказ
         p.feedback__subtitle Ограниченный тираж. Каждое произведение — 1000 экземпляров с сертификатом подлинности.
 
-      form.feedback__form(action="#" method="POST")
+      form.feedback__form(action="https://api.web3forms.com/submit" method="POST")
+        //- Web3Forms: ключ доступа
+        input(type="hidden" name="access_key" value="86851db8-7986-4bd7-9463-d8879adf8993")
+        
+        //- Web3Forms: настройки письма
+        input(type="hidden" name="_subject" value="Новая заявка с сайта InvestMe")
+        input(type="hidden" name="_captcha" value="false")
+        input(type="hidden" name="_template" value="table")
+        
+        //- Web3Forms: редирект после отправки (опционально)
+        //- input(type="hidden" name="_redirect" value="https://investmeart.ru/thanks.html")
+        
         .feedback__grid
           .feedback__group
             label.feedback__label(for="name") Имя

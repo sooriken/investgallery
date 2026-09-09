@@ -1464,3 +1464,42 @@ console.log("mobile menu works");
     
   }); // конец DOMContentLoaded
 })();
+
+
+
+
+
+// feedback.js
+document.querySelector('.feedback__form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const form = this;
+  const submitBtn = form.querySelector('.feedback__submit');
+  const originalText = submitBtn.textContent;
+  
+  // Блокируем кнопку
+  submitBtn.textContent = 'Отправка...';
+  submitBtn.disabled = true;
+  
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
+      form.reset();
+      submitBtn.textContent = 'Отправлено!';
+    } else {
+      alert('Что-то пошло не так. Попробуйте ещё раз.');
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  })
+  .catch(() => {
+    alert('Ошибка отправки. Попробуйте ещё раз.');
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  });
+});
