@@ -20,7 +20,6 @@
     color: $colorBlack
     text-decoration: none
     transition: color 0.3s ease
-    margin-bottom: 2rem
     font-weight: bold
     
     &:hover
@@ -230,7 +229,6 @@
     
     &__back
       font-size: 0.75rem
-      margin-bottom: 1.2rem
     
     &__content
       font-size: 0.9rem
@@ -276,7 +274,6 @@
     
     &__back
       font-size: 0.7rem
-      margin-bottom: 0.8rem
     
     &__list
       padding-left: 1rem
@@ -313,3 +310,15 @@
       td[data-label]
         &::before
           content: attr(data-label)
+
+.privacy
+  &__top
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 2rem
+
+  &__lang
+    display: flex
+    align-items: center
+    gap: 0.25rem

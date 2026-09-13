@@ -2,7 +2,7 @@ const config = {
 	mode: 'production',
 	entry: {
 		main   : './app/src/js/main.js',
-		example: './app/src/js/example.js',
+		privacy: './app/src/js/privacy.js',
 		header : './app/src/js/header.js'
 	},
 	output: {

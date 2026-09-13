@@ -1694,7 +1694,7 @@ document.querySelector('.feedback__form').addEventListener('submit', function(e)
       },
       concept: {
         title: 'Project Philosophy',
-        quote: '«The stock market is crazy», — Warren Buffett.',
+        quote: '«Remember, the stock market is insane.», — Warren Buffett.',
         text: [
           'The project «The Magical Shine of Financial Bubbles» explores how dry market mathematics transforms into irrational human drama. This is not an illustration of economics, but a translation into the language of visual metaphor.',
           'At the intersection of art, psychology and economic history, objects are created that capture the architecture of human desires — from the Tulipomania of the 17th century to the digital ephemerality of Bitcoin. This is art for those seeking intellectual depth in interiors.'
