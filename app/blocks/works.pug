@@ -1,13 +1,9 @@
-//- mixin works
 mixin works
   section.works.container(id="works") 
     .works__container
-      //- Заголовок секции
       .works__header 
         h2.works__title(data-i18n="works.title") Избранные работы
-        //- p.works__subtitle(data-i18n="works.subtitle") Каждый объект — результат синтеза смешанной техники и живописи. В основе работ — премиальные материалы: акриловое стекло, металлические конструкции, архивные пигментные чернила.
 
-      //- Сетка работ
       .works__grid
         //- Benjamin
         .work-card(data-work="benjamin")
@@ -17,15 +13,14 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 1 400 000 ₽
+                  span.work-card__price-value(data-price="1400000") 1 400 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 35 000 ₽
+                  span.work-card__price-value(data-price="35000") 35 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.benjamin") Benjamin
-            //- span.work-card__desc(data-i18n="works.desc.benjamin") Франклин как икона денежного фетишизма
-            
+
         //- Tulip Mania
         .work-card(data-work="tulipomania")
           .work-card__image
@@ -34,15 +29,14 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 1 700 000 ₽
+                  span.work-card__price-value(data-price="1700000") 1 700 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 25 000 ₽
+                  span.work-card__price-value(data-price="25000") 25 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.tulipomania") Tulip Mania
-            //- span.work-card__desc(data-i18n="works.desc.tulipomania") Деконструкция первой финансовой лихорадки
-          
+
         //- Astronaut
         .work-card(data-work="astronaut")
           .work-card__image
@@ -51,15 +45,14 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 700 000 ₽
+                  span.work-card__price-value(data-price="700000") 700 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 38 000 ₽
+                  span.work-card__price-value(data-price="38000") 38 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.astronaut") Astronaut
-            //- span.work-card__desc(data-i18n="works.desc.astronaut") Лунный график
-          
+
         //- BTC
         .work-card(data-work="bitcoin")
           .work-card__image
@@ -68,15 +61,14 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 700 000 ₽
+                  span.work-card__price-value(data-price="700000") 700 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 25 000 ₽
+                  span.work-card__price-value(data-price="25000") 25 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.bitcoin") BTC
-            //- span.work-card__desc(data-i18n="works.desc.bitcoin") Цифровое золото
-          
+
         //- Wall Street / Bull
         .work-card.work-card--large(data-work="bull1")
           .work-card__image
@@ -84,12 +76,11 @@ mixin works
             .work-card__overlay
               .work-card__prices
                 .work-card__price-group
-                  span.work-card__price-label(data-i18n="works.price_labels.archival") Архивная галерейная печать + пластификация (способ премиального оформления снимков, при котором распечатанное изображение помещают между прозрачным акриловым стеклом спереди и прочной алюминиевой панелью сзади). Размер 700х900 мм
-                  span.work-card__price-value 180 000 ₽
+                  span.work-card__price-label(data-i18n="works.price_labels.archival") Архивная галерейная печать + пластификация...
+                  span.work-card__price-value(data-price="180000") 180 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.bull1") Wall Street / Bull
-            //- span.work-card__desc(data-i18n="works.desc.bull1") Эстетика рыночного оптимизма
             span.work-card__badge(data-i18n="works.badge") Диптих
 
         //- Wall Street / Bull 2
@@ -99,12 +90,11 @@ mixin works
             .work-card__overlay
               .work-card__prices
                 .work-card__price-group
-                  span.work-card__price-label(data-i18n="works.price_labels.archival") Архивная галерейная печать + пластификация (способ премиального оформления снимков, при котором распечатанное изображение помещают между прозрачным акриловым стеклом спереди и прочной алюминиевой панелью сзади). Размер 700х900 мм
-                  span.work-card__price-value 180 000 ₽
+                  span.work-card__price-label(data-i18n="works.price_labels.archival") Архивная галерейная печать + пластификация...
+                  span.work-card__price-value(data-price="180000") 180 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.bull2") Wall Street / Bull 2
-            //- span.work-card__desc(data-i18n="works.desc.bull2") Эстетика рыночного оптимизма
             span.work-card__badge(data-i18n="works.badge") Диптих
 
         //- Wallstreetbets
@@ -115,14 +105,13 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 450 000 ₽
+                  span.work-card__price-value(data-price="450000") 450 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 25 000 ₽
+                  span.work-card__price-value(data-price="25000") 25 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.wallstreetbets") Wallstreetbets
-            //- span.work-card__desc(data-i18n="works.desc.wallstreetbets") Отражение новой эры крипторынка
 
         //- Wallstreetbets 2
         .work-card.work-card--large(data-work="wallstreetbets") 
@@ -132,14 +121,13 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 450 000 ₽
+                  span.work-card__price-value(data-price="450000") 450 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 25 000 ₽
+                  span.work-card__price-value(data-price="25000") 25 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.wallstreetbets") Wallstreetbets
-            //- span.work-card__desc(data-i18n="works.desc.wallstreetbets") Отражение новой эры крипторынка
 
         //- Great Depression
         .work-card(data-work="depression")
@@ -149,14 +137,13 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 1 200 000 ₽
+                  span.work-card__price-value(data-price="1200000") 1 200 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 25 000 ₽
+                  span.work-card__price-value(data-price="25000") 25 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.depression") Great Depression. Beginning
-            //- span.work-card__desc(data-i18n="works.desc.depression") Великая депрессия
 
         //- J Coin
         .work-card(data-work="jcoin")
@@ -166,14 +153,13 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 500 000 ₽
+                  span.work-card__price-value(data-price="500000") 500 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 25 000 ₽
+                  span.work-card__price-value(data-price="25000") 25 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.jcoin") J Coin
-            //- span.work-card__desc(data-i18n="works.desc.jcoin") Джи Коин
 
         //- Ginger 1
         .work-card(data-work="ginger1")
@@ -183,14 +169,13 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 400 000 ₽
+                  span.work-card__price-value(data-price="400000") 400 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 15 000 ₽
+                  span.work-card__price-value(data-price="15000") 15 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.ginger1") Ginger 1
-            //- span.work-card__desc(data-i18n="works.desc.ginger1") Анатомия спекулятивного ажиотажа
             span.work-card__badge(data-i18n="works.badge") Диптих
 
         //- Ginger 2
@@ -201,17 +186,15 @@ mixin works
               .work-card__prices
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.original") Оригинал
-                  span.work-card__price-value 400 000 ₽
+                  span.work-card__price-value(data-price="400000") 400 000 ₽
                 .work-card__price-group
                   span.work-card__price-label(data-i18n="works.reproduction") Репродукция
-                  span.work-card__price-value 15 000 ₽
+                  span.work-card__price-value(data-price="15000") 15 000 ₽
               a.work-card__button(href="#feedback" data-i18n="works.button") Заказать
           .work-card__info
             span.work-card__series(data-i18n="works.series.ginger2") Ginger 2
-            //- span.work-card__desc(data-i18n="works.desc.ginger2") Волатильность как скрытая структура
             span.work-card__badge(data-i18n="works.badge") Диптих
 
-      //- Техническая заметка
       .works__materials
         .works__materials-line
         p.works__materials-text(data-i18n="works.materials") *Цена на репродукции зависит от её размера.

@@ -10,7 +10,17 @@ mixin provenance
           // item 1
           .provenance__item
             .provenance__item-image
-              img(src="images-min/provenance/spb.png" alt="Аудитория выставки")
+              picture(
+                data-img-ru="images-min/provenance/spb.webp"
+                data-img-en="images-min/provenance/spb-eng.webp"
+                data-img-fallback-ru="images-min/provenance/spb.jpg"
+                data-img-fallback-en="images-min/provenance/spb-eng.jpg"
+              )
+                source(srcset="images-min/provenance/spb.webp" type="image/webp")
+                img(
+                  src="images-min/provenance/spb.jpg" 
+                  alt="Аудитория выставки"
+                )
             .provenance__item-content
               span.provenance__item-label(data-i18n="provenance.items[0].label") Медиа-присутствие
               p.provenance__item-text(data-i18n="provenance.items[0].text") Освещение в прайм-тайм на федеральных каналах и публикация в ведущих профильных изданиях.
@@ -21,12 +31,32 @@ mixin provenance
               span.provenance__item-label(data-i18n="provenance.items[1].label") Экспертный совет
               p.provenance__item-text(data-i18n="provenance.items[1].text") Признан профессиональными искусствоведами
             .provenance__item-image
-              img(src="images-min/provenance/petrova.jpg" alt="Аудитория выставки")
+              picture(
+                data-img-ru="images-min/provenance/petrova.webp"
+                data-img-en="images-min/provenance/petrova-eng.webp"
+                data-img-fallback-ru="images-min/provenance/petrova.jpg"
+                data-img-fallback-en="images-min/provenance/petrova-eng.jpg"
+              )
+                source(srcset="images-min/provenance/petrova.webp" type="image/webp")
+                img(
+                  src="images-min/provenance/petrova.jpg" 
+                  alt="Аудитория выставки"
+                )
           
           // item 3
           .provenance__item
             .provenance__item-image
-              img(src="images-min/provenance/skulskaia.jpg" alt="Аудитория выставки")
+              picture(
+                data-img-ru="images-min/provenance/skulskaia.webp"
+                data-img-en="images-min/provenance/skulskaia-eng.webp"
+                data-img-fallback-ru="images-min/provenance/skulskaia.jpg"
+                data-img-fallback-en="images-min/provenance/skulskaia-eng.jpg"
+              )
+                source(srcset="images-min/provenance/skulskaia.webp" type="image/webp")
+                img(
+                  src="images-min/provenance/skulskaia.jpg" 
+                  alt="Аудитория выставки"
+                )
             .provenance__item-content
               span.provenance__item-label(data-i18n="provenance.items[2].label") Аудитория
               p.provenance__item-text(data-i18n="provenance.items[2].text") Более 2 000 посетителей на знаковых мероприятиях.
@@ -37,4 +67,14 @@ mixin provenance
               span.provenance__item-label(data-i18n="provenance.items[3].label") Философия рынка
               p.provenance__item-text(data-i18n="provenance.items[3].text") Статья Артёма Заренкова о визуальной метафоре экономических пузырей в пространстве современного искусства.
             .provenance__item-image
-              img(src="images-min/provenance/zarenkov.jpg" alt="Аудитория выставки")
+              picture(
+                data-img-ru="images-min/provenance/zarenkov.webp"
+                data-img-en="images-min/provenance/zarenkov-eng.webp"
+                data-img-fallback-ru="images-min/provenance/zarenkov.jpg"
+                data-img-fallback-en="images-min/provenance/zarenkov-eng.jpg"
+              )
+                source(srcset="images-min/provenance/zarenkov.webp" type="image/webp")
+                img(
+                  src="images-min/provenance/zarenkov.jpg" 
+                  alt="Аудитория выставки"
+                )

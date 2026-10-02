@@ -1825,6 +1825,40 @@ document.querySelector('.feedback__form').addEventListener('submit', function(e)
   const langBtns = document.querySelectorAll('.header__lang-btn');
   let currentLang = localStorage.getItem('lang') || 'ru';
 
+  // === Курс доллара (загружается с API ЦБ РФ) ===
+  let usdRate = null;
+
+  // === Загрузка курса доллара ===
+  function fetchUsdRate() {
+    return fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        if (data && data.Valute && data.Valute.USD) {
+          usdRate = data.Valute.USD.Value;
+          console.log('USD rate loaded:', usdRate);
+        }
+        return usdRate;
+      })
+      .catch(function(error) {
+        console.warn('Failed to load USD rate, using fallback:', error);
+        usdRate = 100;
+        return usdRate;
+      });
+  }
+
+  // === Форматирование цены ===
+  function formatPrice(rub, lang) {
+    if (lang === 'ru') {
+      return rub.toLocaleString('ru-RU') + ' ₽';
+    } else {
+      if (!usdRate) return '—';
+      const usd = Math.round(rub / usdRate);
+      return '$' + usd.toLocaleString('en-US');
+    }
+  }
+
   // === Функция получения значения по ключу ===
   function getValueByPath(obj, path) {
     const keys = path.split('.');
@@ -1855,13 +1889,47 @@ document.querySelector('.feedback__form').addEventListener('submit', function(e)
     return result;
   }
 
+  // === Функция обновления цен ===
+  function updatePrices(lang) {
+    document.querySelectorAll('[data-price]').forEach(function(el) {
+      var rub = parseFloat(el.getAttribute('data-price'));
+      if (!isNaN(rub)) {
+        el.textContent = formatPrice(rub, lang);
+      }
+    });
+  }
+
+  // === Функция обновления изображений (с поддержкой <picture>) ===
+  function updateImages(lang) {
+    // Имена файлов по порядку слайдов: 0 = spb, 1 = petrova, 2 = skulskaia, 3 = zarenkov
+    var imagesRu = ['spb', 'petrova', 'skulskaia', 'zarenkov'];
+    var imagesEn = ['spb-eng', 'petrova-eng', 'skulskaia-eng', 'zarenkov-eng'];
+
+    document.querySelectorAll('.provenance__item-image').forEach(function(wrapper, index) {
+      var picture = wrapper.querySelector('picture');
+      if (!picture) return;
+
+      var baseName = lang === 'ru' ? imagesRu[index] : imagesEn[index];
+      if (!baseName) return;
+
+      var source = picture.querySelector('source');
+      var img = picture.querySelector('img');
+
+      if (source) {
+        source.srcset = 'images-min/provenance/' + baseName + '.webp';
+      }
+      if (img) {
+        img.src = 'images-min/provenance/' + baseName + '.jpg';
+      }
+    });
+  }
+
   // === Функция переключения ===
   function switchLanguage(lang) {
     if (!translations[lang]) return;
 
     const texts = translations[lang];
 
-    // Обновляем элементы с data-i18n (обычный текст)
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       const key = el.getAttribute('data-i18n');
       let value = getValueByPath(texts, key);
@@ -1877,7 +1945,6 @@ document.querySelector('.feedback__form').addEventListener('submit', function(e)
       el.innerHTML = value;
     });
 
-    // Обновляем элементы с data-i18n-html (HTML-содержимое)
     document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
       const key = el.getAttribute('data-i18n-html');
       let value = getValueByPath(texts, key);
@@ -1889,7 +1956,6 @@ document.querySelector('.feedback__form').addEventListener('submit', function(e)
       el.innerHTML = value;
     });
 
-    // Обновляем плейсхолдеры
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
       const key = el.getAttribute('data-i18n-placeholder');
       let value = getValueByPath(texts, key);
@@ -1900,6 +1966,12 @@ document.querySelector('.feedback__form').addEventListener('submit', function(e)
 
       el.placeholder = value;
     });
+
+    // Обновляем цены
+    updatePrices(lang);
+
+    // Обновляем изображения
+    updateImages(lang);
 
     // Обновляем активный класс у кнопок
     langBtns.forEach(function(btn) {
@@ -1922,19 +1994,21 @@ document.querySelector('.feedback__form').addEventListener('submit', function(e)
   });
 
   // === Init ===
-  if (localStorage.getItem('lang')) {
-    const savedLang = localStorage.getItem('lang');
-    if (translations[savedLang]) {
-      switchLanguage(savedLang);
-      return;
+  fetchUsdRate().then(function() {
+    if (localStorage.getItem('lang')) {
+      const savedLang = localStorage.getItem('lang');
+      if (translations[savedLang]) {
+        switchLanguage(savedLang);
+        return;
+      }
     }
-  }
 
-  const browserLang = navigator.language.slice(0, 2);
-  if (translations[browserLang]) {
-    switchLanguage(browserLang);
-  } else {
-    switchLanguage('ru');
-  }
+    const browserLang = navigator.language.slice(0, 2);
+    if (translations[browserLang]) {
+      switchLanguage(browserLang);
+    } else {
+      switchLanguage('ru');
+    }
+  });
 
 })();

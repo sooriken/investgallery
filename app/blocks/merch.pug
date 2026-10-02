@@ -3,7 +3,6 @@ mixin merch
     section.merch
         .merch__container
             
-            // Header with title and controls
             .merch__header
                 .merch__title-wrapper
                     h2.merch__title(data-i18n="merch.title") Дизайн
@@ -12,7 +11,6 @@ mixin merch
                     button.merch__arrow.merch__arrow--prev(type="button", aria-label="Предыдущий слайд") ←
                     button.merch__arrow.merch__arrow--next(type="button", aria-label="Следующий слайд") →
             
-            // Slider
             .merch__slider
                 .merch__track
                     
@@ -25,7 +23,7 @@ mixin merch
                             h3.merch-card__title(data-i18n="merch.items.bitcoin") Биткоин
                             p.merch-card__description(data-i18n="merch.descriptions.bitcoin") Хлопок 100%
                             .merch-card__bottom
-                                span.merch-card__price 5 500 ₽
+                                span.merch-card__price(data-price="5500") 5 500 ₽
                                 a.merch-card__button(href="#feedback" data-i18n="merch.button") Заказать
 
                     // Card 2 — Dev
@@ -37,7 +35,7 @@ mixin merch
                             h3.merch-card__title(data-i18n="merch.items.dev") Dev
                             p.merch-card__description(data-i18n="merch.descriptions.dev") Хлопок 100%, принт на спине
                             .merch-card__bottom
-                                span.merch-card__price 5 500 ₽
+                                span.merch-card__price(data-price="5500") 5 500 ₽
                                 a.merch-card__button(href="#feedback" data-i18n="merch.button") Заказать
                     
                     // Card 3 — Benjamin
@@ -49,7 +47,7 @@ mixin merch
                             h3.merch-card__title(data-i18n="merch.items.benjamin") Бенджамин
                             p.merch-card__description(data-i18n="merch.descriptions.benjamin") Хлопок 100%, принт на груди
                             .merch-card__bottom
-                                span.merch-card__price 5 500 ₽
+                                span.merch-card__price(data-price="5500") 5 500 ₽
                                 a.merch-card__button(href="#feedback" data-i18n="merch.button") Заказать
                     
                     // Card 4 — Astronaut
@@ -61,8 +59,7 @@ mixin merch
                             h3.merch-card__title(data-i18n="merch.items.astronaut") Астронавт
                             p.merch-card__description(data-i18n="merch.descriptions.astronaut") Хлопок 100%, оверсайз
                             .merch-card__bottom
-                                span.merch-card__price 5 500 ₽
+                                span.merch-card__price(data-price="5500") 5 500 ₽
                                 a.merch-card__button(href="#feedback" data-i18n="merch.button") Заказать
                 
-            // Pagination
             .merch__pagination
